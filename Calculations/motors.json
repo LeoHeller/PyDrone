@@ -1,0 +1,1928 @@
+{
+    "1": {
+        "efficiency": "4.66",
+        "make": "Armattan",
+        "model": "Oomph 2206 2300KV",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "31"
+    },
+    "10": {
+        "efficiency": "3.15",
+        "make": "AOKFly",
+        "model": "FR2205 2300kv",
+        "power": "48",
+        "prop": "Lynx 5x3",
+        "thrust": "151",
+        "weight": "30"
+    },
+    "100": {
+        "efficiency": "3.13",
+        "make": "Brother Hobby",
+        "model": "Tornado T2 2206 2300kv",
+        "power": "48",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "31"
+    },
+    "101": {
+        "efficiency": "4.69",
+        "make": "Brother Hobby",
+        "model": "Tornado T2 2206 2600kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "31"
+    },
+    "102": {
+        "efficiency": "4.17",
+        "make": "Turnigy",
+        "model": "D2826-6 2200kv 3S",
+        "power": "36",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "45"
+    },
+    "103": {
+        "efficiency": "5.03",
+        "make": "X4Pro",
+        "model": "2205 2300kv",
+        "power": "30",
+        "prop": "Lynx 5x3",
+        "thrust": "151",
+        "weight": "30"
+    },
+    "104": {
+        "efficiency": "3.33",
+        "make": "X4Pro",
+        "model": "2207 2350kv",
+        "power": "45",
+        "prop": "RaceKraft 5051 5x5x3",
+        "thrust": "150",
+        "weight": "36"
+    },
+    "105": {
+        "efficiency": "3.15",
+        "make": "XFoot",
+        "model": "2207 2600kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "151",
+        "weight": "35"
+    },
+    "106": {
+        "efficiency": "3.13",
+        "make": "XNova",
+        "model": "XTS 2206 2500kv",
+        "power": "48",
+        "prop": "Lumenier 4x4x4",
+        "thrust": "150",
+        "weight": "34"
+    },
+    "107": {
+        "efficiency": "4.69",
+        "make": "XNova",
+        "model": "XTS 2204 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "28"
+    },
+    "108": {
+        "efficiency": "4.72",
+        "make": "XNova",
+        "model": "XTS 2206 2000kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "151",
+        "weight": "34"
+    },
+    "109": {
+        "efficiency": "4.69",
+        "make": "XNova",
+        "model": "Hyper 2205 2300kv",
+        "power": "32",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "11": {
+        "efficiency": "3.1",
+        "make": "Armattan",
+        "model": "Oomph 2205 2550kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "149",
+        "weight": "28"
+    },
+    "110": {
+        "efficiency": "4.69",
+        "make": "XNova",
+        "model": "Hyper 2205 2600kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "111": {
+        "efficiency": "9.31",
+        "make": "HobbyWing",
+        "model": "X-Rotor 2205 2300kv",
+        "power": "16",
+        "prop": "Lynx 5x3",
+        "thrust": "149",
+        "weight": "30"
+    },
+    "112": {
+        "efficiency": "4.66",
+        "make": "ZMX",
+        "model": "2205 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "25"
+    },
+    "113": {
+        "efficiency": "2.34",
+        "make": "ZMX",
+        "model": "2205 2633kv",
+        "power": "64",
+        "prop": "HQ 3x3x3",
+        "thrust": "150",
+        "weight": "25"
+    },
+    "114": {
+        "efficiency": "2.36",
+        "make": "ZMX",
+        "model": "2205 2800kv",
+        "power": "64",
+        "prop": "HQ 3x3x3",
+        "thrust": "151",
+        "weight": "25"
+    },
+    "115": {
+        "efficiency": "4.66",
+        "make": "ZMX",
+        "model": "v2 2205 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "26"
+    },
+    "116": {
+        "efficiency": "4.72",
+        "make": "ZMX",
+        "model": "v2 2205 2633kv",
+        "power": "32",
+        "prop": "HQ 5x4x3 GF",
+        "thrust": "151",
+        "weight": "26"
+    },
+    "117": {
+        "efficiency": "3.15",
+        "make": "ZMX",
+        "model": "v2 2205 2800kv",
+        "power": "48",
+        "prop": "HQ 5x4x3 GF",
+        "thrust": "151",
+        "weight": "26"
+    },
+    "118": {
+        "efficiency": "4.75",
+        "make": "ZMX",
+        "model": "v3 2206 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "152",
+        "weight": "28"
+    },
+    "119": {
+        "efficiency": "4.66",
+        "make": "ZMX",
+        "model": "v3 2206 2140kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "28"
+    },
+    "12": {
+        "efficiency": "4.66",
+        "make": "Armattan",
+        "model": "SCX 2206 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "28"
+    },
+    "120": {
+        "efficiency": "4.72",
+        "make": "ZMX",
+        "model": "v3 2206 2600kv",
+        "power": "32",
+        "prop": "HQ 5x4x3 GF",
+        "thrust": "151",
+        "weight": "28"
+    },
+    "121": {
+        "efficiency": "3.13",
+        "make": "ZMX",
+        "model": "Fusion X25 2206 2300kv",
+        "power": "48",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "31"
+    },
+    "122": {
+        "efficiency": "4.69",
+        "make": "ZTW",
+        "model": "SP2205 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "123": {
+        "efficiency": "1.56",
+        "make": "ZTW",
+        "model": "SP2205 2550kv",
+        "power": "96",
+        "prop": "HQ 3x3x3",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "124": {
+        "efficiency": "4.69",
+        "make": "Lumenier",
+        "model": "RX2204 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "21"
+    },
+    "125": {
+        "efficiency": "3.13",
+        "make": "T-Motor",
+        "model": "F40II 2305 2400kv",
+        "power": "48",
+        "prop": "HQ 5x4x3 GF",
+        "thrust": "150",
+        "weight": "29"
+    },
+    "127": {
+        "efficiency": "3.36",
+        "make": "3B-R",
+        "model": "2206 2500kv",
+        "power": "45",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "151",
+        "weight": "33.2"
+    },
+    "128": {
+        "efficiency": "3.13",
+        "make": "DJI",
+        "model": "Snail 2305 2400kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "32"
+    },
+    "13": {
+        "efficiency": "9.44",
+        "make": "Cobra",
+        "model": "2204(5) 2300kv",
+        "power": "16",
+        "prop": "KingKong 6x4",
+        "thrust": "151",
+        "weight": "26"
+    },
+    "130": {
+        "efficiency": "3.13",
+        "make": "AOKFly",
+        "model": "Pheonix Fire RV2205 2300kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "28"
+    },
+    "131": {
+        "efficiency": "3.13",
+        "make": "Emax",
+        "model": "RS2306 2750kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "34"
+    },
+    "132": {
+        "efficiency": "3.13",
+        "make": "SunnySky",
+        "model": "Edge Lite R2306 2700kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "32"
+    },
+    "133": {
+        "efficiency": "3.13",
+        "make": "DYS",
+        "model": "Storm 2207 2500kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "33.5"
+    },
+    "134": {
+        "efficiency": "3.15",
+        "make": "BeeRotor",
+        "model": "ZOE Z2207 2780kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "151",
+        "weight": "33.4"
+    },
+    "135": {
+        "efficiency": "4.69",
+        "make": "RCINPower",
+        "model": "GTS2305 2700kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "30.9"
+    },
+    "136": {
+        "efficiency": "4.69",
+        "make": "Emax",
+        "model": "RS2306 2400kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "34.3"
+    },
+    "137": {
+        "efficiency": "3.1",
+        "make": "Horus Drones",
+        "model": "2506 Super Sport 2600kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "149",
+        "weight": "36.8"
+    },
+    "138": {
+        "efficiency": "4.69",
+        "make": "SunnySky",
+        "model": "Edge Lite R2305 2480kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "29.3"
+    },
+    "139": {
+        "efficiency": "4.69",
+        "make": "BeeRotor",
+        "model": "ZOE Z2207 2400kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "33.8"
+    },
+    "14": {
+        "efficiency": "4.69",
+        "make": "Cobra",
+        "model": "Race Edition 2206(7) 2100kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "33"
+    },
+    "140": {
+        "efficiency": "3.13",
+        "make": "iFlight",
+        "model": "Force IF2207 2700kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "35.1"
+    },
+    "141": {
+        "efficiency": "3.15",
+        "make": "Sumax",
+        "model": "SR2206B 2600kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "151",
+        "weight": "32"
+    },
+    "142": {
+        "efficiency": "3.1",
+        "make": "ZMX",
+        "model": "Fusion X20 2205 2522kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "149",
+        "weight": "28.4"
+    },
+    "143": {
+        "efficiency": "4.69",
+        "make": "ZMX",
+        "model": "Fusion X20 2205 2300kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "28.6"
+    },
+    "144": {
+        "efficiency": "3.13",
+        "make": "Emax",
+        "model": "RS2205S 2300kv Retest",
+        "power": "48",
+        "prop": "RacerStar 5x4.2x3 L",
+        "thrust": "150",
+        "weight": "29.5"
+    },
+    "145": {
+        "efficiency": "3.31",
+        "make": "Leopard Hobby",
+        "model": "PHS2307 2400kv",
+        "power": "45",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "149",
+        "weight": "38.6"
+    },
+    "146": {
+        "efficiency": "4.66",
+        "make": "Bolt",
+        "model": "Worx 2207W 2450kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "149",
+        "weight": "28.8"
+    },
+    "147": {
+        "efficiency": "3.31",
+        "make": "Gemfan",
+        "model": "2206 2300kv",
+        "power": "45",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "149",
+        "weight": "33.8"
+    },
+    "148": {
+        "efficiency": "3.31",
+        "make": "LDPower",
+        "model": "FR2307 2600kv",
+        "power": "45",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "149",
+        "weight": "36.1"
+    },
+    "149": {
+        "efficiency": "3.13",
+        "make": "T-Motor",
+        "model": "F40III 2306 2400kv",
+        "power": "48",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "33.6"
+    },
+    "15": {
+        "efficiency": "3.13",
+        "make": "Cobra",
+        "model": "Champion 2205 2300kv",
+        "power": "48",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "29"
+    },
+    "150": {
+        "efficiency": "4.69",
+        "make": "RDQ",
+        "model": "Returner R4 2450kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "28.8"
+    },
+    "151": {
+        "efficiency": "3.33",
+        "make": "Rotaro",
+        "model": "Mjolnir 2308 2500kv",
+        "power": "45",
+        "prop": "Lumenier 5x4.5",
+        "thrust": "150",
+        "weight": "38"
+    },
+    "152": {
+        "efficiency": "3.13",
+        "make": "Thor",
+        "model": "Torque Master 2307 2500kv",
+        "power": "48",
+        "prop": "RacerStar 5x4.2x3 L",
+        "thrust": "150",
+        "weight": "36.3"
+    },
+    "153": {
+        "efficiency": "5",
+        "make": "Experimental",
+        "model": "0630170",
+        "power": "30",
+        "prop": "DAL Cyclone 5x4.6x3",
+        "thrust": "150",
+        "weight": "0"
+    },
+    "154": {
+        "efficiency": "4.69",
+        "make": "Experimental",
+        "model": "0630171",
+        "power": "32",
+        "prop": "DAL Cyclone 5x4.6x3",
+        "thrust": "150",
+        "weight": "0"
+    },
+    "155": {
+        "efficiency": "9.38",
+        "make": "Experimental",
+        "model": "0705170",
+        "power": "16",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "0"
+    },
+    "156": {
+        "efficiency": "4.69",
+        "make": "Experimental",
+        "model": "0705171",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "0"
+    },
+    "157": {
+        "efficiency": "4.72",
+        "make": "Experimental",
+        "model": "0707170",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "151",
+        "weight": "0"
+    },
+    "158": {
+        "efficiency": "4.66",
+        "make": "Hypetrain",
+        "model": "Freestyle 2450kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "149",
+        "weight": "30.1"
+    },
+    "159": {
+        "efficiency": "4.69",
+        "make": "Experimental",
+        "model": "0708170-S4",
+        "power": "32",
+        "prop": "HQ v1s 5x4.3x3 PC",
+        "thrust": "150",
+        "weight": "0"
+    },
+    "16": {
+        "efficiency": "4.72",
+        "make": "Cobra",
+        "model": "Champion 2205 2500kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "151",
+        "weight": "29"
+    },
+    "160": {
+        "efficiency": "4.66",
+        "make": "Experimental",
+        "model": "0708171-S45",
+        "power": "32",
+        "prop": "HQ v1s 5x4.3x3 PC",
+        "thrust": "149",
+        "weight": "0"
+    },
+    "161": {
+        "efficiency": "4.72",
+        "make": "Experimental",
+        "model": "0708172-C4",
+        "power": "32",
+        "prop": "HQ v1s 5x4.3x3 PC",
+        "thrust": "151",
+        "weight": "0"
+    },
+    "162": {
+        "efficiency": "4.69",
+        "make": "Experimental",
+        "model": "0708173-C45",
+        "power": "32",
+        "prop": "HQ v1s 5x4.3x3 PC",
+        "thrust": "150",
+        "weight": "0"
+    },
+    "163": {
+        "efficiency": "4.72",
+        "make": "BoltRC",
+        "model": "Worx 2206W 2350kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "151",
+        "weight": "26.5"
+    },
+    "164": {
+        "efficiency": "4.69",
+        "make": "SunnySky",
+        "model": "Edge Lite R2305 2300kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "29.9"
+    },
+    "165": {
+        "efficiency": "4.66",
+        "make": "Scorpion",
+        "model": "MII 2204 2700kv",
+        "power": "32",
+        "prop": "RacerStar 5x4.2x3 L",
+        "thrust": "149",
+        "weight": "25.5"
+    },
+    "166": {
+        "efficiency": "4.69",
+        "make": "RacerStar",
+        "model": "BR2205 2600kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "27.8"
+    },
+    "167": {
+        "efficiency": "4.69",
+        "make": "AMAXinno",
+        "model": "2305 2550kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "31.6"
+    },
+    "168": {
+        "efficiency": "4.69",
+        "make": "EFAW",
+        "model": "2407R 2500kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "36.3"
+    },
+    "169": {
+        "efficiency": "4.69",
+        "make": "Garila",
+        "model": "Wild J2506 2750kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "38.3"
+    },
+    "17": {
+        "efficiency": "5",
+        "make": "Cobra",
+        "model": "Champion 2207 2300kv",
+        "power": "30",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "36.6"
+    },
+    "170": {
+        "efficiency": "4.72",
+        "make": "SkyGear",
+        "model": "SG2207 2400kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "151",
+        "weight": "34.9"
+    },
+    "171": {
+        "efficiency": "4.66",
+        "make": "XFoot",
+        "model": "2208 2600kv v1",
+        "power": "32",
+        "prop": "Lumenier 5x4.5",
+        "thrust": "149",
+        "weight": "39.6"
+    },
+    "172": {
+        "efficiency": "4.72",
+        "make": "Hawksky",
+        "model": "AT2207-A 2400kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "151",
+        "weight": "35.6"
+    },
+    "173": {
+        "efficiency": "9.38",
+        "make": "Tattu",
+        "model": "2305 2450kv",
+        "power": "16",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "29.7"
+    },
+    "174": {
+        "efficiency": "4.72",
+        "make": "T-Motor",
+        "model": "F40III 2306 2750kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "151",
+        "weight": "32.6"
+    },
+    "175": {
+        "efficiency": "9.44",
+        "make": "Multicopter Builders",
+        "model": "Primo 2207 2450kv",
+        "power": "16",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "151",
+        "weight": "30"
+    },
+    "176": {
+        "efficiency": "4.69",
+        "make": "Brother Hobby",
+        "model": "R5 2306 2450kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "29"
+    },
+    "177": {
+        "efficiency": "4.72",
+        "make": "ZMX",
+        "model": "USS Fletcher FinX30",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "151",
+        "weight": "31.7"
+    },
+    "178": {
+        "efficiency": "4.69",
+        "make": "Sumax",
+        "model": "Innovation 2207 2600kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "29.8"
+    },
+    "179": {
+        "efficiency": "4.69",
+        "make": "MAD",
+        "model": "2306 2400kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "31.3"
+    },
+    "18": {
+        "efficiency": "4.72",
+        "make": "Cobra",
+        "model": "Champion 2207 2450kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "151",
+        "weight": "36.4"
+    },
+    "180": {
+        "efficiency": "4.69",
+        "make": "Leopard Hobby",
+        "model": "PHS2306 2400kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "35.8"
+    },
+    "181": {
+        "efficiency": "4.69",
+        "make": "Lumenier",
+        "model": "\"JohnnyFPV\" 2207 2700kv",
+        "power": "32",
+        "prop": "RacerStar 5x4.2x3 L",
+        "thrust": "150",
+        "weight": "33.8"
+    },
+    "182": {
+        "efficiency": "4.69",
+        "make": "T-Motor",
+        "model": "F60III 2207 2750kv",
+        "power": "32",
+        "prop": "RacerStar 5x4.2x3 L",
+        "thrust": "150",
+        "weight": "34.5"
+    },
+    "183": {
+        "efficiency": "4.69",
+        "make": "Flite Factory",
+        "model": "Race Edition 2205 2550kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "29.7"
+    },
+    "184": {
+        "efficiency": "4.72",
+        "make": "HeliNation",
+        "model": "Apex 1 2206 2525kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "151",
+        "weight": "29.4"
+    },
+    "185": {
+        "efficiency": "4.69",
+        "make": "ProtonX",
+        "model": "2207 2550kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "29.7"
+    },
+    "186": {
+        "efficiency": "4.69",
+        "make": "AOKFly",
+        "model": "FR2205Pro 2650kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "28.4"
+    },
+    "187": {
+        "efficiency": "4.69",
+        "make": "ZMX",
+        "model": "IJN Umikaze FinX23",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "24.6"
+    },
+    "188": {
+        "efficiency": "4.72",
+        "make": "Brother Hobby",
+        "model": "Tornado T3 2306 2450kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "151",
+        "weight": "33"
+    },
+    "189": {
+        "efficiency": "4.69",
+        "make": "AMAXInno",
+        "model": "2305 2350kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "31.6"
+    },
+    "19": {
+        "efficiency": "4.69",
+        "make": "Cobra",
+        "model": "Champion 2207 2600kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "36.3"
+    },
+    "190": {
+        "efficiency": "4.69",
+        "make": "MAD",
+        "model": "2306 2750kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "31"
+    },
+    "191": {
+        "efficiency": "4.72",
+        "make": "Mechanical ",
+        "model": "Delay Testing",
+        "power": "32",
+        "prop": "Medium-High 0.50SP 0x0",
+        "thrust": "151",
+        "weight": "0"
+    },
+    "192": {
+        "efficiency": "4.72",
+        "make": "Multicopter Builders",
+        "model": "Primo 2207 2650kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "151",
+        "weight": "30"
+    },
+    "193": {
+        "efficiency": "4.66",
+        "make": "ZMX",
+        "model": "FinX30 IJN Akatsuki 2207 2600kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "149",
+        "weight": "30.8"
+    },
+    "194": {
+        "efficiency": "4.69",
+        "make": "Brother Hobby",
+        "model": "R5 2306 2650kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "28.7"
+    },
+    "195": {
+        "efficiency": "4.69",
+        "make": "Brother Hobby",
+        "model": "R3 2207 2550kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "30.8"
+    },
+    "196": {
+        "efficiency": "9.38",
+        "make": "Experimental",
+        "model": "1210170",
+        "power": "16",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "0"
+    },
+    "197": {
+        "efficiency": "4.72",
+        "make": "Northaero",
+        "model": "Dragon 2207.5 2650kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "151",
+        "weight": "32.8"
+    },
+    "198": {
+        "efficiency": "9.38",
+        "make": "ZDrone",
+        "model": "Raptor 2206 2535kv",
+        "power": "16",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "28"
+    },
+    "199": {
+        "efficiency": "9.38",
+        "make": "ProtonX",
+        "model": "2204 2750kv",
+        "power": "16",
+        "prop": "RacerStar 5x4.2x3 L",
+        "thrust": "150",
+        "weight": "21.2"
+    },
+    "20": {
+        "efficiency": "3.13",
+        "make": "Cobra",
+        "model": "Champion 2010 2200kv 4S",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "45"
+    },
+    "200": {
+        "efficiency": "4.66",
+        "make": "Emax",
+        "model": "LS2207 2550kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "149",
+        "weight": "32.9"
+    },
+    "201": {
+        "efficiency": "4.69",
+        "make": "Garila",
+        "model": "Lightning X2506 2600kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "37.8"
+    },
+    "202": {
+        "efficiency": "9.38",
+        "make": "Hawksky",
+        "model": "AT2207II 2400kv",
+        "power": "16",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "30.8"
+    },
+    "203": {
+        "efficiency": "9.31",
+        "make": "T-Motor",
+        "model": "F40 Pro II 2400kv",
+        "power": "16",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "149",
+        "weight": "29.6"
+    },
+    "204": {
+        "efficiency": "9.44",
+        "make": "AMAXInno",
+        "model": "2306 2500kv",
+        "power": "16",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "151",
+        "weight": "33.4"
+    },
+    "205": {
+        "efficiency": "9.31",
+        "make": "Foxeer ",
+        "model": "Datura X2206 2700kv",
+        "power": "16",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "149",
+        "weight": "28.8"
+    },
+    "206": {
+        "efficiency": "4.72",
+        "make": "Dragonfly",
+        "model": "Hurricane 2207 2650kv",
+        "power": "32",
+        "prop": "Lumenier 5x4.5",
+        "thrust": "151",
+        "weight": "33.4"
+    },
+    "207": {
+        "efficiency": "9.38",
+        "make": "Armattan",
+        "model": "Oomph Titan 2306 2450kv",
+        "power": "16",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "31.7"
+    },
+    "208": {
+        "efficiency": "4.66",
+        "make": "DYS",
+        "model": "Samguk Shu 2306 2800kv",
+        "power": "32",
+        "prop": "Lumenier 5x4.5",
+        "thrust": "149",
+        "weight": "31"
+    },
+    "209": {
+        "efficiency": "4.69",
+        "make": "BrotherHobby",
+        "model": "Sphinx FS2405 2425kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "30.1"
+    },
+    "21": {
+        "efficiency": "6.25",
+        "make": "Cobra",
+        "model": "Champion 2210 2200kv 3S",
+        "power": "24",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "45"
+    },
+    "211": {
+        "efficiency": "4.69",
+        "make": "Hypetrain",
+        "model": "Botgrinder 2306 2450kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "32.1"
+    },
+    "212": {
+        "efficiency": "4.69",
+        "make": "Experimental",
+        "model": "0508180",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "0"
+    },
+    "213": {
+        "efficiency": "4.69",
+        "make": "T-Motor",
+        "model": "F60 Pro II 2700kv",
+        "power": "32",
+        "prop": "Lumenier 5x4.5",
+        "thrust": "150",
+        "weight": "33.4"
+    },
+    "214": {
+        "efficiency": "4.69",
+        "make": "Emax",
+        "model": "RSII 2306 2400kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "150",
+        "weight": "27.8"
+    },
+    "215": {
+        "efficiency": "4.69",
+        "make": "TBS",
+        "model": "Masterpilot 2750kv",
+        "power": "32",
+        "prop": "Lumenier 5x4.5",
+        "thrust": "150",
+        "weight": "29.9"
+    },
+    "216": {
+        "efficiency": "4.69",
+        "make": "GepRC",
+        "model": "SpeedX 2306 2750kv",
+        "power": "32",
+        "prop": "Lumenier 5x4.5",
+        "thrust": "150",
+        "weight": "34.2"
+    },
+    "217": {
+        "efficiency": "4.69",
+        "make": "RCINPower",
+        "model": "Mark I 2750kv",
+        "power": "32",
+        "prop": "Lumenier 5x4.5",
+        "thrust": "150",
+        "weight": "35.6"
+    },
+    "218": {
+        "efficiency": "4.66",
+        "make": "EaglePower",
+        "model": "SA2306 KV2888",
+        "power": "32",
+        "prop": "Lumenier 5x4.5",
+        "thrust": "149",
+        "weight": "31.2"
+    },
+    "219": {
+        "efficiency": "4.69",
+        "make": "3B-R",
+        "model": "2407 2600kv",
+        "power": "32",
+        "prop": "Lumenier 5x4.5",
+        "thrust": "150",
+        "weight": "34.1"
+    },
+    "22": {
+        "efficiency": "3.15",
+        "make": "Dragonfly",
+        "model": "2206 2800kv",
+        "power": "48",
+        "prop": "HQ 5x4x3 GF",
+        "thrust": "151",
+        "weight": "30"
+    },
+    "220": {
+        "efficiency": "9.38",
+        "make": "Hypetrain",
+        "model": "Ummagawd 2306 2150kv",
+        "power": "16",
+        "prop": "Lumenier Buttercutter 6x4",
+        "thrust": "150",
+        "weight": "30.5"
+    },
+    "221": {
+        "efficiency": "4.72",
+        "make": "Experimental",
+        "model": "0618180",
+        "power": "32",
+        "prop": "Lumenier Gatebreaker 5x5.3x3",
+        "thrust": "151",
+        "weight": "0"
+    },
+    "222": {
+        "efficiency": "4.75",
+        "make": "Northaero",
+        "model": "Dragon 2207.5 2450kv",
+        "power": "32",
+        "prop": "MyWing 5x4.5x3",
+        "thrust": "152",
+        "weight": "31.6"
+    },
+    "23": {
+        "efficiency": "4.69",
+        "make": "DYS",
+        "model": "Fire 2206 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "31.6"
+    },
+    "24": {
+        "efficiency": "4.69",
+        "make": "DYS",
+        "model": "MR2205 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "28"
+    },
+    "25": {
+        "efficiency": "4.69",
+        "make": "DYS",
+        "model": "Race SE2205 2300kv",
+        "power": "32",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "26": {
+        "efficiency": "3.13",
+        "make": "DYS",
+        "model": "SE2008 2550kv",
+        "power": "48",
+        "prop": "HQ 5x4x3 GF",
+        "thrust": "150",
+        "weight": "33"
+    },
+    "27": {
+        "efficiency": "4.66",
+        "make": "DYS",
+        "model": "SE2205 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "30"
+    },
+    "28": {
+        "efficiency": "4.69",
+        "make": "SunnySky",
+        "model": "Edge 2204 2300kv",
+        "power": "32",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "28"
+    },
+    "30": {
+        "efficiency": "2.34",
+        "make": "Emax",
+        "model": "RS2205 2600kv",
+        "power": "64",
+        "prop": "HQ 3x3x3",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "31": {
+        "efficiency": "3.13",
+        "make": "Emax",
+        "model": "RS2205S 2300kv",
+        "power": "48",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "29"
+    },
+    "32": {
+        "efficiency": "3.1",
+        "make": "Emax",
+        "model": "RS2205S 2600kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "149",
+        "weight": "29"
+    },
+    "33": {
+        "efficiency": "3.13",
+        "make": "Emax",
+        "model": "TS2306 2300kv",
+        "power": "48",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "35"
+    },
+    "34": {
+        "efficiency": "9.31",
+        "make": "Emax",
+        "model": "RS2205 2300kv",
+        "power": "16",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "30"
+    },
+    "35": {
+        "efficiency": "2.33",
+        "make": "EpicRC",
+        "model": "2204 2800kv",
+        "power": "64",
+        "prop": "HQ 3x3x3",
+        "thrust": "149",
+        "weight": "23"
+    },
+    "36": {
+        "efficiency": "2.34",
+        "make": "EpicRC",
+        "model": "2204 3200kv",
+        "power": "64",
+        "prop": "HQ 3x3x3",
+        "thrust": "150",
+        "weight": "23"
+    },
+    "37": {
+        "efficiency": "4.75",
+        "make": "GARRT",
+        "model": "ML2206S 2400kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "152",
+        "weight": "33"
+    },
+    "38": {
+        "efficiency": "4.69",
+        "make": "Gemfan",
+        "model": "2205 2300kv",
+        "power": "32",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "28"
+    },
+    "39": {
+        "efficiency": "4.66",
+        "make": "Gemfan",
+        "model": "RT2205 2300kv",
+        "power": "32",
+        "prop": "Lynx 5x3",
+        "thrust": "149",
+        "weight": "30"
+    },
+    "40": {
+        "efficiency": "3.13",
+        "make": "Gemfan",
+        "model": "RT2205 2700kv",
+        "power": "48",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "41": {
+        "efficiency": "3.1",
+        "make": "Hyperlite",
+        "model": "Team v3 2206 2450kv",
+        "power": "48",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "28"
+    },
+    "42": {
+        "efficiency": "3.1",
+        "make": "Hyperlite",
+        "model": "v4 2206 2300kv",
+        "power": "48",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "28"
+    },
+    "43": {
+        "efficiency": "4.66",
+        "make": "iFly",
+        "model": "IF2205 2300kv",
+        "power": "32",
+        "prop": "Lynx 5x3",
+        "thrust": "149",
+        "weight": "30"
+    },
+    "44": {
+        "efficiency": "4.69",
+        "make": "iPower",
+        "model": "IX2205M 2500kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "45": {
+        "efficiency": "3.13",
+        "make": "LDPower",
+        "model": "2206 2200kv",
+        "power": "48",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "32"
+    },
+    "46": {
+        "efficiency": "4.69",
+        "make": "LDPower",
+        "model": "FR2305 2300kv",
+        "power": "32",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "29"
+    },
+    "47": {
+        "efficiency": "3.13",
+        "make": "LDPower",
+        "model": "FR2305 2600kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "29"
+    },
+    "48": {
+        "efficiency": "3.13",
+        "make": "Leopard Hobby",
+        "model": "PHS2205 2300kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "49": {
+        "efficiency": "4.69",
+        "make": "Lumenier",
+        "model": "MX2206 2450kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "28"
+    },
+    "5": {
+        "efficiency": "5.03",
+        "make": "EgoDrift",
+        "model": "Sonic Pro 2400KV",
+        "power": "30",
+        "prop": "Lynx 5x3",
+        "thrust": "151",
+        "weight": "30"
+    },
+    "50": {
+        "efficiency": "4.72",
+        "make": "Lumenier",
+        "model": "\"Skitzo\" RB2204 2500kv",
+        "power": "32",
+        "prop": "HQ 5x4x3 GF",
+        "thrust": "151",
+        "weight": "21"
+    },
+    "51": {
+        "efficiency": "4.69",
+        "make": "Lumenier",
+        "model": "RX2205 2400kv",
+        "power": "32",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "26"
+    },
+    "52": {
+        "efficiency": "4.72",
+        "make": "Lumenier",
+        "model": "RX2206 2350kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "151",
+        "weight": "28"
+    },
+    "53": {
+        "efficiency": "4.14",
+        "make": "MotroFly",
+        "model": "DM2210 2200kv 3S",
+        "power": "36",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "149",
+        "weight": "42"
+    },
+    "54": {
+        "efficiency": "4.69",
+        "make": "MRM",
+        "model": "Titan 2204 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "24"
+    },
+    "55": {
+        "efficiency": "4.72",
+        "make": "Multistar",
+        "model": "Elite 2204 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "151",
+        "weight": "24"
+    },
+    "56": {
+        "efficiency": "4.72",
+        "make": "Multicopter Builders",
+        "model": "MB2206 2400kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "151",
+        "weight": "28"
+    },
+    "57": {
+        "efficiency": "4.69",
+        "make": "Multicopter Builders",
+        "model": "MB2207 2400kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "31"
+    },
+    "58": {
+        "efficiency": "3.08",
+        "make": "Multicopter Builders",
+        "model": "MB2207 2500kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "148",
+        "weight": "31"
+    },
+    "59": {
+        "efficiency": "5",
+        "make": "Pyrodrone",
+        "model": "CM2206 2350kv",
+        "power": "30",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "25"
+    },
+    "6": {
+        "efficiency": "4.66",
+        "make": "Hyperlite",
+        "model": "Team v3 2206 2700kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "149",
+        "weight": "28"
+    },
+    "60": {
+        "efficiency": "9.38",
+        "make": "Quanum",
+        "model": "2204 2300kv",
+        "power": "16",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "25"
+    },
+    "61": {
+        "efficiency": "4.66",
+        "make": "RacerStar",
+        "model": "Plus 2205 2300kv",
+        "power": "32",
+        "prop": "Lynx 5x3",
+        "thrust": "149",
+        "weight": "30"
+    },
+    "62": {
+        "efficiency": "3.13",
+        "make": "RacerStar",
+        "model": "RF2205 2300kv",
+        "power": "48",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "63": {
+        "efficiency": "4.72",
+        "make": "RCINPower",
+        "model": "GT2205 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "151",
+        "weight": "30"
+    },
+    "64": {
+        "efficiency": "4.69",
+        "make": "RCINPower",
+        "model": "GT2205 2550kv",
+        "power": "32",
+        "prop": "HQ 5x4x3 GF",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "65": {
+        "efficiency": "4.66",
+        "make": "RCTimer",
+        "model": "FR2205 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "30"
+    },
+    "66": {
+        "efficiency": "4.66",
+        "make": "RCTimer",
+        "model": "\"ZoeFPV\" Z2010 2400kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "37"
+    },
+    "67": {
+        "efficiency": "4.69",
+        "make": "RCTimer",
+        "model": "\"ZoeFPV\" Z2205 2350kv",
+        "power": "32",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "68": {
+        "efficiency": "2.34",
+        "make": "RCX",
+        "model": "H2205 2633kv",
+        "power": "64",
+        "prop": "HQ 3x3x3",
+        "thrust": "150",
+        "weight": "25"
+    },
+    "69": {
+        "efficiency": "4.66",
+        "make": "RCX",
+        "model": "RS2206 2400kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "30"
+    },
+    "7": {
+        "efficiency": "4.69",
+        "make": "T-Motor",
+        "model": "F40Pro 2306 2400kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "32.6"
+    },
+    "70": {
+        "efficiency": "3.17",
+        "make": "RCX",
+        "model": "RS2206v2 2400kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "152",
+        "weight": "31"
+    },
+    "71": {
+        "efficiency": "3.1",
+        "make": "RCX",
+        "model": "SE2205 2400kv",
+        "power": "48",
+        "prop": "Lynx 5x3",
+        "thrust": "149",
+        "weight": "26"
+    },
+    "72": {
+        "efficiency": "3.13",
+        "make": "RCX",
+        "model": "SE2205v2 2600kv",
+        "power": "48",
+        "prop": "HQ 5x4x3 GF",
+        "thrust": "150",
+        "weight": "26.5"
+    },
+    "73": {
+        "efficiency": "4.69",
+        "make": "Rebel",
+        "model": "Pro 2206 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "33"
+    },
+    "74": {
+        "efficiency": "4.69",
+        "make": "RMRC",
+        "model": "Rifle 2206 2300kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "31.8"
+    },
+    "75": {
+        "efficiency": "4.72",
+        "make": "RMRC",
+        "model": "Rifle 2206 2550kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "151",
+        "weight": "31.5"
+    },
+    "76": {
+        "efficiency": "INF",
+        "make": "Rotorgeeks",
+        "model": "2204 2300kv",
+        "power": "0",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "25"
+    },
+    "77": {
+        "efficiency": "4.72",
+        "make": "Rotorgeeks",
+        "model": "2206 2350kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "151",
+        "weight": "33"
+    },
+    "78": {
+        "efficiency": "9.38",
+        "make": "Scorpion",
+        "model": "2204 2300kv",
+        "power": "16",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "26"
+    },
+    "79": {
+        "efficiency": "9.31",
+        "make": "Scorpion",
+        "model": "2205 2350kv",
+        "power": "16",
+        "prop": "KingKong 6x4",
+        "thrust": "149",
+        "weight": "30"
+    },
+    "8": {
+        "efficiency": "3.36",
+        "make": "Airbot",
+        "model": "TS2207 2200kv",
+        "power": "45",
+        "prop": "KingKong 6x4",
+        "thrust": "151",
+        "weight": "33"
+    },
+    "80": {
+        "efficiency": "3.13",
+        "make": "Storm",
+        "model": "Spear M2205 2300kv",
+        "power": "48",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "26"
+    },
+    "81": {
+        "efficiency": "4.66",
+        "make": "STP",
+        "model": "R2205M 2480kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "149",
+        "weight": "30"
+    },
+    "82": {
+        "efficiency": "4.69",
+        "make": "SunnySky",
+        "model": "X2207 2700kv",
+        "power": "32",
+        "prop": "HQ 5x4x3 GF",
+        "thrust": "150",
+        "weight": "35"
+    },
+    "83": {
+        "efficiency": "9.38",
+        "make": "SunnySky",
+        "model": "X2204 2300kv",
+        "power": "16",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "21"
+    },
+    "84": {
+        "efficiency": "4.72",
+        "make": "TBS",
+        "model": "\"Steele\" 2306 2345kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "151",
+        "weight": "30"
+    },
+    "85": {
+        "efficiency": "4.66",
+        "make": "T-Motor",
+        "model": "Air200 2205 2450kv",
+        "power": "32",
+        "prop": "HQ 5x4x3 GF",
+        "thrust": "149",
+        "weight": "23"
+    },
+    "87": {
+        "efficiency": "4.69",
+        "make": "T-Motor",
+        "model": "F40Pro 2306 2400kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "32.8"
+    },
+    "88": {
+        "efficiency": "4.72",
+        "make": "T-Motor",
+        "model": "F40 2205 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "151",
+        "weight": "30"
+    },
+    "89": {
+        "efficiency": "4.69",
+        "make": "T-Motor",
+        "model": "F40 2205 2500kv",
+        "power": "32",
+        "prop": "HQ 5x4x3 GF",
+        "thrust": "150",
+        "weight": "30"
+    },
+    "9": {
+        "efficiency": "4.72",
+        "make": "Arris",
+        "model": "FR2205 2300kv",
+        "power": "32",
+        "prop": "Lynx 5x3",
+        "thrust": "151",
+        "weight": "30"
+    },
+    "90": {
+        "efficiency": "4.72",
+        "make": "T-Motor",
+        "model": "F60Pro 2207 2200kv",
+        "power": "32",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "151",
+        "weight": "35"
+    },
+    "91": {
+        "efficiency": "3.13",
+        "make": "T-Motor",
+        "model": "F60Pro 2207 2500kv",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "35"
+    },
+    "92": {
+        "efficiency": "4.69",
+        "make": "T-Motor",
+        "model": "F60 2207 2200kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "150",
+        "weight": "35"
+    },
+    "93": {
+        "efficiency": "3.15",
+        "make": "T-Motor",
+        "model": "F60 2207 2450kv",
+        "power": "48",
+        "prop": "KingKong 6x4",
+        "thrust": "151",
+        "weight": "35"
+    },
+    "94": {
+        "efficiency": "4.17",
+        "make": "T-Motor",
+        "model": "F80 2408 2200kv 3S",
+        "power": "36",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "42"
+    },
+    "95": {
+        "efficiency": "3.15",
+        "make": "T-Motor",
+        "model": "F80 2408 2200kv 4S",
+        "power": "48",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "151",
+        "weight": "42"
+    },
+    "96": {
+        "efficiency": "3.13",
+        "make": "Brother Hobby",
+        "model": "Tornado T1 2205 2300kv",
+        "power": "48",
+        "prop": "Lynx 5x3",
+        "thrust": "150",
+        "weight": "29"
+    },
+    "97": {
+        "efficiency": "3.33",
+        "make": "Brother Hobby",
+        "model": "Tornado T1 2205 2600kv",
+        "power": "45",
+        "prop": "Lumenier Buttercutter 5x5x3",
+        "thrust": "150",
+        "weight": "29"
+    },
+    "98": {
+        "efficiency": "3.1",
+        "make": "Brother Hobby",
+        "model": "Tornado T1 2205S 2300kv",
+        "power": "48",
+        "prop": "Lynx 5x3",
+        "thrust": "149",
+        "weight": "27"
+    },
+    "99": {
+        "efficiency": "4.75",
+        "make": "Brother Hobby",
+        "model": "Tornado T1 2206 2300kv",
+        "power": "32",
+        "prop": "KingKong 6x4",
+        "thrust": "152",
+        "weight": "30"
+    }
+}
