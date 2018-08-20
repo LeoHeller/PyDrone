@@ -17,15 +17,15 @@ class Motors():
             "M_BR" : 27
         }
         
-    for motor in self.motors:
-        self.pi.set_PWM_frequency(self.motors[motor], 1500)
+        for motor in self.motors:
+            self.pi.set_PWM_frequency(self.motors[motor], 1600)
     
     # motor: M_xx ; speed: 0-100
     def set_speed(self, motor, speed):
         # convert speed % to PWM dutycycle
         # pwm range: 0 - 255
         
-        cycle = 255 * (speed / 100)
+        cycle = 255 * (speed / 100.0)
 
         print("setting speed of motor {} on pin {} to {} cycles inorder to reach {}% Thrust".format(motor, self.motors[motor], cycle, speed))
         if not self.debug:
