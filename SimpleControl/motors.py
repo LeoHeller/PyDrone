@@ -4,7 +4,7 @@ import pigpio
 class Motors():
     def __init__(self):
         # set debugmode
-        self.debug = True
+        self.debug = False
         
         # establish connection with the rpi
         self.pi = pigpio.pi()
