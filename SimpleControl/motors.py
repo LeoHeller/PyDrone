@@ -1,4 +1,5 @@
 import pigpio, time, os
+from subprocess import Popen, PIPE
 
 
 class Motors():
@@ -8,7 +9,7 @@ class Motors():
         if not self.debug:
             if not os.path.isfile("/var/run/pigpio.pid"):
                 # start pigpio daemon 
-                os.system("sudo pigpiod -s 1")
+                process = Popen(['sudo', 'pigpiod', '-s', '1'], stdout=PIPE, stderr=PIPE)
                 time.sleep(2)
 
             # establish connection with the rpi
