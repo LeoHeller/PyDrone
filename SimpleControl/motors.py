@@ -36,7 +36,7 @@ class Motors():
 
         print("setting speed of motor {} on pin {} to pulsewidth: {} inorder to reach {}% Thrust".format(motor, self.motors[motor], pulsewidth, speed))
         if not self.debug:
-            self.pi.set_servo_pulsewidth(self.motors[motor], speed) # set Pulsewidth
+            self.pi.set_servo_pulsewidth(self.motors[motor], pulsewidth) # set Pulsewidth
 
     # stop all motors, and cut conection
     def clean_up(self):
