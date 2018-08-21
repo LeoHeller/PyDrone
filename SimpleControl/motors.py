@@ -4,7 +4,7 @@ import pigpio, time, os
 class Motors():
     def __init__(self):
         # set debugmode
-        self.debug = True
+        self.debug = False
         if not self.debug:
             if not os.path.isfile("/var/run/pigpio.pid"):
                 # start pigpio daemon 
