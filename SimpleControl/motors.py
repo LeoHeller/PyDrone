@@ -31,7 +31,7 @@ class Motors():
         #pulsewidth range: 0; 500 - 2500
         
         if speed != 0:
-            pulsewidth = 2000 * (speed / 100) + 500
+            pulsewidth = 58 * (speed / 100) + 1601
         else:
             pulsewidth = 0
 
@@ -55,7 +55,7 @@ myMotors = Motors()
 def parse(instr):
     # m_fl 100
     motor, speed = instr.upper().split(" ")
-    if motor in myMotors.motors and int(speed) in range(100):
+    if motor in myMotors.motors and float(speed) in range(100):
         return motor, int(speed)
 
 
