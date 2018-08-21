@@ -1,13 +1,16 @@
-import pigpio
+import pigpio, time, os
 
 
 class Motors():
     def __init__(self):
         # set debugmode
-        self.debug = False
-        
-        # establish connection with the rpi
-        self.pi = pigpio.pi()
+        self.debug = True
+        if not self.debug:
+            # start pigpio daemon 
+            os.system("sudo pigpiod -s 1")
+
+            # establish connection with the rpi
+            self.pi = pigpio.pi()
 
         # pins for motors
         self.motors = {
@@ -17,27 +20,30 @@ class Motors():
             "M_BR" : 27
         }
         
-        for motor in self.motors:
-            self.pi.set_PWM_frequency(self.motors[motor], 1600)
     
     # motor: M_xx ; speed: 0-100
     def set_speed(self, motor, speed):
-        # convert speed % to PWM dutycycle
-        # pwm range: 0 - 255
+        # convert speed % to servo pulsewidth
         
-        cycle = 255 * (speed / 100.0)
+        #pulsewidth range: 0; 500 - 2500
+        
+        if speed != 0:
+            pulsewidth = 2000 * (speed / 100) + 500
+        else:
+            pulsewidth = 0
 
-        print("setting speed of motor {} on pin {} to {} cycles inorder to reach {}% Thrust".format(motor, self.motors[motor], cycle, speed))
+        print("setting speed of motor {} on pin {} to pulsewidth: {} inorder to reach {}% Thrust".format(motor, self.motors[motor], pulsewidth, speed))
         if not self.debug:
-            self.pi.set_PWM_dutycycle(self.motors[motor], speed) # set PWM
+            self.pi.set_servo_pulsewidth(self.motors[motor], speed) # set Pulsewidth
 
     # stop all motors, and cut conection
     def clean_up(self):
-        # set speed to 0
-        for motor in self.motors:
-            self.pi.set_PWM_dutycycle(self.motors[motor], 0)
-        # disconnect from rpi
-        self.pi.stop()
+        if not self.debug:
+            # set speed to 0
+            for motor in self.motors:
+                self.pi.set_servo_pulsewidth(self.motors[motor], 0)
+            # disconnect from rpi
+            self.pi.stop()
         
 user_input = ""      
 myMotors = Motors()
