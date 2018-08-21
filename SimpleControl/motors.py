@@ -65,6 +65,10 @@ while True:
     if user_input == "q":
         myMotors.clean_up()
         break
+    if user_input == "test":
+        for i in range(100):
+        myMotors.set_speed("M_BL", i)
+        time.sleep(0.1)
     parsed = parse(user_input)
     if parse(user_input):
         myMotors.set_speed(parsed[0],parsed[1]) 
