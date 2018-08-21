@@ -4,10 +4,12 @@ import pigpio, time, os
 class Motors():
     def __init__(self):
         # set debugmode
-        self.debug = True
+        self.debug = False
         if not self.debug:
-            # start pigpio daemon 
-            os.system("sudo pigpiod -s 1")
+            if not os.path.isfile("/var/run/pigpio.pid"):
+                # start pigpio daemon 
+                os.system("sudo pigpiod -s 1")
+                time.sleep(2)
 
             # establish connection with the rpi
             self.pi = pigpio.pi()
