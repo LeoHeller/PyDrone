@@ -2,7 +2,9 @@
 A Drone equiped with a RaspberryPi controlled via Python
 
 ToDo:
-- [ ] First Motor tests
-- [ ] Drone Build
+- [x] first Motor tests
+- [x] drone Build
+. [ ] battery build
 - [ ] implement PID
+- [ ] add sensors
 - [ ] other stuff
