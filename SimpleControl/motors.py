@@ -1,11 +1,13 @@
-import pigpio, time, os
+import pigpio, time, os, utils
 from subprocess import Popen, PIPE
 
 
 class Motors():
     def __init__(self):
+        utils.setupdate()
+        utils.head()
         # set debugmode
-        self.debug = False
+        self.debug = True
         if not self.debug:
             if not os.path.isfile("/var/run/pigpio.pid"):
                 # start pigpio daemon 
@@ -67,10 +69,10 @@ while True:
         break
     if user_input == "test":
         for i in range(100):
-        myMotors.set_speed("M_BL", i)
+            myMotors.set_speed("M_BL", i)
         time.sleep(0.1)
     parsed = parse(user_input)
-    if parse(user_input):
+    if parsed:
         myMotors.set_speed(parsed[0],parsed[1]) 
 
 
