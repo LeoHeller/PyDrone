@@ -7,4 +7,5 @@ ToDo:
 - [ ] battery build
 - [ ] implement PID
 - [ ] add sensors
+- [x] simple Client - Server communication
 - [ ] other stuff

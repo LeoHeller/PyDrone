@@ -50,29 +50,35 @@ class Motors():
             # disconnect from rpi
             self.pi.stop()
         
-user_input = ""      
-myMotors = Motors()
 
+
+
+
+
+
+def main():
+    while True:
+        user_input = ""      
+        user_input = input(" -> ")
+        if user_input == "q":
+            myMotors.clean_up()
+            break
+        if user_input == "test":
+            for i in range(100):
+                myMotors.set_speed("M_BL", i)
+            time.sleep(0.1)
+        parsed = parse(user_input)
+        if parsed:
+            myMotors.set_speed(parsed[0],parsed[1]) 
 
 def parse(instr):
     # m_fl 100
     motor, speed = instr.upper().split(" ")
     if motor in myMotors.motors and float(speed) in range(100):
         return motor, int(speed)
+if __name__ == '__main__':
+    myMotors = Motors()
+    main()
 
-
-
-while True:
-    user_input = input(" -> ")
-    if user_input == "q":
-        myMotors.clean_up()
-        break
-    if user_input == "test":
-        for i in range(100):
-            myMotors.set_speed("M_BL", i)
-        time.sleep(0.1)
-    parsed = parse(user_input)
-    if parsed:
-        myMotors.set_speed(parsed[0],parsed[1]) 
 
 
