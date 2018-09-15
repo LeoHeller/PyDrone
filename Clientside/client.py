@@ -1,5 +1,6 @@
 import socket, sys, threading, os, time
 from signals import Signals, Bcolors
+
 pwd  = "admin"
 
 HOST = '127.0.0.1'  # The server's hostname or IP address
@@ -50,7 +51,7 @@ def get_server(s):
             break 
         #unexpected
         else:
-            print(Bcolors.WARNING + "\nunexpected data: ",data + Bcolors.ENDC)
+            print(Bcolors.WARNING + "\nunexpected data: {}".format(data) + Bcolors.ENDC)
             continue
 
     os._exit(1)

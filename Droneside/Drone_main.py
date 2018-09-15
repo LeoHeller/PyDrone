@@ -1,8 +1,17 @@
-import server
+import server, time, os
 
-Server = server.Handle_Sockets("127.0.0.1", 1337, "admin")
+Server = server.HandleSockets("127.0.0.1", 1337, "admin")
+Server.isDaemon = True
+Server.start()
 
-def mon_message(message):
-    print(message.decode())
-
-Server.on_message = mon_message
+try:
+    while True:
+        i = input("-> ")
+        if i == "q":
+            Server.close_all()
+            os._exit(1)
+        else:
+            Server.send(i)
+except:
+    Server.close_all()
+    os._exit(1)
