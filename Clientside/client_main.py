@@ -1,5 +1,6 @@
-import Sockets, time, os, Sockets
-from signals import Signals, Bcolors
+import time, os, signals, sys, Sockets
+from signals import Bcolors, Signals
+
 
 pwd = "admin"
 running = True
@@ -23,11 +24,11 @@ def on_message(data):
     # authentication successful
     elif data == Signals.RIGHT_PWD:
         print(Bcolors.OKBLUE + "\rauthenticated" + Bcolors.ENDC, end = "\n-> ")
-        Server.is_authenticated = True
+        Client.is_authenticated = True
 
     # server quit
     elif data == Signals.QUIT or data == b'':
-        Server.close_all()
+        Client.close_all()
         running = False
         # os._exit(1)
          
@@ -36,20 +37,21 @@ def on_message(data):
         print(Bcolors.WARNING + "\runexpected data: {}".format(data) + Bcolors.ENDC, end = "\n-> ")
             
 
+Client = Sockets.HandleSockets("127.0.0.1", 1337, "admin", mode = "c", on_message = on_message)
+Client.isDaemon = True
+Client.start()
 
-Server = Sockets.HandleSockets("127.0.0.1", 1337, "admin", mode = "s", on_message = on_message)
-Server.isDaemon = True
-Server.start()
+
 
 try:
     while running:
-        i = input("-> ")
+        i = input("\r-> ")
         if i == "q":
-            Server.close_all()
+            Client.close_all()
             os._exit(1)
         elif not Sockets.no_connection:
-            Server.send(i)
+            Client.send(i)
 
 except:
-    Server.close_all()
+    Client.close_all()
     os._exit(1)
