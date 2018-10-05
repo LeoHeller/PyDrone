@@ -192,6 +192,7 @@ class Sender(threading.Thread):
             # if a client is connected send data
             if not no_connection:
                 self._send()
+            time.sleep(0.1)
 
     def _send(self):
         # only send data if there is data to be sent
