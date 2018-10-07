@@ -67,7 +67,7 @@ try:
         i = input("\r-> ")
         if i == "q":
             Client.close_all()
-            os._exit(1)
+            exit()
         elif not Sockets.no_connection:
             Client.send(i)
 

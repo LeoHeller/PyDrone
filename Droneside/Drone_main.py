@@ -40,9 +40,7 @@ def on_message(data):
 
     # server quit
     elif data == Signals.QUIT or data == b'':
-        Server.close_all()
-        running = False
-        # os._exit(1)
+        Sockets.no_connection = True
          
     #unexpected
     else:
@@ -59,6 +57,8 @@ try:
         i = input("\r-> ")
         if i == "q":
             Server.close_all()
+            Sockets.should_be_running = False
+            exit()
             Server.join()
             print("server joined")
             running = False
