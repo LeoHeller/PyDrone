@@ -1,11 +1,25 @@
-import time, os, signals, sys, Sockets
+import os
+import sys
+import time
+
+sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/')
+
+import Sockets
+import utils
 from signals import Bcolors, Signals
+
+
+
+
+utils.update = "Sun Oct  7 11:27:34 2018"
+utils.head()
 
 
 pwd = "admin"
 running = True
 
 def on_message(data):
+    global running
         #0 = Success
     if data == Signals.OK:
         pass
@@ -32,6 +46,11 @@ def on_message(data):
         running = False
         # os._exit(1)
          
+    # benchmark
+    elif data == Signals.TIME:
+        print("msg recived at: ", time.time())
+
+        
     #unexpected
     else:
         print(Bcolors.WARNING + "\runexpected data: {}".format(data) + Bcolors.ENDC, end = "\n-> ")

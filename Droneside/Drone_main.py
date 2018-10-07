@@ -1,10 +1,23 @@
-import Sockets, time, os, Sockets
+import time, os, sys
+sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/')
+
+
 from signals import Signals, Bcolors
+import Sockets, utils
+import cProfile
+
+
+ 
+utils.update = "Sun Oct  7 11:27:34 2018"
+utils.head()
+
 
 pwd = "admin"
+global running
 running = True
 
 def on_message(data):
+    global running
         #0 = Success
     if data == Signals.OK:
         pass
@@ -43,13 +56,22 @@ Server.start()
 
 try:
     while running:
-        i = input("-> ")
+        i = input("\r-> ")
         if i == "q":
             Server.close_all()
-            os._exit(1)
+            Server.join()
+            print("server joined")
+            running = False
+            #os._exit(1)
+        if i == "b": # benchmark
+            Server.send(Signals.TIME)
+            print(time.time())
+
         elif not Sockets.no_connection:
             Server.send(i)
 
 except:
     Server.close_all()
     os._exit(1)
+
+

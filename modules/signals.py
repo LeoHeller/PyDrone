@@ -15,6 +15,9 @@ class Signals:
     WRONG_PWD   = (9).to_bytes(1,"big")
     RIGHT_PWD   = (10).to_bytes(1,"big")
     
+    # benchmark
+    TIME        = (11).to_bytes(1, "big")
+
 class Bcolors:
     OKBLUE = '\x1b[2;34m'
     OKGREEN = '\x1b[2;32m'

@@ -1,9 +1,18 @@
-import socket, time, sys, threading, os
-from signals import Signals, Bcolors
+import cProfile
+import os
+import socket
+import sys
+import threading
+import time
+
+sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/')
+from signals import Bcolors, Signals
 
 
-global no_connection
+
+global no_connection, should_be_running
 no_connection = True
+should_be_running = True
 
 
 
@@ -23,7 +32,7 @@ class HandleSockets(threading.Thread):
             mode {string} -- "c" for client, "s" for server
             on_m {function} -- function that should be called when a new message comes in. should have one argument, to which the raw byte string is passed
         '''
-        global no_connection
+        global no_connection, should_be_running
         # call thread init
         threading.Thread.__init__(self)
 
@@ -33,8 +42,12 @@ class HandleSockets(threading.Thread):
         self.mode = mode
         self.on_message = on_message
 
-        self.sock = self.setup_sockets()
 
+
+    # def run(self):
+    #     while should_be_running:
+    #         if no_connection:
+        self.sock = self.setup_sockets()
 
 
     def setup_sockets(self):
@@ -129,14 +142,25 @@ class HandleSockets(threading.Thread):
             return True
 
     def close_all(self):
+        global should_be_running, no_connection
         # cleanup function
-        global no_connection
         if not no_connection:
-            #self.send(Signals.QUIT)
+            self.send(Signals.QUIT)
             self.s.close()
             print("\r" + Bcolors.OKBLUE + "disconnecting" + Bcolors.ENDC)
-            os._exit(1)
-        no_connection = True
+            
+            should_be_running = False 
+            no_connection = True
+
+            exit()
+            #exit()
+
+        else:
+            no_connection = True
+            should_be_running = False 
+        print("\r" + Bcolors.OKBLUE + "closed connections" + Bcolors.ENDC)
+
+
 
     def send(self, msg):
         # adds the message to the stack to be sent
@@ -146,6 +170,8 @@ class HandleSockets(threading.Thread):
             print("\r" + Bcolors.WARNING + "no client connected" + Bcolors.ENDC, end = "\n-> ")
 
 
+
+
 class Listener(threading.Thread):
     '''Thread that listens to output from the other side
     '''
@@ -153,16 +179,16 @@ class Listener(threading.Thread):
     def __init__(self, conn, hs):
         threading.Thread.__init__(self)
 
-        global no_connection
         self.conn = conn
         self.hs = hs
 
     def run(self):
         # runs in the thread
-        global no_connection
+        global no_connection, should_be_running
         print("\r" + Bcolors.OKBLUE + "Listener Started" + Bcolors.ENDC, end = "\n-> ")
+
         # recive data while a client is connected
-        while not no_connection:
+        while not no_connection and should_be_running == True:
             data = self.conn.recv(1024)
 
             try:
@@ -182,13 +208,13 @@ class Sender(threading.Thread):
     def __init__(self, conn):
         threading.Thread.__init__(self)
 
-        global no_connection
+        global no_connection, should_be_running
         self.conn = conn
         self.stack = []
         print("\r" + Bcolors.OKBLUE + "Sender Started" + Bcolors.ENDC, end = "\n-> ")
 
     def run(self):
-        while True:
+        while not no_connection and should_be_running:
             # if a client is connected send data
             if not no_connection:
                 self._send()
@@ -204,8 +230,3 @@ class Sender(threading.Thread):
                 self.conn.sendall(packet)
         else:
             pass
-
-
-
-
-
