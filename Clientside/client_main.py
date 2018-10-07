@@ -19,12 +19,21 @@ pwd = "admin"
 running = True
 
 def on_message(data):
+    '''parse the incoming message
+    
+    Arguments:
+        data {bytes} -- the incoming message in byte form
+    
+    Returns:
+        string/bytes -- if a answer is needed it is simply returned
+    '''
+
     global running
-        #0 = Success
+    # Success
     if data == Signals.OK:
         pass
     
-    #13 = Permission denied
+    # Permission denied
     elif data == Signals.WRONG_PWD:
         print(Bcolors.FAIL + "wrong password" + Bcolors.ENDC)
         running = False
@@ -61,13 +70,15 @@ Client.isDaemon = True
 Client.start()
 
 
-
+# get user input
 try:
     while running:
         i = input("\r-> ")
+        # parse for commands
         if i == "q":
             Client.close_all()
             exit()
+        # send if no command was found
         elif not Sockets.no_connection:
             Client.send(i)
 

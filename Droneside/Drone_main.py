@@ -17,12 +17,21 @@ global running
 running = True
 
 def on_message(data):
+    '''parse the incoming message
+    
+    Arguments:
+        data {bytes} -- the incoming message in byte form
+    
+    Returns:
+        string/bytes -- if a answer is needed it is simply returned
+    '''
+
     global running
-        #0 = Success
+    # success
     if data == Signals.OK:
         pass
     
-    #13 = Permission denied
+    # Permission denied
     elif data == Signals.WRONG_PWD:
         print(Bcolors.FAIL + "wrong password" + Bcolors.ENDC)
         running = False
@@ -47,14 +56,16 @@ def on_message(data):
         print(Bcolors.WARNING + "\runexpected data: {}".format(data) + Bcolors.ENDC, end = "\n-> ")
             
 
-
+# create the Server object and start it
 Server = Sockets.HandleSockets("127.0.0.1", 1337, "admin", mode = "s", on_message = on_message)
 Server.isDaemon = True
 Server.start()
 
+# get user input
 try:
     while running:
         i = input("\r-> ")
+        # parse for commands
         if i == "q":
             Server.close_all()
             Sockets.should_be_running = False
@@ -66,7 +77,7 @@ try:
         if i == "b": # benchmark
             Server.send(Signals.TIME)
             print(time.time())
-
+        # send if no command is recognized
         elif not Sockets.no_connection:
             Server.send(i)
 

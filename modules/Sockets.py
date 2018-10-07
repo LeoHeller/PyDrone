@@ -43,28 +43,42 @@ class HandleSockets(threading.Thread):
         # call thread init
         threading.Thread.__init__(self)
 
-        
+        # arguments used to start class
         self.ip = ip
         self.port = port
         self.password = password
         self.mode = mode
         self.on_message = on_message
 
+        # either start as 'c' client or as 's' server
         if mode == "c":
             self.sock = self.setup_client_socket()
         elif mode == "s":
             self.sock = self.setup_server_sockets()
+        # make sure the user chose a valid choice
         else:
             print("\r" + Bcolors.WARNING + "please use a valid mode, 'c' or 's'. (not {})".format(self.mode) + Bcolors.ENDC, end = "\n-> ")
             exit()
         
 
     def setup_client_socket(self):
+        '''creates a socket object for further use by the client application
+        
+        Returns:
+            object -- a socket object
+        '''
+
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     
         return s
 
     def setup_server_sockets(self):
+        '''creates a socket object for further use by the server
+        
+        Returns:
+            objec -- a socket object
+        '''
+
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -74,13 +88,21 @@ class HandleSockets(threading.Thread):
         return s
 
     def accept(self):
+        '''accept any incoming clients
+        '''
+
         global no_connection
+        # accept the client
         self.conn, self.addr = self.sock.accept()
+        # validate the client
         if self.authenticate():
+            
+            # create a new 'listener' thread that listens for any new messages
             self.listener = Listener(self.conn, self)
             self.listener.isDaemon = True
             self.listener.start()
 
+            # create a new 'sender' thread that sends out any enqueued messages
             self.sender = Sender(self.conn)
             self.sender.isDaemon = True
             self.sender.start()
@@ -91,15 +113,21 @@ class HandleSockets(threading.Thread):
 
 
     def connect(self):
+        '''connect to the server
+        '''
+
         global no_connection
         try:
+            # try to connect, if no server is running a exception wil be thrown and catched
             self.sock.connect((self.ip, self.port))
             no_connection = False
-
+            
+            # create a new 'listener' thread that listens for any new messages
             self.sender = Sender(self.sock)
             self.sender.isDaemon = True
             self.sender.start()
 
+            # create a new 'sender' thread that sends out any enqueued messages
             self.listener = Listener(self.sock, self)
             self.listener.isDaemon = True
             self.listener.start()
@@ -108,22 +136,28 @@ class HandleSockets(threading.Thread):
             
 
         except (ConnectionRefusedError, OSError):
+            # catch any problems if no server is running or the socket obj has expired
             print("\r" + Bcolors.FAIL + "Connection refused, check if a server is running on the specified host and port." + Bcolors.ENDC, end = "\n-> ")
             no_connection = True
-            #self.close_all()
-            #os._exit(1)
+        # wait 0.1 seconds until the next try
         time.sleep(0.1)
 
 
     def run(self):
+        '''reconnect to the server/accept any clients
+        '''
+
         global should_be_running, no_connection
         while should_be_running:
             while no_connection:
                 if self.mode == "s":
+                    # accept a client
                     self.accept()
 
                 if self.mode == "c":
+                    # reconnect to the server
                     self.connect()
+            # wait before trying again
             time.sleep(0.1)
 
 
@@ -131,7 +165,7 @@ class HandleSockets(threading.Thread):
   
     def authenticate(self):
 
-        '''when the client first connects he is asked to authenticate himself.
+        '''when the client connects he is asked to authenticate himself.
 
         Returns:
             bool -- if the authentication is successful True is returned
@@ -145,6 +179,7 @@ class HandleSockets(threading.Thread):
 
         # check if the password is correct
         if givenpwd.decode() != self.password:
+            # if it is not send the signal that it was wrong and disconnect the client
             print("\r" + Bcolors.FAIL + "permission denied to {}".format(self.addr) + Bcolors.ENDC)
             self.conn.sendall(Signals.WRONG_PWD)
             self.conn.shutdown(socket.SHUT_RDWR)
@@ -152,15 +187,19 @@ class HandleSockets(threading.Thread):
             return False
 
         else:
+            # let the client know the password was correct and allow him to continue on
             self.conn.sendall(Signals.RIGHT_PWD)
             print("\r" + Bcolors.OKBLUE + "permission granted to {}".format(self.addr) + Bcolors.ENDC)
             no_connection = False
             return True
 
     def close_all(self):
+        '''clean up function for sockets
+        '''
+
         global should_be_running, no_connection
-        # cleanup function
         if not no_connection:
+            # tell the other end we are quitting
             self.send(Signals.QUIT)
             self.sock.close()
             print("\r" + Bcolors.OKBLUE + "disconnecting" + Bcolors.ENDC)
@@ -179,7 +218,15 @@ class HandleSockets(threading.Thread):
 
 
     def send(self, msg):
-        # adds the message to the stack to be sent
+        '''wrapper for sending messages.
+        appends the message to the stack so it can be sent.
+        catch the message if no client/server is present
+        
+        Arguments:
+            msg {string/bytes} -- message to be sent. Can be bytes or a string as it will be converted to bytes later
+        '''
+
+
         if not no_connection:
             self.sender.stack.append(msg)
         else:
@@ -190,7 +237,7 @@ class HandleSockets(threading.Thread):
 
 
 class Listener(threading.Thread):
-    '''Thread that listens to output from the other side
+    '''Thread that listens to new messages from the other side and calls the on_message function
     '''
 
     def __init__(self, conn, hs):
@@ -235,7 +282,7 @@ class Sender(threading.Thread):
 
     def run(self):
         while not no_connection and should_be_running:
-            # if a client is connected send data
+            # if a connection is present send data
             if not no_connection:
                 self._send()
             time.sleep(0.1)
@@ -245,7 +292,7 @@ class Sender(threading.Thread):
 
     def _send(self):
         global should_be_running
-        # only send data if there is data to be sent
+        # only send data if there is data to be sent and it should be sent
         if len(self.stack) > 0 and self.stack[-1] != None and should_be_running:
             packet = self.stack.pop()
             if type(packet) != bytes:
