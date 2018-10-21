@@ -27,7 +27,15 @@ def _on_message(msg):
 
 
 
-class HandleSockets(threading.Thread):
+
+import PyQt5
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
+
+
+
+
+
+class HandleSockets(PyQt5.QtCore.QThread):
     def __init__(self, ip, port, password, mode = "s", on_message = _on_message):
         '''simple wrapper for sockets to create a interface between the drone and client
 
@@ -41,7 +49,8 @@ class HandleSockets(threading.Thread):
         # global [description]variables to tell the threads when to stop and when to try to reconnect
         global no_connection, should_be_running
         # call thread init
-        threading.Thread.__init__(self)
+        PyQt5.QtCore.QThread.__init__(self)
+
 
         # arguments used to start class
         self.ip = ip
@@ -59,7 +68,11 @@ class HandleSockets(threading.Thread):
         else:
             print("\r" + Bcolors.WARNING + "please use a valid mode, 'c' or 's'. (not {})".format(self.mode) + Bcolors.ENDC, end = "\n-> ")
             exit()
-        
+
+
+    def __del__(self):
+        self.wait()
+
 
     def setup_client_socket(self):
         '''creates a socket object for further use by the client application
@@ -236,15 +249,18 @@ class HandleSockets(threading.Thread):
 
 
 
-class Listener(threading.Thread):
+class Listener(PyQt5.QtCore.QThread):
     '''Thread that listens to new messages from the other side and calls the on_message function
     '''
 
     def __init__(self, conn, hs):
-        threading.Thread.__init__(self)
+        PyQt5.QtCore.QThread.__init__(self)
 
         self.conn = conn
         self.hs = hs
+
+    def __del__(self):
+        self.wait()
 
     def run(self):
         # runs in the thread
@@ -268,17 +284,21 @@ class Listener(threading.Thread):
         print("\r" + Bcolors.OKBLUE + "Listener Stopped" + Bcolors.ENDC, end = "\n-> ")
 
 
-class Sender(threading.Thread):
+class Sender(PyQt5.QtCore.QThread):
     '''send messages from a stack
     '''
 
     def __init__(self, conn):
-        threading.Thread.__init__(self)
+        PyQt5.QtCore.QThread.__init__(self)
 
         global no_connection, should_be_running
         self.conn = conn
         self.stack = []
         print("\r" + Bcolors.OKBLUE + "Sender Started" + Bcolors.ENDC, end = "\n-> ")
+
+    def __del__(self):
+        self.wait()
+
 
     def run(self):
         while not no_connection and should_be_running:
