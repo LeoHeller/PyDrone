@@ -1,4 +1,4 @@
-import sys
+import sys, time
 import PyQt5
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
 from DroneUi import Ui_MainWindow
@@ -21,23 +21,31 @@ class AppWindow(QMainWindow):
         self.ui.setupUi(self)
         self.show()
 
-        self.Client = Sockets.HandleSockets("127.0.0.1", 1337, "admin", mode = "c", on_message = self.on_message)
+
+
+        self.Client = Sockets.HandleSockets("127.0.0.1", 1337, "admin", mode = "c" , on_message = None)
         self.Client.isDaemon = True
         self.Client.start()
+
+        time.sleep(0.01)
+
+
+        self.Client.listener.msg_signal.connect(self.on_message)
 
 
         self.ui.ChatInput.returnPressed.connect(self.ui_send)
 
-
-
-    def on_message(self, msg):
+    #@PyQt5.QtCore.pyqtSlot()
+    def on_message(self,msg):
         if msg == b'':
             msg = "quit"
-        print(msg)
-        self.ui.Chat.setText(self.ui.Chat.toPlainText() + "\nServer: " + str(msg))
+        else:
+            self.ui.Chat.setText(self.ui.Chat.toPlainText() + "\ndrone: " + str(msg))
+
+            print(msg)
 
     def ui_send(self):
-        self.send_recive.Client.send(self.ui.ChatInput.text())
+        self.Client.send(self.ui.ChatInput.text())
         self.ui.Chat.setText(self.ui.Chat.toPlainText() + "\nyou: " + self.ui.ChatInput.text())
         self.ui.ChatInput.clear()
 

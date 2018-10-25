@@ -36,7 +36,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
 
 
 class HandleSockets(PyQt5.QtCore.QThread):
-    def __init__(self, ip, port, password, mode = "s", on_message = _on_message):
+    def __init__(self, ip, port, password, on_message, mode = "s"):
         '''simple wrapper for sockets to create a interface between the drone and client
 
         Arguments:
@@ -187,6 +187,8 @@ class HandleSockets(PyQt5.QtCore.QThread):
         if not should_be_running:
             return
         # send other end a request for a password
+        # wait 0.1 sec for other side to start up
+        time.sleep(0.1)
         self.conn.sendall(Signals.PWD_REQUEST)
         givenpwd = self.conn.recv(1024)
 
@@ -252,6 +254,7 @@ class HandleSockets(PyQt5.QtCore.QThread):
 class Listener(PyQt5.QtCore.QThread):
     '''Thread that listens to new messages from the other side and calls the on_message function
     '''
+    msg_signal = PyQt5.QtCore.pyqtSignal(bytes)
 
     def __init__(self, conn, hs):
         PyQt5.QtCore.QThread.__init__(self)
@@ -272,8 +275,16 @@ class Listener(PyQt5.QtCore.QThread):
             data = self.conn.recv(1024)
 
             try:
-                # execute userdefined on_message function and send its output
-                self.hs.send(self.hs.on_message(data))
+                # execute userdefined on_message function or emit a signal and send its output
+                try:
+                    self.msg_signal.emit(data)
+                except Exception as e:
+                    print("280", e)
+                try:
+                    self.hs.send(self.hs.on_message(data))
+                except Exception as e:
+                    pass
+
             except AttributeError as e:
                 # catch any errors if the user forgot to define on_message correctly
                 print(e)
