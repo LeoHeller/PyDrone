@@ -4,6 +4,7 @@ import socket
 import sys
 import threading
 import time
+import re
 
 sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/')
 from signals import Bcolors, Signals
@@ -73,6 +74,9 @@ class HandleSockets(PyQt5.QtCore.QThread):
     def __del__(self):
         self.wait()
 
+
+
+            
 
     def setup_client_socket(self):
         '''creates a socket object for further use by the client application
@@ -150,7 +154,7 @@ class HandleSockets(PyQt5.QtCore.QThread):
 
         except (ConnectionRefusedError, OSError):
             # catch any problems if no server is running or the socket obj has expired
-            print("\r" + Bcolors.FAIL + "Connection refused, check if a server is running on the specified host and port." + Bcolors.ENDC, end = "\n-> ")
+            print("\r" + Bcolors.FAIL + "Connection refused, check if a server is running on the specified host and port." + Bcolors.ENDC, end = "")
             no_connection = True
         # wait 0.1 seconds until the next try
         time.sleep(0.1)
@@ -196,9 +200,12 @@ class HandleSockets(PyQt5.QtCore.QThread):
         if givenpwd.decode() != self.password:
             # if it is not send the signal that it was wrong and disconnect the client
             print("\r" + Bcolors.FAIL + "permission denied to {}".format(self.addr) + Bcolors.ENDC)
-            self.conn.sendall(Signals.WRONG_PWD)
-            self.conn.shutdown(socket.SHUT_RDWR)
-            self.conn.close()
+            try:
+                self.conn.sendall(Signals.WRONG_PWD)
+                self.conn.shutdown(socket.SHUT_RDWR)
+                self.conn.close()
+            except OSError:
+                pass
             return False
 
         else:
