@@ -12,5 +12,6 @@ ToDo:
 - [ ] add sensors
 - [x] simple Client - Server communication
 - [x] two way socket comunication
+- [x] simple UI
 - [ ] UI
 - [ ] other stuff

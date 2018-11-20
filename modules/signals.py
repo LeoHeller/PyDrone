@@ -14,9 +14,12 @@ class Signals:
     PWD_REQUEST = (8).to_bytes(1,"big")
     WRONG_PWD   = (9).to_bytes(1,"big")
     RIGHT_PWD   = (10).to_bytes(1,"big")
+    PING_RQST   = (11).to_bytes(1, "big")
+    PING        = (12).to_bytes(1,"big")
     
     # benchmark
-    TIME        = (11).to_bytes(1, "big")
+    TIME        = (13).to_bytes(1, "big")
+    
 
 class Bcolors:
     OKBLUE = '\x1b[2;34m'

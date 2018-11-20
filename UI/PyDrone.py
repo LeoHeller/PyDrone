@@ -33,31 +33,53 @@ class AppWindow(QMainWindow):
 
     #@PyQt5.QtCore.pyqtSlot()
     def on_message(self,msg):
-        if msg == b'':
+        if msg == b'' or msg == Signals.QUIT and Sockets.no_connection == False:
             msg = "quit"
+            if Sockets.should_be_running: 
+                self.ui.Chat.setText(self.ui.Chat.toPlainText() + "\ndrone: " + str(msg))
+                Sockets.should_be_running = False
+                Sockets.no_connection = True
+                #time.sleep(0.02)
+                self.Client.close_all()
+
         else:
             self.ui.Chat.setText(self.ui.Chat.toPlainText() + "\ndrone: " + str(msg))
 
-            print(msg)
-
 
     def connect_to_server(self):
-        #
-         
-        if not self.check_host(self.ui.ServerInput.text()):
-            
-            msgBox = PyQt5.QtWidgets.QMessageBox()
-            msgBox.setText("Please enter a valid host.")
-            msgBox.exec_()
-            print("thats not right")
-        else:
+        if Sockets.no_connection:
+            # is the input in a valid format?
             ip, port = self.check_host(self.ui.ServerInput.text())
-            self.Client = Sockets.HandleSockets(ip, port, "admin", mode = "c" , on_message = None)
-            self.Client.isDaemon = True
-            self.Client.start()
-            time.sleep(0.01)
-            # connect the on_message signal from Sockets.py to a function
-            self.Client.listener.msg_signal.connect(self.on_message)
+
+            if (ip,port) == (None,None):
+                
+                msgBox = PyQt5.QtWidgets.QMessageBox()
+                msgBox.setText("Please enter a valid host.")
+                msgBox.exec_()
+            
+            
+
+            elif Sockets.ping(ip,port):
+
+                Sockets.should_be_running = True
+                Sockets.no_connection = True
+                self.Client = Sockets.HandleSockets(ip, port, "admin", mode = "c" , on_message = None)
+                self.Client.isDaemon = True
+                self.Client.start()
+                time.sleep(0.1)
+
+                # when no server is running this thorws a error!
+                try:
+                    # connect the on_message signal from Sockets.py to a function
+                    self.Client.listener.msg_signal.connect(self.on_message)
+                except AttributeError:
+                    self.Client.close_all()
+            
+            else:
+                msgBox = PyQt5.QtWidgets.QMessageBox()
+                msgBox.setText("Please check if a server is running on the specified host.")
+                msgBox.exec_()
+                
     
     def check_host(self, host):
         # parse and check host
@@ -69,7 +91,7 @@ class AppWindow(QMainWindow):
 
         # catch wrong format for host
         if ':' not in host:
-            return False
+            return None, None
         port = host.split(":")[1]
         host = host.split(":")[0]
 
@@ -77,16 +99,21 @@ class AppWindow(QMainWindow):
         try:
             port = int(port)
         except ValueError:
-            return False
+            return None, None
         # check if port is valid
-        if port not in range(65535): return False
+        if port not in range(65535): return None, None
         # check if host exits
         try:
             host = socket.gethostbyname(host)
         except socket.gaierror:
-            return False
-
+            return None, None
+        # port is open and a server is running
         return host, port
+
+
+            
+      
+        
 
 
     def ui_send(self):

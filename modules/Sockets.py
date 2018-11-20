@@ -6,14 +6,15 @@ import threading
 import time
 import re
 
+import PyQt5
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
+
+
 sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/')
 from signals import Bcolors, Signals
 
 
 
-global no_connection, should_be_running
-no_connection = True
-should_be_running = True
 
 
 
@@ -27,10 +28,24 @@ def _on_message(msg):
     print("\r" + "new data from user: ", msg, end = "\n-> ")
 
 
+def ping(host, port):
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((host, port))
+            s.sendall(Signals.PING_RQST)
+            if s.recv(1024) == Signals.PING: pass
+        s.close()
+    except (ConnectionRefusedError, ConnectionResetError):
+        return False
+    else:
+        return True
 
 
-import PyQt5
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
+global no_connection, should_be_running
+no_connection = True
+should_be_running = True
+
+
 
 
 
@@ -133,7 +148,7 @@ class HandleSockets(PyQt5.QtCore.QThread):
         '''connect to the server
         '''
 
-        global no_connection
+        global no_connection, should_be_running
         try:
             # try to connect, if no server is running a exception wil be thrown and catched
             self.sock.connect((self.ip, self.port))
@@ -179,6 +194,7 @@ class HandleSockets(PyQt5.QtCore.QThread):
 
 
 
+
   
     def authenticate(self):
 
@@ -197,6 +213,11 @@ class HandleSockets(PyQt5.QtCore.QThread):
         givenpwd = self.conn.recv(1024)
 
         # check if the password is correct
+        if givenpwd == Signals.PING_RQST:
+            print("\r" + Bcolors.OKGREEN + "ping recived from {}".format(self.addr) + Bcolors.ENDC)
+            self.conn.sendall(Signals.PING)
+            self.conn.close()
+            return False
         if givenpwd.decode() != self.password:
             # if it is not send the signal that it was wrong and disconnect the client
             print("\r" + Bcolors.FAIL + "permission denied to {}".format(self.addr) + Bcolors.ENDC)
@@ -215,21 +236,24 @@ class HandleSockets(PyQt5.QtCore.QThread):
             no_connection = False
             return True
 
-    def close_all(self):
+    def close_all(self, _exit=True):
         '''clean up function for sockets
         '''
 
         global should_be_running, no_connection
+        # if we are connected
         if not no_connection:
             # tell the other end we are quitting
-            self.send(Signals.QUIT)
+            try:
+                self.send(Signals.QUIT)
+            except Exception: pass
             self.sock.close()
             print("\r" + Bcolors.OKBLUE + "disconnecting" + Bcolors.ENDC)
 
             should_be_running = False             
             no_connection = True
 
-            exit()
+            if _exit: exit()
             #exit()
 
         else:
