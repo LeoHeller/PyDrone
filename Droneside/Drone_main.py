@@ -74,9 +74,11 @@ try:
             print("server joined")
             running = False
             #os._exit(1)
-        if i == "b": # benchmark
+        elif i == "b": # benchmark
             Server.send(Signals.TIME)
             print(time.time())
+        elif i == "crash":
+            os._exit(1)
         # send if no command is recognized
         elif not Sockets.no_connection:
             Server.send(i)

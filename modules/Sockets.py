@@ -31,11 +31,17 @@ def _on_message(msg):
 def ping(host, port):
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(0.25)
             s.connect((host, port))
             s.sendall(Signals.PING_RQST)
-            if s.recv(1024) == Signals.PING: pass
+            data = s.recv(1024)
+            if data == Signals.PING: 
+                return True
+            else:
+                print(data)
+
         s.close()
-    except (ConnectionRefusedError, ConnectionResetError):
+    except (ConnectionRefusedError, ConnectionResetError, socket.timeout, OSError):
         return False
     else:
         return True
@@ -76,9 +82,9 @@ class HandleSockets(PyQt5.QtCore.QThread):
         self.on_message = on_message
 
         # either start as 'c' client or as 's' server
-        if mode == "c":
+        if self.mode == "c":
             self.sock = self.setup_client_socket()
-        elif mode == "s":
+        elif self.mode == "s":
             self.sock = self.setup_server_sockets()
         # make sure the user chose a valid choice
         else:
@@ -101,7 +107,6 @@ class HandleSockets(PyQt5.QtCore.QThread):
         '''
 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    
         return s
 
     def setup_server_sockets(self):
@@ -112,7 +117,6 @@ class HandleSockets(PyQt5.QtCore.QThread):
         '''
 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         s.bind((self.ip, self.port))
         s.listen(2)
@@ -135,7 +139,7 @@ class HandleSockets(PyQt5.QtCore.QThread):
             self.listener.start()
 
             # create a new 'sender' thread that sends out any enqueued messages
-            self.sender = Sender(self.conn)
+            self.sender = Sender(self.conn, self.mode, self)
             self.sender.isDaemon = True
             self.sender.start()
 
@@ -155,7 +159,7 @@ class HandleSockets(PyQt5.QtCore.QThread):
             no_connection = False
             
             # create a new 'listener' thread that listens for any new messages
-            self.sender = Sender(self.sock)
+            self.sender = Sender(self.sock, self.mode, self)
             self.sender.isDaemon = True
             self.sender.start()
 
@@ -171,8 +175,6 @@ class HandleSockets(PyQt5.QtCore.QThread):
             # catch any problems if no server is running or the socket obj has expired
             print("\r" + Bcolors.FAIL + "Connection refused, check if a server is running on the specified host and port." + Bcolors.ENDC, end = "")
             no_connection = True
-        # wait 0.1 seconds until the next try
-        time.sleep(0.1)
 
 
     def run(self):
@@ -190,7 +192,7 @@ class HandleSockets(PyQt5.QtCore.QThread):
                     # reconnect to the server
                     self.connect()
             # wait before trying again
-            time.sleep(0.1)
+            time.sleep(0.01)
 
 
 
@@ -330,11 +332,13 @@ class Sender(PyQt5.QtCore.QThread):
     '''send messages from a stack
     '''
 
-    def __init__(self, conn):
+    def __init__(self, conn, mode, hs):
         PyQt5.QtCore.QThread.__init__(self)
 
         global no_connection, should_be_running
         self.conn = conn
+        self.mode = mode
+        self.hs = hs
         self.stack = []
         print("\r" + Bcolors.OKBLUE + "Sender Started" + Bcolors.ENDC, end = "\n-> ")
 
@@ -361,5 +365,4 @@ class Sender(PyQt5.QtCore.QThread):
                 self.conn.sendall(packet.encode())
             else:
                 self.conn.sendall(packet)
-        else:
-            pass
+

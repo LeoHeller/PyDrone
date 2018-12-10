@@ -100,8 +100,14 @@
            <height>181</height>
           </rect>
          </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
          <property name="readOnly">
           <bool>true</bool>
+         </property>
+         <property name="placeholderText">
+          <string/>
          </property>
         </widget>
         <widget class="QPushButton" name="ConnectButton">
