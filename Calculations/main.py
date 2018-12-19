@@ -1,3 +1,9 @@
+import re
+import json
+import asyncio
+import aiohttp
+import progress_timer
+
 html = """<select name="propSelect" class="allPropSelect"><option value="32">APC Electric 6x5.5 E</option>
 <option value="42">APC Electric 5x4x3 E</option>
 <option value="56">APC Electric 5x3 E</option>
@@ -72,102 +78,90 @@ html = """<select name="propSelect" class="allPropSelect"><option value="32">APC
 <option value="43">RaceKraft 5051 5x5x3 </option>
 <option value="54">RacerStar  5x4.2x3 L</option>"""
 
-import re, requests, json, asyncio, aiohttp, time, progress_timer
-
-
 
 class scrapper():
 
-	def __init__(self):
+    def __init__(self):
 
+        # parse the list of props still in html
+        self.props = html.split("\n")
 
-		# parse the list of props still in html
-		self.props = html.split("\n")
+        # initialize progress bar
+        self.progress_bar = progress_timer.progress_timer(
+            len(self.props), "Progress")
 
-		#initialize progress bar
-		self.progress_bar = progress_timer.progress_timer(len(self.props),"Progress")
+        # initialize motors dict, wich will hold all motors later
+        self.motors = {}
 
+    async def get_json(self):
+        # get stats for the list of props at a given thrust
+        # loop through all propellers found in the props list
+        for prop in self.props:
 
+            # update the progressbar
+            self.progress_bar.update()
 
-		#initialize motors dict, wich will hold all motors later
-		self.motors = {}
+            # get the prop info
+            propname, self.propuid = self.get_prop_info(prop)
 
-	async def get_json(self):
-		# get stats for the list of props at a given thrust
-		# loop through all propellers found in the props list
-		for prop in self.props:
+            # get the info from the server
+            json_response = await self.to_dict(await self.get_plain_text())
 
-			# update the progressbar
-			self.progress_bar.update()
+            # if the motor is not a "Experimental" (invalid motor) add it to the motors dict
+            for i in json_response["motors"]:
 
-			# get the prop info
-			propname, self.propuid = self.get_prop_info(prop)
+                if json_response["motors"][i]["make"] != "Experimental" or float(json_response["motors"][i]["weight"]) <= 0:
 
-			# get the info from the server
-			json_response = await self.to_dict(await self.get_plain_text())
+                    self.motors[i] = json_response["motors"][i]
+                    # append the propeller name
+                    self.motors[i]["prop"] = propname
 
-			# if the motor is not a "Experimental" (invalid motor) add it to the motors dict
-			for i in json_response["motors"]:
+            # save the motor dict for further calculations
+            self.save_to_file(self.motors)
 
-				if json_response["motors"][i]["make"] != "Experimental" or float(json_response["motors"][i]["weight"]) <= 0:
+    def get_prop_info(self, string):
+            # try to extract name and id of the propeller
+        try:
+            m = re.search('<option value="(.*)">(.*)</option>', string)
+            name = m.group(2).strip(" ").replace("  ", " ")
+            propuid = m.group(1)
+            return name, propuid
+        except AttributeError:
+            print("an error occurred while parsing this propeller: " + string)
 
-					self.motors[i] = json_response["motors"][i]
-					# append the propeller name
-					self.motors[i]["prop"] = propname
+    async def to_dict(self, inp):
+        # parse the response into a python dict
 
-			# save the motor dict for further calculations
-			self.save_to_file(self.motors)
+        response = inp.split("\n")
+        response = response[1:-1]
+        response = "\n".join(response)
+        response = "{" + response + "\n}"
+        response = json.loads(response)
+        return response
 
+    def save_to_file(self, dictionary):
+        with open("motors.json", "w") as fp:
+            json.dump(dictionary, fp, sort_keys=True, indent=4)
 
-	def get_prop_info(self,string):
-			# try to extract name and id of the propeller
-			try:
-				m = re.search('<option value="(.*)">(.*)</option>', string)
-				name = m.group(2).strip(" ").replace("  ", " ")
-				propuid = m.group(1)
-				return name, propuid
-			except AttributeError:
-				print("an error occurred while parsing this propeller: "+string)
+    async def get_plain_text(self):
 
-	async def to_dict(self, inp):
-		# parse the response into a python dict
+        async with aiohttp.ClientSession() as session:
+            html = await self.fetch(session, 'https://datarecorder.miniquadtestbench.com/admin/getdatanew.php',
+                                    params={"callback": "jQuery112406695357396966013_1530965409077", "action": "getpropthrusteff", 'propuid': self.propuid, 'thrust': 150})
+            return html
 
-
-		response = inp.split("\n")
-		response = response[1:-1]
-		response = "\n".join(response)
-		response = "{" + response + "\n}"
-		response = json.loads(response)
-		return response
-
-	def save_to_file(self,dictionary):
-		with open("motors.json", "w") as fp:
-			json.dump(dictionary, fp, sort_keys = True, indent = 4)
-
-
-	async def get_plain_text(self):
-
-		async with aiohttp.ClientSession() as session:
-				html = await self.fetch(session, 'https://datarecorder.miniquadtestbench.com/admin/getdatanew.php',
-				params = {"callback":"jQuery112406695357396966013_1530965409077", "action":"getpropthrusteff", 'propuid':self.propuid, 'thrust':150})
-				return html
-
-	async def fetch(self, session, url, params):
-		async with session.get(url, params = params) as response:
-			return await response.text()
-
-
+    async def fetch(self, session, url, params):
+        async with session.get(url, params=params) as response:
+            return await response.text()
 
 
 def main():
-	start = time.time()
-	myscrapper = scrapper()
-	loop = asyncio.new_event_loop()
-	asyncio.set_event_loop(loop)
-	result = loop.run_until_complete(myscrapper.get_json())
-	# print("\nfinished in {time:.2f} seconds! See the output in the file 'motors.json'.".format(time=time.time()-start-0.2))
 
-
+    myscrapper = scrapper()
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    result = loop.run_until_complete(myscrapper.get_json())
+    print(result)
 
 
 main()
