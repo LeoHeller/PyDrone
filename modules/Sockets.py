@@ -3,6 +3,7 @@ sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/')
 
 import socket
 import time
+from PyQt5 import QtCore
 import PyQt5
 from signals import Bcolors, Signals
 
@@ -36,7 +37,6 @@ def ping(host, port):
         return True
 
 
-global no_connection, should_be_running
 no_connection = True
 should_be_running = True
 

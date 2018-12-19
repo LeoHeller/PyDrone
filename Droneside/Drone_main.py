@@ -9,7 +9,6 @@ import utils
 import Sockets
 import signals
 import flight_maneuvers
-
 utils.update = 'Wed Dec 19 09:00:42 2018'
 utils.head()
 
