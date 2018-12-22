@@ -1,0 +1,4 @@
+pigpio==1.40.post1
+aiohttp==3.3.2
+PyQt5==5.11.3
+progressbar2==3.39.2

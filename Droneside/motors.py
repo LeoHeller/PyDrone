@@ -1,7 +1,11 @@
+"""Controll the motors."""
 
 
 class Motors():
+    """class for controlling motors."""
+
     def __init__(self):
+        """Initialize the pigpio deamon."""
         import pigpio
         import time
         import os
@@ -33,8 +37,14 @@ class Motors():
     # motor: M_xx ; speed: 0-100
 
     def set_speed(self, motor, speed):
-        # convert speed % to servo pulsewidth
+        """Set the speed of a motor.
 
+        First converts the speed to servo pulsewidth.
+
+        Arguments:
+            motor {int} -- motorID of 0-3
+            speed {int} -- speed percentage 0-100
+        """
         # pulsewidth range: 0; 500 - 2500
 
         if speed != 0:
@@ -55,6 +65,7 @@ class Motors():
     # stop all motors, and cut conection
 
     def clean_up(self):
+        """Clean up after shutdown."""
         if not self.debug:
             # set speed to 0
             for motor in self.motors:

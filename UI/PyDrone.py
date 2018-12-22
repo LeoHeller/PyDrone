@@ -1,22 +1,43 @@
-import sys
-sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/')
+"""
+User interface for controlling the drone.
 
-from signals import Signals
-from DroneUi import Ui_MainWindow
-import Sockets
-import signals
+Uses PyQt5 to create the Ui, values are passed to a instance of Sockets.HandleSockets
+
+__author__ = "Leo Heller"
+__copyright__ = "None"
+__credits__ = ["Leo Heller", "Stack Overflow"]
+__license__ = "GPL"
+__version__ = "1.0.1"
+__maintainer__ = "Leo Heller"
+__status__ = "Development
+"""
+
 import socket
+import sys
 import time
+sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/')  # noqa
+
+
+from DroneUi import Ui_MainWindow
 
 import PyQt5
 from PyQt5.QtWidgets import QApplication, QMainWindow
+
+import Sockets
+
+import signals
+from signals import Signals
+
 
 test = {Signals.WRONG_PWD: "WRONG_PWD", Signals.RIGHT_PWD: "RIGHT_PWD", Signals.PING: "PING",
         Signals.PWD_REQUEST: "PWD_REQUEST", Signals.OK: "OK", Signals.QUIT: "QUIT"}
 
 
 class AppWindow(QMainWindow):
+    """QMainWindow subclass, used for UI."""
+
     def __init__(self):
+        """Set up the ui."""
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -30,6 +51,7 @@ class AppWindow(QMainWindow):
         # self.ui.ChatText.ensureCursorVisible()
 
     def on_message(self, msg):
+        """Is called when a new message arrives."""
         if msg in test:
             msg = test[msg]
         if msg == b'' or msg == Signals.QUIT and Sockets.no_connection is False:
@@ -45,6 +67,7 @@ class AppWindow(QMainWindow):
             self.ui.Chat.append("drone: " + str(msg))
 
     def connect_to_server(self):
+        """Connect the client to the drone when the button is pressed."""
         if Sockets.no_connection:
             # is the input in a valid format?
             ip, port = self.check_host(self.ui.ServerInput.text())
@@ -79,10 +102,19 @@ class AppWindow(QMainWindow):
                 msgBox.exec_()
 
     def check_host(self, host):
-        # parse and check host
-        # example: 192.168.2.1:111 --> '192.168.2.1', 111
-        # example: myserver.com:111 --> 'myserversip', 111
+        """
+        Parse and check host.
 
+        Arguments:
+            host {str} -- host that should be validated
+
+        Returns:
+            (str, int) -- ip and port pair
+
+        example: 192.168.2.1:111 --> '192.168.2.1', 111
+        example: myserver.com:111 --> 'myserversip', 111
+
+        """
         if host == "":
             host = "localhost:1337"
 
@@ -109,6 +141,7 @@ class AppWindow(QMainWindow):
         return host, port
 
     def ui_send(self):
+        """Add message to stack and chat window."""
         if Sockets.no_connection:
             self.ui.Chat.append("failed to send, no connection")
             self.ui.ChatInput.clear()

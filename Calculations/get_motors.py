@@ -1,7 +1,11 @@
-import re
-import json
+"""webscrapper for getting motor stats."""
+
 import asyncio
+import json
+import re
+
 import aiohttp
+
 import progress_timer
 
 html = """<select name="propSelect" class="allPropSelect"><option value="32">APC Electric 6x5.5 E</option>
@@ -80,9 +84,10 @@ html = """<select name="propSelect" class="allPropSelect"><option value="32">APC
 
 
 class scrapper():
+    """Class for scrapping Propeller stats."""
 
     def __init__(self):
-
+        """Initialize componets of class."""
         # parse the list of props still in html
         self.props = html.split("\n")
 
@@ -94,8 +99,11 @@ class scrapper():
         self.motors = {}
 
     async def get_json(self):
-        # get stats for the list of props at a given thrust
-        # loop through all propellers found in the props list
+        """
+        Get stats for the list of props at a given thrust.
+
+        loop through all propellers found in the props list.
+        """
         for prop in self.props:
 
             # update the progressbar
@@ -120,7 +128,7 @@ class scrapper():
             self.save_to_file(self.motors)
 
     def get_prop_info(self, string):
-            # try to extract name and id of the propeller
+        """Try to extract name and id of the propeller."""
         try:
             m = re.search('<option value="(.*)">(.*)</option>', string)
             name = m.group(2).strip(" ").replace("  ", " ")
@@ -130,8 +138,7 @@ class scrapper():
             print("an error occurred while parsing this propeller: " + string)
 
     async def to_dict(self, inp):
-        # parse the response into a python dict
-
+        """Parse the response into a python dict."""
         response = inp.split("\n")
         response = response[1:-1]
         response = "\n".join(response)
@@ -140,28 +147,25 @@ class scrapper():
         return response
 
     def save_to_file(self, dictionary):
+        """Save dict to json file."""
         with open("motors.json", "w") as fp:
             json.dump(dictionary, fp, sort_keys=True, indent=4)
 
     async def get_plain_text(self):
-
+        """Get plain text from website async."""
         async with aiohttp.ClientSession() as session:
             html = await self.fetch(session, 'https://datarecorder.miniquadtestbench.com/admin/getdatanew.php',
                                     params={"callback": "jQuery112406695357396966013_1530965409077", "action": "getpropthrusteff", 'propuid': self.propuid, 'thrust': 150})
             return html
 
     async def fetch(self, session, url, params):
+        """Asisting function to get_plain_text."""
         async with session.get(url, params=params) as response:
             return await response.text()
 
 
-def main():
-
-    myscrapper = scrapper()
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    result = loop.run_until_complete(myscrapper.get_json())
-    print(result)
-
-
-main()
+myscrapper = scrapper()
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
+result = loop.run_until_complete(myscrapper.get_json())
+print(result)

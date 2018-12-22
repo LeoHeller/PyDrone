@@ -1,17 +1,20 @@
-
-import sys
-sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/')
-
-import time
+"""Server that runs on the drone."""
 import os
-from signals import Signals, Bcolors
-import utils
+import sys
+import time
+sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/')  # noqa
+
 import Sockets
-import signals
+
 import flight_maneuvers
+
+import signals
+from signals import Bcolors, Signals
+
+import utils
+
 utils.update = 'Wed Dec 19 09:00:42 2018'
 utils.head()
-
 
 pwd = "admin"
 global running
@@ -19,15 +22,15 @@ running = True
 
 
 def _on_message(data):
-    '''parse the incoming message
+    """Parse the incoming message.
 
     Arguments:
         data {bytes} -- the incoming message in byte form
 
     Returns:
         string/bytes -- if a answer is needed it is simply returned
-    '''
 
+    """
     global running
 
     # server quit
@@ -36,11 +39,13 @@ def _on_message(data):
 
     # unexpected
     else:
-        print(Bcolors.WARNING + "\runexpected data: {}".format(data) + Bcolors.ENDC, end="\n-> ")
+        print(Bcolors.WARNING + "\runexpected data: {}".format(data) +
+              Bcolors.ENDC, end="\n-> ")
 
 
 def on_message(data):
-    # server quit
+    """Quit if the other side quit, otherwise have the input handled."""
+    # other side quit
     if data == Signals.QUIT or data == b'':
         Sockets.no_connection = True
         flight_maneuvers.land()

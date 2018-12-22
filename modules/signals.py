@@ -1,8 +1,13 @@
+"""Signals to be sent between the drone and client."""
+
 import struct
+
 import flight_maneuvers
 
 
 class Signals:
+    """Signals in byte form."""
+
     # comunicational commands
     OK = (0).to_bytes(1, "big")
     QUIT = (1).to_bytes(1, "big")
@@ -26,6 +31,8 @@ class Signals:
 
 
 class Bcolors:
+    """Color squences for printing."""
+
     OKBLUE = '\x1b[2;34m'
     OKGREEN = '\x1b[2;32m'
     WARNING = '\x1b[2;31m'
@@ -39,8 +46,10 @@ commands = {}
 
 
 class Send():
+    """Commands to be used when sending."""
 
     def move(motorID, speed, commandID=1):
+        """Counterpart to Recive.move."""
         output = struct.pack('<h', commandID)
         output += struct.pack('<h', motorID)
         output += struct.pack('<h', speed)
@@ -48,29 +57,28 @@ class Send():
 
 
 class Recive():
+    """Commands to be used when reciving."""
 
     def command(*, commandID=None):
-        '''Decorator for adding commands
+        """Add commands using this Decorator.
+
         usage: @command(commandID = {ID})
-        ID > 0
+        ID: int > 0
 
         Keyword Arguments:
             commandID {int} -- id by wich the command is then called (default: {None})
-        '''
-
+        """
         def deco(f):
             commands[commandID or f.__name__] = f
             return f
         return deco
 
     def handle_input(b):
-        '''Simply calls correct method to handle the rest of the command data
-
+        """Simply calls correct method to handle the rest of the command data.
 
         Arguments:
             b {bytes} -- input bytes
-        '''
-
+        """
         try:
             call = struct.unpack('<h', b[:2])[0]
             return commands[call](b)
@@ -81,6 +89,7 @@ class Recive():
 
     @command(commandID=1)
     def move(b):
+        """Encode data for a move command."""
         motorID = struct.unpack('<h', b[2:4])[0]
         speed = struct.unpack('<h', b[4:6])[0]
 

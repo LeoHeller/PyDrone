@@ -1,24 +1,39 @@
-import sys
-sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/')
+"""
+Sockets lib using TCP sockets.
 
+Main class HandleSockets instantiates a listner and sender class.
+
+__author__ = "Leo Heller"
+__copyright__ = "None"
+__credits__ = ["Leo Heller", "Stack Overflow"]
+__license__ = "GPL"
+__version__ = "1.0.1"
+__maintainer__ = "Leo Heller"
+__status__ = "Development
+"""
 import socket
+import sys
 import time
+sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/') # noqa
+
 from PyQt5 import QtCore
-import PyQt5
+
 from signals import Bcolors, Signals
 
 
 def _on_message(msg):
-    '''Default on_message method, should be overruled by users on_method.
+    """Overruled by users on_message function.
+
+    Default on_message function called if none is defined by the user.
 
     Arguments:
         msg {bytes} -- incoming data sent by the other end
-    '''
-
+    """
     print("\r" + "new data from user: ", msg, end="\n-> ")
 
 
 def ping(host, port):
+    """Ping a host and port to see if a sockets server is running."""
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.settimeout(0.25)
@@ -41,9 +56,11 @@ no_connection = True
 should_be_running = True
 
 
-class HandleSockets(PyQt5.QtCore.QThread):
+class HandleSockets(QtCore.QThread):
+    """Wrapper for sockets to create a interface between the drone and client."""
+
     def __init__(self, ip, port, password, on_message, mode="s"):
-        '''simple wrapper for sockets to create a interface between the drone and client
+        """Initialize class with arguments.
 
         Arguments:
             ip {string} -- ip to wich others should connect
@@ -52,11 +69,11 @@ class HandleSockets(PyQt5.QtCore.QThread):
             mode {string} -- "c" for client, "s" for server
             on_message {function} -- function that should be called when a new message comes in.
             should have one argument, to which the raw byte string is passed
-        '''
+        """
         # global variables to tell the threads when to stop and when to try to reconnect
         global no_connection, should_be_running
         # call thread init
-        PyQt5.QtCore.QThread.__init__(self)
+        QtCore.QThread.__init__(self)
 
         # arguments used to start class
         self.ip = ip
@@ -77,25 +94,26 @@ class HandleSockets(PyQt5.QtCore.QThread):
             exit()
 
     def __del__(self):
+        """Is requred by QThread."""
         self.wait()
 
     def setup_client_socket(self):
-        '''creates a socket object for further use by the client application
+        """Create a socket object for further use by the client application.
 
         Returns:
             object -- a socket object
-        '''
 
+        """
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         return s
 
     def setup_server_sockets(self):
-        '''creates a socket object for further use by the server
+        """Create a socket object for further use by the server.
 
         Returns:
-            objec -- a socket object
-        '''
+            object -- a socket object
 
+        """
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         s.bind((self.ip, self.port))
@@ -104,9 +122,7 @@ class HandleSockets(PyQt5.QtCore.QThread):
         return s
 
     def accept(self):
-        '''accept any incoming clients
-        '''
-
+        """Accept any incoming clients."""
         global no_connection
         # accept the client
         self.conn, self.addr = self.sock.accept()
@@ -128,9 +144,7 @@ class HandleSockets(PyQt5.QtCore.QThread):
             no_connection = True
 
     def connect(self):
-        '''connect to the server
-        '''
-
+        """Connect to the server."""
         global no_connection, should_be_running
         try:
             # try to connect, if no server is running a exception wil be thrown and catched
@@ -155,9 +169,7 @@ class HandleSockets(PyQt5.QtCore.QThread):
             no_connection = True
 
     def run(self):
-        '''reconnect to the server/accept any clients
-        '''
-
+        """Reconnect to the server/accept any clients."""
         global should_be_running, no_connection
         while should_be_running:
             while no_connection:
@@ -172,11 +184,12 @@ class HandleSockets(PyQt5.QtCore.QThread):
             time.sleep(0.01)
 
     def authenticate(self):
-        '''when the client connects he is asked to authenticate himself.
+        """When the client connects he is asked to authenticate himself.
 
         Returns:
             bool -- if the authentication is successful True is returned
-        '''
+
+        """
         global no_connection, should_be_running
         if not should_be_running:
             return
@@ -214,9 +227,7 @@ class HandleSockets(PyQt5.QtCore.QThread):
             return True
 
     def close_all(self, _exit=True):
-        '''clean up function for sockets
-        '''
-
+        """Clean up function for sockets."""
         global should_be_running, no_connection
         # if we are connected
         if not no_connection:
@@ -241,15 +252,15 @@ class HandleSockets(PyQt5.QtCore.QThread):
         print("\r" + Bcolors.OKBLUE + "closed connections" + Bcolors.ENDC)
 
     def send(self, msg):
-        '''wrapper for sending messages.
-        appends the message to the stack so it can be sent.
-        catch the message if no client/server is present
+        """Send messages using this Wrapper.
+
+        Appends the message to the stack so it can be sent.
+        Catch the message if no client/server is present
 
         Arguments:
             msg {string/bytes} -- message to be sent.
             Can be bytes or a string as it will be converted to bytes later
-        '''
-
+        """
         if not no_connection:
             self.sender.stack.append(msg)
         else:
@@ -257,22 +268,24 @@ class HandleSockets(PyQt5.QtCore.QThread):
                 print("\r" + Bcolors.WARNING + "no client connected" + Bcolors.ENDC, end="\n-> ")
 
 
-class Listener(PyQt5.QtCore.QThread):
-    '''Thread that listens to new messages from the other side and calls the on_message function
-    '''
-    msg_signal = PyQt5.QtCore.pyqtSignal(bytes)
+class Listener(QtCore.QThread):
+    """Thread that listens to new messages from the other side and calls the on_message function."""
+
+    msg_signal = QtCore.pyqtSignal(bytes)
 
     def __init__(self, conn, hs):
-        PyQt5.QtCore.QThread.__init__(self)
+        """Initialize Thread."""
+        QtCore.QThread.__init__(self)
 
         self.conn = conn
         self.hs = hs
 
     def __del__(self):
+        """Is requred by QThread."""
         self.wait()
 
     def run(self):
-        # runs in the thread
+        """Mainloop of the Listner Thread. Collects any new messages."""
         global no_connection, should_be_running
         print("\r" + Bcolors.OKBLUE + "Listener Started" + Bcolors.ENDC, end="\n-> ")
 
@@ -302,12 +315,12 @@ class Listener(PyQt5.QtCore.QThread):
         print("\r" + Bcolors.OKBLUE + "Listener Stopped" + Bcolors.ENDC, end="\n-> ")
 
 
-class Sender(PyQt5.QtCore.QThread):
-    '''send messages from a stack
-    '''
+class Sender(QtCore.QThread):
+    """Send messages from a stack."""
 
     def __init__(self, conn, mode, hs):
-        PyQt5.QtCore.QThread.__init__(self)
+        """Initialize Thread."""
+        QtCore.QThread.__init__(self)
 
         global no_connection, should_be_running
         self.conn = conn
@@ -317,9 +330,11 @@ class Sender(PyQt5.QtCore.QThread):
         print("\r" + Bcolors.OKBLUE + "Sender Started" + Bcolors.ENDC, end="\n-> ")
 
     def __del__(self):
+        """Is requred by QThread."""
         self.wait()
 
     def run(self):
+        """Mainloop of the Sender Thread."""
         while not no_connection and should_be_running:
             # if a connection is present send data
             if not no_connection:
@@ -329,6 +344,7 @@ class Sender(PyQt5.QtCore.QThread):
         print("\r" + Bcolors.OKBLUE + "Sender Stopped" + Bcolors.ENDC, end="\n-> ")
 
     def _send(self):
+        """Send message from stack. Only for Internal use."""
         global should_be_running
         # only send data if there is data to be sent and it should be sent
         if len(self.stack) > 0 and self.stack[-1] is not None and should_be_running:
