@@ -49,6 +49,8 @@ def on_message(data):
     if data == Signals.QUIT or data == b'':
         Sockets.no_connection = True
         flight_maneuvers.land()
+    elif data == Signals.ARM:
+        flight_maneuvers.arm()
     else:
         signals.Recive.handle_input(data)
 

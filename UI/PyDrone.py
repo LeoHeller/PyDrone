@@ -149,14 +149,16 @@ class AppWindow(QMainWindow):
 
         msg = self.ui.ChatInput.text().lower()
         self.ui.ChatInput.clear()
+        self.ui.Chat.append("you: " + str(msg))
+
+        # parse input to check of commands
         if msg.startswith("move"):
             msg = signals.Send.move(
                 int(msg.split(" ")[1]), int(msg.split(" ")[2]))
+        elif "arm" in msg:
+            msg = signals.Signals.ARM
 
         self.Client.send(msg)
-        self.ui.Chat.append("you: " + str(msg))
-        self.ui.ChatInput.clear()
-
 
 app = QApplication(sys.argv)
 

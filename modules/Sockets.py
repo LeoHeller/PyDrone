@@ -276,7 +276,7 @@ class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
 class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
     """Thread that listens to new messages from the other side and calls the on_message function."""
 
-    if PyQt5_imported: 
+    if PyQt5_imported:
         msg_signal = QtCore.pyqtSignal(bytes) 
 
     def __init__(self, conn, hs):

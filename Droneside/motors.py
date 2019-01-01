@@ -62,12 +62,6 @@ class Motors():
                 print(e)
         self.current_speed = speed
 
-    def arm(self):
-        for motor in range(0,3):
-            self.set_speed(motor, 2000)
-            self.set_speed(motor, 700)
-            time.sleep(1)
-
     def clean_up(self):
         """Stop all motors and cut conection"""
         if not self.debug:

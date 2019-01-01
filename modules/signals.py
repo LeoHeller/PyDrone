@@ -9,25 +9,28 @@ class Signals:
     """Signals in byte form."""
 
     # comunicational commands
-    OK = (0).to_bytes(1, "big")
-    QUIT = (1).to_bytes(1, "big")
+    OK          = (0).to_bytes(1, "big")
+    QUIT        = (1).to_bytes(1, "big")
 
     # Postional commands
-    LEFT = (3).to_bytes(1, "big")
-    RIGHT = (4).to_bytes(1, "big")
-    UP = (5).to_bytes(1, "big")
-    DOWN = (6).to_bytes(1, "big")
-    HOME = (7).to_bytes(1, "big")
+    LEFT        = (3).to_bytes(1, "big")
+    RIGHT       = (4).to_bytes(1, "big")
+    UP          = (5).to_bytes(1, "big")
+
+    # Flight commands
+    DOWN        = (6).to_bytes(1, "big")
+    HOME        = (7).to_bytes(1, "big")
+    ARM         = (8).to_bytes(1, "big")
 
     # special commands
-    PWD_REQUEST = (8).to_bytes(1, "big")
-    WRONG_PWD = (9).to_bytes(1, "big")
-    RIGHT_PWD = (10).to_bytes(1, "big")
-    PING_RQST = (11).to_bytes(1, "big")
-    PING = (12).to_bytes(1, "big")
+    PWD_REQUEST = (9).to_bytes(1, "big")
+    WRONG_PWD   = (10).to_bytes(1, "big")
+    RIGHT_PWD   = (11).to_bytes(1, "big")
+    PING_RQST   = (12).to_bytes(1, "big")
+    PING        = (13).to_bytes(1, "big")
 
     # benchmark
-    TIME = (13).to_bytes(1, "big")
+    TIME        = (14).to_bytes(1, "big")
 
 
 class Bcolors:
@@ -54,6 +57,8 @@ class Send():
         output += struct.pack('<h', motorID)
         output += struct.pack('<h', speed)
         return output
+    
+
 
 
 class Recive():
