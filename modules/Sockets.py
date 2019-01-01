@@ -14,9 +14,14 @@ __status__ = "Development
 import socket
 import sys
 import time
-sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/') # noqa
+import threading
 
-from PyQt5 import QtCore
+sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/') # noqa
+try:
+    from PyQt5 import QtCore
+    PyQt5_imported = True
+except ModuleNotFoundError:
+    PyQt5_imported = False
 
 from signals import Bcolors, Signals
 
@@ -56,7 +61,7 @@ no_connection = True
 should_be_running = True
 
 
-class HandleSockets(QtCore.QThread):
+class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
     """Wrapper for sockets to create a interface between the drone and client."""
 
     def __init__(self, ip, port, password, on_message, mode="s"):
@@ -73,7 +78,7 @@ class HandleSockets(QtCore.QThread):
         # global variables to tell the threads when to stop and when to try to reconnect
         global no_connection, should_be_running
         # call thread init
-        QtCore.QThread.__init__(self)
+        QtCore.QThread.__init__(self) if PyQt5_imported else threading.Thread.__init__(self)
 
         # arguments used to start class
         self.ip = ip
@@ -268,14 +273,15 @@ class HandleSockets(QtCore.QThread):
                 print("\r" + Bcolors.WARNING + "no client connected" + Bcolors.ENDC, end="\n-> ")
 
 
-class Listener(QtCore.QThread):
+class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
     """Thread that listens to new messages from the other side and calls the on_message function."""
 
-    msg_signal = QtCore.pyqtSignal(bytes)
+    if PyQt5_imported: 
+        msg_signal = QtCore.pyqtSignal(bytes) 
 
     def __init__(self, conn, hs):
         """Initialize Thread."""
-        QtCore.QThread.__init__(self)
+        QtCore.QThread.__init__(self) if PyQt5_imported else threading.Thread.__init__(self)
 
         self.conn = conn
         self.hs = hs
@@ -320,7 +326,7 @@ class Sender(QtCore.QThread):
 
     def __init__(self, conn, mode, hs):
         """Initialize Thread."""
-        QtCore.QThread.__init__(self)
+        QtCore.QThread.__init__(self) if PyQt5_imported else threading.Thread.__init__(self)
 
         global no_connection, should_be_running
         self.conn = conn

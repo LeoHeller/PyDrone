@@ -45,10 +45,10 @@ class Motors():
             motor {int} -- motorID of 0-3
             speed {int} -- speed percentage 0-100
         """
-        # pulsewidth range: 0; 500 - 2500
+        # pulsewidth range: 0; 700 - 2000
 
         if speed != 0:
-            pulsewidth = 58 * (speed / 100) + 1601
+            pulsewidth = (speed/100.0) * 1300 + 700
         else:
             pulsewidth = 0
 
@@ -62,10 +62,14 @@ class Motors():
                 print(e)
         self.current_speed = speed
 
-    # stop all motors, and cut conection
+    def arm(self):
+        for motor in range(0,3):
+            self.set_speed(motor, 2000)
+            self.set_speed(motor, 700)
+            time.sleep(1)
 
     def clean_up(self):
-        """Clean up after shutdown."""
+        """Stop all motors and cut conection"""
         if not self.debug:
             # set speed to 0
             for motor in self.motors:

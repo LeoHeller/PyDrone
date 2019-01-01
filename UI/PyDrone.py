@@ -15,7 +15,7 @@ __status__ = "Development
 import socket
 import sys
 import time
-sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/')  # noqa
+sys.path.insert(0, '../modules/')  # noqa
 
 
 from DroneUi import Ui_MainWindow
