@@ -1,6 +1,8 @@
+sys.path.insert(0, '../modules/')  # noqa
 import threading
 import random
 import time
+import MPU9250
 
 
 class Sensors(threading.Thread):

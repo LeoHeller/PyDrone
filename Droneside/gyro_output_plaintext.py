@@ -1,3 +1,4 @@
+sys.path.insert(0, '../modules/')  # noqa
 import MPU9250
 import time
 import sys
