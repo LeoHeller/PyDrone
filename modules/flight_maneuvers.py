@@ -3,7 +3,7 @@
 import sys
 import time
 import utils
-sys.path.insert(0, '/home/leo/Desktop/PyDrone/Droneside/')  # noqa
+sys.path.insert(0, '../Droneside/')  # noqa
 
 from motors import Motors
 

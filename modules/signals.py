@@ -1,8 +1,10 @@
 """Signals to be sent between the drone and client."""
 
 import struct
+import sys
 
 import flight_maneuvers
+
 
 
 class Signals:
@@ -52,12 +54,25 @@ class Send():
     """Commands to be used when sending."""
 
     def move(motorID, speed, commandID=1):
-        """Counterpart to Recive.move."""
+        """Counterpart to Recive.move()."""
         output = struct.pack('<h', commandID)
         output += struct.pack('<h', motorID)
         output += struct.pack('<h', speed)
         return output
     
+    def telemetry(accel_x, accel_y, accel_z,  gyro_x, gyro_y, gyro_z,  mag_x, mag_y, mag_z,  commandID=2):
+        output = struct.pack('<h', commandID)
+
+        output += struct.pack('<f', accel_x)
+        output += struct.pack('<f', accel_y)
+        output += struct.pack('<f', accel_z)
+        output += struct.pack('<f', gyro_x)
+        output += struct.pack('<f', gyro_y)
+        output += struct.pack('<f', gyro_z)
+        output += struct.pack('<f', mag_x)
+        output += struct.pack('<f', mag_y)
+        output += struct.pack('<f', mag_z)
+        return output
 
 
 
@@ -100,3 +115,20 @@ class Recive():
 
         print(motorID, speed)  # replace this with actual motor controll method
         flight_maneuvers.set_speed(motorID, speed)
+    
+    @command(commandID=2)
+    def telemetry(b):
+        accel_x = struct.unpack('<f', b[2:6])[0]
+        accel_y = struct.unpack('<f', b[6:10])[0]
+        accel_z = struct.unpack('<f', b[10:14])[0]
+
+        gyro_x = struct.unpack('<f', b[14:18])[0]
+        gyro_y = struct.unpack('<f', b[18:22])[0]
+        gyro_z = struct.unpack('<f', b[22:26])[0]
+
+        mag_x = struct.unpack('<f', b[26:30])[0]
+        mag_y = struct.unpack('<f', b[30:34])[0]
+        mag_z = struct.unpack('<f', b[34:38])[0]
+
+        return accel_x, accel_y, accel_z,  gyro_x, gyro_y, gyro_z,  mag_x, mag_y, mag_z
+

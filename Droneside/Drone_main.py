@@ -11,10 +11,12 @@ import flight_maneuvers
 import signals
 from signals import Bcolors, Signals
 
+import sensors
+
 import utils
 
 utils.update = 'Wed Dec 19 09:00:42 2018'
-utils.head()
+# utils.head()
 
 pwd = "admin"
 global running
@@ -60,6 +62,22 @@ Server = Sockets.HandleSockets(
     "127.0.0.1", 1337, "admin", mode="s", on_message=on_message)
 Server.isDaemon = True
 Server.start()
+
+
+def send_telemetry(accel_x, accel_y, accel_z,  gyro_x, gyro_y, gyro_z,  mag_x, mag_y, mag_z):
+    """function for sending the telemetry data to UI
+
+    Arguments:
+        agrs {float} -- value of arg
+    """
+
+    Server.send(signals.Send.telemetry(accel_x, accel_y, accel_z,  gyro_x, gyro_y, gyro_z,  mag_x, mag_y, mag_z))
+
+
+# create sensor thread
+Sensors = sensors.Sensors(send=send_telemetry)
+Sensors.isDaemon = True
+Sensors.start()
 
 # get user input
 try:

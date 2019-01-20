@@ -6,7 +6,7 @@ import time as t
 
 update = "Sun Sep  9 22:08:04 2018"
 name = "Leo Heller"
-filename = os.path.basename(main.__file__)
+#filename = os.path.basename(main.__file__)
 
 
 def setupdate():

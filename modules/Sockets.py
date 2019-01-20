@@ -202,7 +202,7 @@ class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
         # wait 0.1 sec for other side to start up
         time.sleep(0.1)
 
-        self.conn.sendall(Signals.PING_RQST)
+        #self.conn.sendall(Signals.PING_RQST)
         data = self.conn.recv(1024)
 
         print(data)
@@ -277,7 +277,7 @@ class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
     """Thread that listens to new messages from the other side and calls the on_message function."""
 
     if PyQt5_imported:
-        msg_signal = QtCore.pyqtSignal(bytes) 
+        msg_signal = QtCore.pyqtSignal(bytes)
 
     def __init__(self, conn, hs):
         """Initialize Thread."""
@@ -308,8 +308,8 @@ class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
                 try:
                     self.hs.send(self.hs.on_message(data))
                 except Exception as e:
-                    print(e)
-
+                    #print(e)
+                    pass
             except AttributeError as e:
                 # catch any errors if the user forgot to define on_message correctly
                 print(e)

@@ -52,11 +52,11 @@ class AppWindow(QMainWindow):
 
     def on_message(self, msg):
         """Is called when a new message arrives."""
-        if msg in test:
-            msg = test[msg]
+
         if msg == b'' or msg == Signals.QUIT and Sockets.no_connection is False:
             msg = "quit"
             if Sockets.should_be_running:
+
                 self.ui.Chat.append("drone: " + str(msg))
                 Sockets.should_be_running = False
                 Sockets.no_connection = True
@@ -64,6 +64,14 @@ class AppWindow(QMainWindow):
                 self.Client.close_all()
 
         else:
+            if msg in test:
+                msg = test[msg]
+            else:
+                tel_data = signals.Recive.handle_input(msg)
+                if tel_data is not None:
+                    self.update_flight_data(*tel_data)
+                    return
+
             self.ui.Chat.append("drone: " + str(msg))
 
     def connect_to_server(self):
@@ -159,6 +167,19 @@ class AppWindow(QMainWindow):
             msg = signals.Signals.ARM
 
         self.Client.send(msg)
+
+    def update_flight_data(self, accel_x, accel_y, accel_z,  gyro_x, gyro_y, gyro_z,  mag_x, mag_y, mag_z):
+        self.ui.lcdNumber_accel_x.display(accel_x)
+        self.ui.lcdNumber_accel_y.display(accel_y)
+        self.ui.lcdNumber_accel_z.display(accel_z)
+
+        self.ui.lcdNumber_gyro_x.display(gyro_x)
+        self.ui.lcdNumber_gyro_y.display(gyro_y)
+        self.ui.lcdNumber_gyro_z.display(gyro_z)
+
+        self.ui.lcdNumber_mag_x.display(mag_x)
+        self.ui.lcdNumber_mag_y.display(mag_y)
+        self.ui.lcdNumber_mag_z.display(mag_z)
 
 app = QApplication(sys.argv)
 
