@@ -20,7 +20,7 @@ sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/') # noqa
 try:
     from PyQt5 import QtCore
     PyQt5_imported = True
-except ModuleNotFoundError:
+except ImportError:
     PyQt5_imported = False
 
 from signals import Bcolors, Signals
@@ -321,7 +321,7 @@ class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
         print("\r" + Bcolors.OKBLUE + "Listener Stopped" + Bcolors.ENDC, end="\n-> ")
 
 
-class Sender(QtCore.QThread):
+class Sender(QtCore.QThread if PyQt5_imported else threading.Thread):
     """Send messages from a stack."""
 
     def __init__(self, conn, mode, hs):
