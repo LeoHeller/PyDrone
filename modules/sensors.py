@@ -1,3 +1,4 @@
+import sys
 sys.path.insert(0, '../modules/')  # noqa
 import threading
 import random
