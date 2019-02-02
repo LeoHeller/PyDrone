@@ -304,7 +304,8 @@ class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
                 try:
                     self.msg_signal.emit(data)
                 except Exception as e:
-                    print("280", e)
+                    # print("line 280", e)
+                    pass
                 try:
                     self.hs.send(self.hs.on_message(data))
                 except Exception as e:

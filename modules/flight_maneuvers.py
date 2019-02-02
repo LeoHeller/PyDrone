@@ -8,7 +8,7 @@ sys.path.insert(0, '../Droneside/')  # noqa
 from motors import Motors
 
 
-motors = Motors()
+motors = Motors(True)
 
 
 motorspeeds = [0, 0, 0, 0]

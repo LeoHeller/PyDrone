@@ -1,7 +1,7 @@
 """Controll the motors."""
 
 
-class Motors():
+class Motors(debug=True):
     """class for controlling motors."""
 
     def __init__(self):
@@ -15,12 +15,13 @@ class Motors():
         self.current_speed = 0
 
         # set debugmode
-        self.debug = True
+        self.debug = debug
         if not self.debug:
             if not os.path.isfile("/var/run/pigpio.pid"):
                 # start pigpio daemon
                 Popen(['sudo', 'pigpiod', '-s', '1'],
                       stdout=PIPE, stderr=PIPE)
+                print("pigpiod started")
                 time.sleep(2)
 
             # establish connection with the rpi
