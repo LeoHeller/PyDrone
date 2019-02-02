@@ -138,5 +138,5 @@ class Recive():
     @command(commandID=3)
     def move_all(b):
         speed = struct.unpack('<h', b[2:4])[0]
-        print(speed)
-        # flight_maneuvers.set_all(speed)
+        #print(speed)
+        flight_maneuvers.set_all(speed)

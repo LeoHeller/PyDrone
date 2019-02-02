@@ -1,10 +1,10 @@
 """Controll the motors."""
 
 
-class Motors(debug=True):
+class Motors():
     """class for controlling motors."""
 
-    def __init__(self):
+    def __init__(self, debug=True):
         """Initialize the pigpio deamon."""
         import pigpio
         import time
