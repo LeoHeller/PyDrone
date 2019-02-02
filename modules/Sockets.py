@@ -346,7 +346,7 @@ class Sender(QtCore.QThread if PyQt5_imported else threading.Thread):
             # if a connection is present send data
             if not no_connection:
                 self._send()
-            time.sleep(0.1)
+            time.sleep(0.01)
 
         print("\r" + Bcolors.OKBLUE + "Sender Stopped" + Bcolors.ENDC, end="\n-> ")
 

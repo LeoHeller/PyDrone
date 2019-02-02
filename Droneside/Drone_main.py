@@ -59,7 +59,7 @@ def on_message(data):
 
 # create the Server object and start it
 Server = Sockets.HandleSockets(
-    "127.0.0.1", 1337, "admin", mode="s", on_message=on_message)
+    "192.168.10.1", 1337, "admin", mode="s", on_message=on_message)
 Server.isDaemon = True
 Server.start()
 
