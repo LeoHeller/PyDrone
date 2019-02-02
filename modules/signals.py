@@ -6,7 +6,6 @@ import sys
 import flight_maneuvers
 
 
-
 class Signals:
     """Signals in byte form."""
 
@@ -59,7 +58,7 @@ class Send():
         output += struct.pack('<h', motorID)
         output += struct.pack('<h', speed)
         return output
-    
+
     def telemetry(accel_x, accel_y, accel_z,  gyro_x, gyro_y, gyro_z,  mag_x, mag_y, mag_z,  commandID=2):
         output = struct.pack('<h', commandID)
 
@@ -74,6 +73,10 @@ class Send():
         output += struct.pack('<f', mag_z)
         return output
 
+    def move_all(speed, commandID=3):
+        output = struct.pack('<h', commandID)
+        output += struct.pack('<h', speed)
+        return output
 
 
 class Recive():
@@ -115,7 +118,7 @@ class Recive():
 
         print(motorID, speed)  # replace this with actual motor controll method
         flight_maneuvers.set_speed(motorID, speed)
-    
+
     @command(commandID=2)
     def telemetry(b):
         accel_x = struct.unpack('<f', b[2:6])[0]
@@ -132,3 +135,8 @@ class Recive():
 
         return accel_x, accel_y, accel_z,  gyro_x, gyro_y, gyro_z,  mag_x, mag_y, mag_z
 
+    @command(commandID=3)
+    def move_all(b):
+        speed = struct.unpack('<h', b[2:4])[0]
+        print(speed)
+        # flight_maneuvers.set_all(speed)

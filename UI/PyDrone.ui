@@ -82,6 +82,115 @@
        <property name="currentIndex">
         <number>0</number>
        </property>
+       <widget class="QWidget" name="tabWidgetPage3">
+        <attribute name="title">
+         <string>Control</string>
+        </attribute>
+        <widget class="QSlider" name="ThrustverticalSlider">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>110</y>
+           <width>20</width>
+           <height>160</height>
+          </rect>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="tickPosition">
+          <enum>QSlider::TicksBothSides</enum>
+         </property>
+         <property name="tickInterval">
+          <number>10</number>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label">
+         <property name="geometry">
+          <rect>
+           <x>55</x>
+           <y>80</y>
+           <width>50</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Thrust</string>
+         </property>
+        </widget>
+        <widget class="QLCDNumber" name="ThrustlcdNumber">
+         <property name="geometry">
+          <rect>
+           <x>55</x>
+           <y>280</y>
+           <width>64</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="smallDecimalPoint">
+          <bool>false</bool>
+         </property>
+         <property name="digitCount">
+          <number>3</number>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
+         </property>
+         <property name="intValue" stdset="0">
+          <number>0</number>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="AbortpushButton">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>90</y>
+           <width>291</width>
+           <height>171</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>ABORT</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="ArmpushButton">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>90</y>
+           <width>100</width>
+           <height>27</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Arm</string>
+         </property>
+        </widget>
+       </widget>
        <widget class="QWidget" name="tabWidgetPage1">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -227,6 +336,12 @@
            <height>23</height>
           </rect>
          </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
+         </property>
         </widget>
         <widget class="QLCDNumber" name="lcdNumber_height">
          <property name="geometry">
@@ -236,6 +351,12 @@
            <width>64</width>
            <height>23</height>
           </rect>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
          </property>
         </widget>
         <widget class="QLabel" name="speed_label">
@@ -269,6 +390,12 @@
            <height>23</height>
           </rect>
          </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
+         </property>
         </widget>
         <widget class="QLabel" name="gyro_y_label">
          <property name="geometry">
@@ -300,6 +427,12 @@
            <width>64</width>
            <height>23</height>
           </rect>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
          </property>
         </widget>
         <widget class="QLabel" name="gyro_z_label">
@@ -487,6 +620,12 @@
            <height>23</height>
           </rect>
          </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
+         </property>
         </widget>
         <widget class="QLCDNumber" name="lcdNumber_gyro_z">
          <property name="geometry">
@@ -496,6 +635,12 @@
            <width>64</width>
            <height>23</height>
           </rect>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
          </property>
         </widget>
         <widget class="QLCDNumber" name="lcdNumber_accel_x">
@@ -507,6 +652,12 @@
            <height>23</height>
           </rect>
          </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
+         </property>
         </widget>
         <widget class="QLCDNumber" name="lcdNumber_accel_y">
          <property name="geometry">
@@ -516,6 +667,12 @@
            <width>64</width>
            <height>23</height>
           </rect>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
          </property>
         </widget>
         <widget class="QLCDNumber" name="lcdNumber_accel_z">
@@ -527,6 +684,12 @@
            <height>23</height>
           </rect>
          </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
+         </property>
         </widget>
         <widget class="QLCDNumber" name="lcdNumber_mag_x">
          <property name="geometry">
@@ -536,6 +699,12 @@
            <width>64</width>
            <height>23</height>
           </rect>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
          </property>
         </widget>
         <widget class="QLCDNumber" name="lcdNumber_mag_y">
@@ -547,6 +716,12 @@
            <height>23</height>
           </rect>
          </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
+         </property>
         </widget>
         <widget class="QLCDNumber" name="lcdNumber_mag_z">
          <property name="geometry">
@@ -556,6 +731,12 @@
            <width>64</width>
            <height>23</height>
           </rect>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="segmentStyle">
+          <enum>QLCDNumber::Flat</enum>
          </property>
          <property name="intValue" stdset="0">
           <number>0</number>

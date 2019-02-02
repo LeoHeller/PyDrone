@@ -41,14 +41,80 @@ class AppWindow(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.keyPressEvent = self.OnKeyPressEvent
+        # self.keyReleaseEvent = self.OnKeyReleaseEvent
         self.show()
 
         # connect buttons and other ui elements
         self.ui.ChatInput.returnPressed.connect(self.ui_send)
         self.ui.ConnectButton.clicked.connect(self.connect_to_server)
         self.ui.ServerInput.returnPressed.connect(self.connect_to_server)
+        self.ui.ThrustverticalSlider.valueChanged.connect(self.update_slider)
+        self.ui.AbortpushButton.clicked.connect(self.Abort)
+        self.ui.ArmpushButton.clicked.connect(self.Arm)
+        # setup values
 
-        # self.ui.ChatText.ensureCursorVisible()
+    def Abort(self):
+        if Sockets.no_connection == True:
+            msgBox = PyQt5.QtWidgets.QMessageBox()
+            msgBox.setText("Please connect to a server first.")
+            msgBox.exec_()
+        else:
+            self.Client.send(signals.Signals.QUIT)
+
+    def Arm(self):
+        if Sockets.no_connection == True:
+            msgBox = PyQt5.QtWidgets.QMessageBox()
+            msgBox.setText("Please connect to a server first.")
+            msgBox.exec_()
+        else:
+            self.Client.send(signals.Signals.ARM)
+
+    def update_slider(self, value):
+        if Sockets.no_connection == True:
+            msgBox = PyQt5.QtWidgets.QMessageBox()
+            msgBox.setText("Please connect to a server first.")
+            msgBox.exec_()
+            self.ui.ThrustverticalSlider.setValue(0)
+        else:
+            value = int(value)
+            if value > 100:
+                value = 100
+            if value < 0:
+                value = 0
+
+            self.ui.ThrustlcdNumber.display(value)
+            self.ui.ThrustverticalSlider.setValue(value)
+            self.Client.send(signals.Send.move_all(value))
+            # print(self.ui.ThrustverticalSlider.value())
+
+    def OnKeyPressEvent(self, event):
+        if self.ui.tabWidget.currentIndex() is not 0:   # not in the controll tab > exit
+            return
+
+        
+        if event.key() == 16777248:   # shift
+            pass
+
+        elif event.key() == 16777249:   # ctrl
+            pass
+
+        elif event.key() == 87:   # W
+            self.update_slider(self.ui.ThrustverticalSlider.value()+1)
+
+        elif event.key() == 65:   # A
+            pass
+
+        elif event.key() == 83:   # S
+            self.update_slider(self.ui.ThrustverticalSlider.value()-1)
+
+        elif event.key() == 68:   # D
+            pass
+        
+        elif event.key() == 32:   # space
+            self.Abort()
+
+        #print(event.key())
 
     def on_message(self, msg):
         """Is called when a new message arrives."""
@@ -180,6 +246,7 @@ class AppWindow(QMainWindow):
         self.ui.lcdNumber_mag_x.display(mag_x)
         self.ui.lcdNumber_mag_y.display(mag_y)
         self.ui.lcdNumber_mag_z.display(mag_z)
+
 
 app = QApplication(sys.argv)
 

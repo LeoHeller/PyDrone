@@ -19,8 +19,10 @@ def set_speed(motorID, speed):
     motors.set_speed(motorID, speed)
     motorspeeds[motorID] = speed
 
-
 def land():
+    set_all(0)
+
+def _land():
     """Land the drone."""
     avg_speed = int(sum(motorspeeds)/len(motorspeeds))
     while motorspeeds != [avg_speed, avg_speed, avg_speed, avg_speed]:
@@ -28,7 +30,6 @@ def land():
             if motorspeeds[motor] is not avg_speed:
                 if motorspeeds[motor] > avg_speed:
                     set_speed(motor, max(motorspeeds[motor]-1, 0))
-                    #motorspeeds[motor] -= 1
                 else:
                     set_speed(motor, max(motorspeeds[motor]+1, 0))
 
