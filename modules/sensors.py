@@ -15,10 +15,11 @@ class Sensors(threading.Thread):
 
     def run(self):
         while True:
-            accel = self.mpu9250.readAccel()
             gyro = self.mpu9250.readGyro()
-            mag = self.mpu9250.readMagnet()
-
-            self.send(accel["x"], accel["y"], accel["z"], gyro["x"], gyro["y"], gyro["z"], mag["x"], mag["y"], mag["z"])
-
-            time.sleep(0.5)
+            for i in [0,1,2]:
+                if abs(gyro[i]) > 0.15:
+                    pass
+                else:
+                    gyro[i] = 0
+            self.send(*gyro)
+            time.sleep(0.2)

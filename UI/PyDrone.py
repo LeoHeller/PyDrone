@@ -1,3 +1,4 @@
+import wireframe_cube
 """
 User interface for controlling the drone.
 
@@ -36,7 +37,7 @@ test = {Signals.WRONG_PWD: "WRONG_PWD", Signals.RIGHT_PWD: "RIGHT_PWD", Signals.
 class AppWindow(QMainWindow):
     """QMainWindow subclass, used for UI."""
 
-    def __init__(self):
+    def __init__(self, sim):
         """Set up the ui."""
         super().__init__()
         self.ui = Ui_MainWindow()
@@ -53,6 +54,7 @@ class AppWindow(QMainWindow):
         self.ui.AbortpushButton.clicked.connect(self.Abort)
         self.ui.ArmpushButton.clicked.connect(self.Arm)
         # setup values
+        self.sim = sim
 
     def Abort(self):
         if Sockets.no_connection == True:
@@ -92,7 +94,6 @@ class AppWindow(QMainWindow):
         if self.ui.tabWidget.currentIndex() is not 0:   # not in the controll tab > exit
             return
 
-        
         if event.key() == 16777248:   # shift
             pass
 
@@ -110,11 +111,11 @@ class AppWindow(QMainWindow):
 
         elif event.key() == 68:   # D
             pass
-        
+
         elif event.key() == 32:   # space
             self.Abort()
 
-        #print(event.key())
+        # print(event.key())
 
     def on_message(self, msg):
         """Is called when a new message arrives."""
@@ -234,23 +235,19 @@ class AppWindow(QMainWindow):
 
         self.Client.send(msg)
 
-    def update_flight_data(self, accel_x, accel_y, accel_z,  gyro_x, gyro_y, gyro_z,  mag_x, mag_y, mag_z):
-        self.ui.lcdNumber_accel_x.display(accel_x)
-        self.ui.lcdNumber_accel_y.display(accel_y)
-        self.ui.lcdNumber_accel_z.display(accel_z)
+    def update_flight_data(self, x, y, z):
+        self.ui.lcdNumber_axis_x.display(x)
+        self.ui.lcdNumber_axis_y.display(y)
+        self.ui.lcdNumber_axis_z.display(z)
 
-        self.ui.lcdNumber_gyro_x.display(gyro_x)
-        self.ui.lcdNumber_gyro_y.display(gyro_y)
-        self.ui.lcdNumber_gyro_z.display(gyro_z)
-
-        self.ui.lcdNumber_mag_x.display(mag_x)
-        self.ui.lcdNumber_mag_y.display(mag_y)
-        self.ui.lcdNumber_mag_z.display(mag_z)
+        self.sim.update(x, y, z)
 
 
 app = QApplication(sys.argv)
 
+sim = wireframe_cube.Simulation()
 
-w = AppWindow()
+w = AppWindow(sim)
 w.show()
+
 sys.exit(app.exec_())
