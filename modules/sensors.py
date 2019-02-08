@@ -21,5 +21,6 @@ class Sensors(threading.Thread):
                     pass
                 else:
                     gyro[i] = 0
+            print(*gyro)
             self.send(*gyro)
             time.sleep(0.2)
