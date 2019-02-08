@@ -64,14 +64,14 @@ Server.isDaemon = True
 Server.start()
 
 
-def send_telemetry(accel_x, accel_y, accel_z,  gyro_x, gyro_y, gyro_z,  mag_x, mag_y, mag_z):
+def send_telemetry(x,y,z):
     """function for sending the telemetry data to UI
 
     Arguments:
         agrs {float} -- value of arg
     """
 
-    Server.send(signals.Send.telemetry(accel_x, accel_y, accel_z,  gyro_x, gyro_y, gyro_z,  mag_x, mag_y, mag_z))
+    Server.send(signals.Send.telemetry(x,y,z))
 
 
 # create sensor thread
