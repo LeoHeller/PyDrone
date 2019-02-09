@@ -57,7 +57,7 @@ class Sensors(threading.Thread):
         accel = self.mpu9250.readAccel()
 
         for i in [0, 1, 2]:
-            if abs(gyro[i]) > 0.3:
+            if abs(gyro[i]) > 0.2:
                 pass
             else:
                 gyro[i] = 0
@@ -65,7 +65,10 @@ class Sensors(threading.Thread):
         self.degrees = self.filter_complementary(self.degrees, accel)
 
     def filter_complementary(self, integrated_gyro, accelerometer, ratio=0.9):
-        return integrated_gyro * (1-ratio) + accelerometer * ratio
+        filtered = []
+        for index in [0,1,2]:
+            filtered.append(integrated_gyro[index] * (1-ratio) + accelerometer[index] * ratio)
+        return filtered
 
 
     def stop(self):
