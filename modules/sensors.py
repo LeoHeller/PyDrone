@@ -64,8 +64,8 @@ class Sensors(threading.Thread):
 
     def run(self):
         while not self._stop:
-            if self.degrees != self.last_degrees:
-                print(*self.degrees)
-                self.send(*self.degrees)
-                time.sleep(0.1)
-                self.last_degrees = self.degrees
+            # if self.degrees != self.last_degrees:
+            print(*self.degrees)
+            self.send(*self.degrees)
+            time.sleep(0.1)
+            #    self.last_degrees = self.degrees
