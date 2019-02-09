@@ -42,6 +42,7 @@ class Sensors(threading.Thread):
 
         threading.Thread.__init__(self)
         sensor_thread = DoEvery(self.DeltaTime, self.read)
+        sensor_thread.start()
 
     def integrate(self, l):
         counter = 0
@@ -53,7 +54,7 @@ class Sensors(threading.Thread):
     def read(self):
         gyro = self.mpu9250.readGyro()
         for i in [0, 1, 2]:
-            if abs(gyro[i]) > 0.01:
+            if abs(gyro[i]) > 0.1:
                 pass
             else:
                 gyro[i] = 0
