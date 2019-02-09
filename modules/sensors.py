@@ -53,10 +53,11 @@ class Sensors(threading.Thread):
     def read(self):
         gyro = self.mpu9250.readGyro()
         for i in [0, 1, 2]:
-            if abs(gyro[i]) > 0.1:
+            if abs(gyro[i]) > 0.01:
                 pass
             else:
                 gyro[i] = 0
+        print(gyro)
         self.integrate(gyro)
 
     def stop(self):
@@ -65,7 +66,7 @@ class Sensors(threading.Thread):
     def run(self):
         while not self._stop:
             # if self.degrees != self.last_degrees:
-            print(*self.degrees)
+            #print(*self.degrees)
             self.send(*self.degrees)
             time.sleep(0.1)
             #    self.last_degrees = self.degrees
