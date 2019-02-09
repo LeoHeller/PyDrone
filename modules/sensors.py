@@ -37,6 +37,7 @@ class Sensors(threading.Thread):
         self.mpu9250 = MPU9250.MPU9250()
         self.DeltaTime = 0.05
         self._stop = False
+        self.raw_integrated_gyro = [0, 0, 0]
         self.degrees = [0, 0, 0]
         self.last_degrees = self.degrees
 
@@ -48,25 +49,41 @@ class Sensors(threading.Thread):
         counter = 0
         for axis in l:
             axis *= self.DeltaTime
-            self.degrees[counter] += axis
+            self.raw_integrated_gyro[counter] += axis
             counter += 1
 
     def read(self):
         gyro = self.mpu9250.readGyro()
+        accel = self.mpu9250.readAccel()
+
         for i in [0, 1, 2]:
             if abs(gyro[i]) > 0.3:
                 pass
             else:
                 gyro[i] = 0
         self.integrate(gyro)
+        self.degrees = self.filter_complementary(self.degrees, accel)
 
-    def stop(self):
+    def filter_complementary(integrated_gyro, accelerometer, ratio=0.9):
+        return integrated_gyro * (1-ratio) + accelerometer * ratio
+
+
+    # To get the rotation you combine the integrated gyro (HF, low noise) with accelerometer/magnetometer (LF, high noise)
+"""float lerp(float a, float b, float mu)
+{
+    return a*(1.f - mu) + b*mu;
+}
+float mix_ratio = 0.9f; //90% HF, 10% LF - this needs to be tuned
+float filtered_value = lerp(lf_high_noise_value, hf_low_noise_value, mix_ratio);
+"""
+
+   def stop(self):
         self._stop = True
 
     def run(self):
         while not self._stop:
             # if self.degrees != self.last_degrees:
-            #print(*self.degrees)
+            # print(*self.degrees)
             self.send(*self.degrees)
             time.sleep(0.1)
             #    self.last_degrees = self.degrees
