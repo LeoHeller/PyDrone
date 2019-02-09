@@ -98,9 +98,10 @@ class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
                 self.mode) + Bcolors.ENDC, end="\n-> ")
             exit()
 
-    def __del__(self):
-        """Is requred by QThread."""
-        self.wait()
+    if PyQt5_imported:
+        def __del__(self):
+            """Is requred by QThread."""
+            self.wait()
 
     def setup_client_socket(self):
         """Create a socket object for further use by the client application.
@@ -286,9 +287,10 @@ class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
         self.conn = conn
         self.hs = hs
 
-    def __del__(self):
-        """Is requred by QThread."""
-        self.wait()
+    if PyQt5_imported:
+        def __del__(self):
+            """Is requred by QThread."""
+            self.wait()
 
     def run(self):
         """Mainloop of the Listner Thread. Collects any new messages."""
@@ -302,6 +304,7 @@ class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
             except ConnectionResetError:
                 no_connection = True
                 return
+
 
             try:
                 # execute userdefined on_message function or emit a signal and send its output
@@ -340,9 +343,10 @@ class Sender(QtCore.QThread if PyQt5_imported else threading.Thread):
         self.stack = []
         print("\r" + Bcolors.OKBLUE + "Sender Started" + Bcolors.ENDC, end="\n-> ")
 
-    def __del__(self):
-        """Is requred by QThread."""
-        self.wait()
+    if PyQt5_imported:
+        def __del__(self):
+            """Is requred by QThread."""
+            self.wait()
 
     def run(self):
         """Mainloop of the Sender Thread."""
