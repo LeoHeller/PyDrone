@@ -47,7 +47,7 @@ class Sensors(threading.Thread):
     def integrate(self, l):
         counter = 0
         for axis in l:
-            axis *= self.deltaTime
+            axis *= self.DeltaTime
             self.degrees[counter] += axis
             counter += 1
 
