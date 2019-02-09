@@ -47,16 +47,16 @@ class Sensors(threading.Thread):
         counter = 0
         for axis in l:
             axis *= self.deltaTime
-            degrees[counter] += axis
+            self.degrees[counter] += axis
             counter += 1
 
     def read(self):
         gyro = self.mpu9250.readGyro()
-        # for i in [0, 1, 2]:
-        #     if abs(gyro[i]) > 0.1:
-        #         pass
-        #     else:
-        #         gyro[i] = 0
+        for i in [0, 1, 2]:
+            if abs(gyro[i]) > 0.1:
+                pass
+            else:
+                gyro[i] = 0
         self.integrate(gyro)
 
     def stop(self):
