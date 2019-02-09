@@ -241,7 +241,7 @@ class AppWindow(QMainWindow):
         self.ui.lcdNumber_axis_y.display(y)
         self.ui.lcdNumber_axis_z.display(z)
 
-        self.sim.update(x, y, z)
+        self.sim.update(x, z, y)
 
 
 app = QApplication(sys.argv)

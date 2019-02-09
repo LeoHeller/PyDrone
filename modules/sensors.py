@@ -54,7 +54,7 @@ class Sensors(threading.Thread):
     def read(self):
         gyro = self.mpu9250.readGyro()
         for i in [0, 1, 2]:
-            if abs(gyro[i]) > 0.25:
+            if abs(gyro[i]) > 0.3:
                 pass
             else:
                 gyro[i] = 0

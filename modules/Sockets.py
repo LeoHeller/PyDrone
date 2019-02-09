@@ -297,7 +297,11 @@ class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
 
         # recive data while a client is connected
         while not no_connection and should_be_running is True:
-            data = self.conn.recv(1024)
+            try:
+                data = self.conn.recv(1024)
+            except ConnectionResetError:
+                no_connection = True
+                return
 
             try:
                 # execute userdefined on_message function or emit a signal and send its output
