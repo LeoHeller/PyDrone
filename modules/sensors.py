@@ -63,5 +63,6 @@ class Sensors(threading.Thread):
 
     def run(self):
         while not self._stop:
+            print(*self.degrees)
             self.send(*self.degrees)
             time.sleep(0.1)
