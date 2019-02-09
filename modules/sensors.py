@@ -68,14 +68,7 @@ class Sensors(threading.Thread):
         return integrated_gyro * (1-ratio) + accelerometer * ratio
 
 
-    # To get the rotation you combine the integrated gyro (HF, low noise) with accelerometer/magnetometer (LF, high noise)
-"""float lerp(float a, float b, float mu)
-{
-    return a*(1.f - mu) + b*mu;
-}
-float mix_ratio = 0.9f; //90% HF, 10% LF - this needs to be tuned
-float filtered_value = lerp(lf_high_noise_value, hf_low_noise_value, mix_ratio);
-"""
+
 
    def stop(self):
         self._stop = True
