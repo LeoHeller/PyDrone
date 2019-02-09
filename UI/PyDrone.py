@@ -136,6 +136,7 @@ class AppWindow(QMainWindow):
             else:
                 tel_data = signals.Recive.handle_input(msg)
                 if tel_data is not None:
+                    print(tel_data)
                     self.update_flight_data(*tel_data)
                     return
 
