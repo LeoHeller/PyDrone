@@ -38,6 +38,7 @@ class Sensors(threading.Thread):
         self.DeltaTime = 0.05
         self._stop = False
         self.degrees = [0, 0, 0]
+        self.last_degrees = self.degrees
 
         threading.Thread.__init__(self)
         sensor_thread = DoEvery(self.DeltaTime, self.read)
@@ -52,7 +53,7 @@ class Sensors(threading.Thread):
     def read(self):
         gyro = self.mpu9250.readGyro()
         for i in [0, 1, 2]:
-            if abs(gyro[i]) > 0.2:
+            if abs(gyro[i]) > 0.1:
                 pass
             else:
                 gyro[i] = 0
@@ -63,6 +64,8 @@ class Sensors(threading.Thread):
 
     def run(self):
         while not self._stop:
-            print(*self.degrees)
-            self.send(*self.degrees)
-            time.sleep(0.1)
+            if self.degrees != self.last_degrees:
+                print(*self.degrees)
+                self.send(*self.degrees)
+                time.sleep(0.1)
+                self.last_degrees = self.degrees
