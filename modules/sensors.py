@@ -64,13 +64,11 @@ class Sensors(threading.Thread):
         self.integrate(gyro)
         self.degrees = self.filter_complementary(self.degrees, accel)
 
-    def filter_complementary(integrated_gyro, accelerometer, ratio=0.9):
+    def filter_complementary(self, integrated_gyro, accelerometer, ratio=0.9):
         return integrated_gyro * (1-ratio) + accelerometer * ratio
 
 
-
-
-   def stop(self):
+    def stop(self):
         self._stop = True
 
     def run(self):
