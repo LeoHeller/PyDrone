@@ -48,7 +48,7 @@ class DoEvery(threading.Thread):
 
 class Sensors(threading.Thread):
     def __init__(self, send):
-        set_beta(0.1)
+        set_beta(10)
         self.send = send
         self.mpu9250 = MPU9250.MPU9250()
         self.DeltaTime = 0.05
