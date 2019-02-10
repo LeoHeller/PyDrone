@@ -303,6 +303,7 @@ class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
                 data = self.conn.recv(1024)
             except ConnectionResetError:
                 no_connection = True
+                should_be_running = False
                 return
 
 
