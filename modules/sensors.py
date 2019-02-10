@@ -4,19 +4,20 @@ import threading
 import random
 import time
 import MPU9250
-
+import numpy as np
 
 from ctypes import cdll
 import ctypes
 
-lib = cdll.LoadLibrary('./libmad.so')
+lib = cdll.LoadLibrary('../modules/libmad.so')
 lib.get_q0.restype = ctypes.c_float
 lib.get_q1.restype = ctypes.c_float
 lib.get_q2.restype = ctypes.c_float
 lib.get_q3.restype = ctypes.c_float
 py_update = lib.MadgwickAHRSupdateIMU
-py_update.argtypes = [ctypes.c_float,ctypes.c_float,ctypes.c_float,ctypes.c_float,ctypes.c_flo$
-
+py_update.argtypes = [ctypes.c_float,ctypes.c_float,ctypes.c_float,ctypes.c_float,ctypes.c_float, ctypes.c_float]
+set_beta = lib.set_beda
+set_beta.argtypes = [ctypes.c_float]
 
 
 
@@ -47,6 +48,7 @@ class DoEvery(threading.Thread):
 
 class Sensors(threading.Thread):
     def __init__(self, send):
+        set_beta(0.1)
         self.send = send
         self.mpu9250 = MPU9250.MPU9250()
         self.DeltaTime = 0.05
@@ -90,7 +92,7 @@ class Sensors(threading.Thread):
         else:
             roll = np.arctan2(2 * q0 * q1 - 2 * q2 * q3, 1 - 2 * q1 ** 2 - 2 * q3 ** 2)
             yaw = np.arctan2(2 * q0 * q2 - 2 * q1 * q3, 1 - 2 * q2 ** 2 - 2 * q3 ** 2)
-        return roll, pitch, yaw
+        return np.multiply([roll, pitch, yaw],57.2958)
 
     def stop(self):
         self._stop = True
