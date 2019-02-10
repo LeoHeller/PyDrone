@@ -14,8 +14,13 @@ lib.get_q0.restype = ctypes.c_float
 lib.get_q1.restype = ctypes.c_float
 lib.get_q2.restype = ctypes.c_float
 lib.get_q3.restype = ctypes.c_float
-py_update = lib.MadgwickAHRSupdateIMU
-py_update.argtypes = [ctypes.c_float,ctypes.c_float,ctypes.c_float,ctypes.c_float,ctypes.c_float, ctypes.c_float]
+py_update_imu = lib.MadgwickAHRSupdateIMU
+py_update_imu.argtypes = [ctypes.c_float,ctypes.c_float,ctypes.c_float,ctypes.c_float,ctypes.c_float, ctypes.c_float]
+py_update_9dof = lib.MadgwickAHRSupdate
+py_update_9dof.argtypes = [ctypes.c_float]*9
+
+
+
 set_beta = lib.set_beda
 set_beta.argtypes = [ctypes.c_float]
 
@@ -72,13 +77,13 @@ class Sensors(threading.Thread):
         gyro = self.mpu9250.readGyro()
         gyro = np.multiply(gyro, 0.0174533)
         accel = self.mpu9250.readAccel()
-
+        mag = self.mpu9250.readMagnet()
         # for i in [0, 1, 2]:
         #     if abs(gyro[i]) > 0.2:
         #         pass
         #     else:
         #         gyro[i] = 0
-        py_update(gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2])
+        py_update_9dof(gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2], mag[0], mag[1], mag[2])
 
 
     def to_euler_angles(self, q0,q1,q2,q3):
