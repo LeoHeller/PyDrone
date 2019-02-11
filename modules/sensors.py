@@ -61,7 +61,7 @@ class Sensors(threading.Thread):
         self.raw_integrated_gyro = [0, 0, 0]
         self.degrees = [0, 0, 0]
         self.last_degrees = self.degrees
-        self.magy = 0
+        self.magyaw = 0
 
         threading.Thread.__init__(self)
         sensor_thread = DoEvery(self.DeltaTime, self.read)
@@ -87,7 +87,7 @@ class Sensors(threading.Thread):
 
         accel = self.mpu9250.readAccel()
         mag = self.mpu9250.readMagnet()
-        self.magy = math.atan2(mag[1], mag[0])
+        self.magyaw = math.atan2(mag[1], mag[0])
 
         py_update_imu(gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2])
 
@@ -112,7 +112,7 @@ class Sensors(threading.Thread):
         while not self._stop:
             # if self.degrees != self.last_degrees:
             # print(*self.degrees)
-            x, z = self.to_euler_angles(lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())[0], self.to_euler_angles(lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())[1]
-            self.send(x, self.magy+2*3.141592, z)
+            roll, pitch = self.to_euler_angles(lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())[0], self.to_euler_angles(lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())[1] # roll(x), pitch(y), yaw(z)
+            self.send(roll, pitch, self.magyaw+2*3.141592)
             time.sleep(0.1)
             #    self.last_degrees = self.degrees
