@@ -303,7 +303,6 @@ class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
                 data = self.conn.recv(1024)
             except ConnectionResetError:
                 no_connection = True
-                should_be_running = False
                 return
 
 
@@ -363,7 +362,7 @@ class Sender(QtCore.QThread if PyQt5_imported else threading.Thread):
         """Send message from stack. Only for Internal use."""
         global should_be_running
         # only send data if there is data to be sent and it should be sent
-        if len(self.stack) > 0 and self.stack[-1] is not None and should_be_running:
+        if len(self.stack) > 0 and self.stack[-1] is not None and should_be_running and not no_connection:
             packet = self.stack.pop()
             if type(packet) != bytes:
                 self.conn.sendall(packet.encode())
