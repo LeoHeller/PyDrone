@@ -80,7 +80,7 @@
         <bool>false</bool>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tabWidgetPage3">
         <attribute name="title">
@@ -535,8 +535,26 @@
    <property name="nativeMenuBar">
     <bool>true</bool>
    </property>
+   <widget class="QMenu" name="menuQuick_connect">
+    <property name="title">
+     <string>Quick connect</string>
+    </property>
+    <addaction name="action192_168_2_236_1337"/>
+    <addaction name="action192_168_10_1_1337"/>
+   </widget>
+   <addaction name="menuQuick_connect"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="action192_168_2_236_1337">
+   <property name="text">
+    <string>192.168.2.236:1337</string>
+   </property>
+  </action>
+  <action name="action192_168_10_1_1337">
+   <property name="text">
+    <string>192.168.10.1:1337</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

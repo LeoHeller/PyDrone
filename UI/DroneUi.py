@@ -177,13 +177,22 @@ class Ui_MainWindow(object):
 		self.menubar.setDefaultUp(False)
 		self.menubar.setNativeMenuBar(True)
 		self.menubar.setObjectName("menubar")
+		self.menuQuick_connect = QtWidgets.QMenu(self.menubar)
+		self.menuQuick_connect.setObjectName("menuQuick_connect")
 		MainWindow.setMenuBar(self.menubar)
 		self.statusbar = QtWidgets.QStatusBar(MainWindow)
 		self.statusbar.setObjectName("statusbar")
 		MainWindow.setStatusBar(self.statusbar)
+		self.action192_168_2_236_1337 = QtWidgets.QAction(MainWindow)
+		self.action192_168_2_236_1337.setObjectName("action192_168_2_236_1337")
+		self.action192_168_10_1_1337 = QtWidgets.QAction(MainWindow)
+		self.action192_168_10_1_1337.setObjectName("action192_168_10_1_1337")
+		self.menuQuick_connect.addAction(self.action192_168_2_236_1337)
+		self.menuQuick_connect.addAction(self.action192_168_10_1_1337)
+		self.menubar.addAction(self.menuQuick_connect.menuAction())
 
 		self.retranslateUi(MainWindow)
-		self.tabWidget.setCurrentIndex(2)
+		self.tabWidget.setCurrentIndex(1)
 		QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
 	def retranslateUi(self, MainWindow):
@@ -210,6 +219,9 @@ class Ui_MainWindow(object):
 		self.Xaxis_label.setToolTip(_translate("MainWindow", "Height from the ground in meters"))
 		self.Xaxis_label.setText(_translate("MainWindow", "Xaxis"))
 		self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabWidgetPage2), _translate("MainWindow", "Stats"))
+		self.menuQuick_connect.setTitle(_translate("MainWindow", "Quick connect"))
+		self.action192_168_2_236_1337.setText(_translate("MainWindow", "192.168.2.236:1337"))
+		self.action192_168_10_1_1337.setText(_translate("MainWindow", "192.168.10.1:1337"))
 
 
 if __name__ == "__main__":

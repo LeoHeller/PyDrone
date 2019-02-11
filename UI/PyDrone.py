@@ -53,7 +53,9 @@ class AppWindow(QMainWindow):
         self.ui.ThrustverticalSlider.valueChanged.connect(self.update_slider)
         self.ui.AbortpushButton.clicked.connect(self.Abort)
         self.ui.ArmpushButton.clicked.connect(self.Arm)
-        # setup values
+        self.ui.action192_168_10_1_1337.triggered.connect(lambda: self.connect_to_server("192.168.10.1:1337"))
+        self.ui.action192_168_2_236_1337.triggered.connect(lambda: self.connect_to_server("192.168.2.236:1337"))
+        # setup val1ues
         self.sim = sim
 
     def Abort(self):
@@ -142,11 +144,14 @@ class AppWindow(QMainWindow):
 
             self.ui.Chat.append("drone: " + str(msg))
 
-    def connect_to_server(self):
+    def connect_to_server(self, host=None):
         """Connect the client to the drone when the button is pressed."""
         if Sockets.no_connection:
             # is the input in a valid format?
-            ip, port = self.check_host(self.ui.ServerInput.text())
+            if host == None:
+                ip, port = self.check_host(self.ui.ServerInput.text())
+            else:
+                ip, port = self.check_host(host)
 
             if (ip, port) == (None, None):
 
@@ -241,7 +246,7 @@ class AppWindow(QMainWindow):
         self.ui.lcdNumber_axis_y.display(y)
         self.ui.lcdNumber_axis_z.display(z)
 
-        self.sim.update(0, -z, 0)
+        self.sim.update(x, 0, z) # y, -z,
 
 
 app = QApplication(sys.argv)
