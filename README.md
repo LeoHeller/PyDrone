@@ -1,7 +1,7 @@
 
 # PyDrone :helicopter:
 
-A Drone equiped with a RaspberryPi controlled via Python
+A Drone equiped with a RaspberryPi Zero W controlled via Python
 
 ToDo:
 - [x] first Motor tests

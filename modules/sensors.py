@@ -78,13 +78,17 @@ class Sensors(threading.Thread):
         
         gyro = self.mpu9250.readGyro()
         gyro = np.multiply(gyro, 0.0174533)
+        if abs(gyro[0]) < 0.25:
+            gyro[0] = 0
+        if abs(gyro[1]) < 0.25:
+            gyro[1] = 0
+        if abs(gyro[2]) < 0.3:
+            gyro[2] = 0
+
         accel = self.mpu9250.readAccel()
-        self.magy = self.mpu9250.readMagnet()[1]
-        # for i in [0, 1, 2]:
-        #     if abs(gyro[i]) > 0.2:
-        #         pass
-        #     else:
-        #         gyro[i] = 0
+        mag = self.mpu9250.readMagnet()
+        self.magy = math.atan2(mag[1], mag[0])
+
         py_update_imu(gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2])
 
 
@@ -109,6 +113,6 @@ class Sensors(threading.Thread):
             # if self.degrees != self.last_degrees:
             # print(*self.degrees)
             x, z = self.to_euler_angles(lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())[0], self.to_euler_angles(lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())[1]
-            self.send(x,self.magy,z)
+            self.send(x, self.magy+2*3.141592, z)
             time.sleep(0.1)
             #    self.last_degrees = self.degrees
