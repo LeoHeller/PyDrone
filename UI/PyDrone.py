@@ -243,9 +243,9 @@ class AppWindow(QMainWindow):
     def update_flight_data(self, x, y, z):
         self.ui.lcdNumber_axis_x.display(x)
         self.ui.lcdNumber_axis_y.display(y)
-        self.ui.lcdNumber_axis_z.display(z-8)
+        self.ui.lcdNumber_axis_z.display(z)
 
-        self.sim.update(x, y, z-8) # y, -z,
+        self.sim.update(x, y, z) # y, -z,
 
 
 app = QApplication(sys.argv)
