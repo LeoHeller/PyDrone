@@ -116,6 +116,6 @@ class Sensors(threading.Thread):
             roll, pitch = self.to_euler_angles(lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())[0], self.to_euler_angles(lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())[2] # roll(x), pitch(y), yaw(z)
             if roll < 0:
                 roll += 2*3.141592
-            self.send(roll, pitch, self.magyaw)
+            self.send(roll, pitch, yaw)#self.magyaw)
             time.sleep(0.1)
             #    self.last_degrees = self.degrees
