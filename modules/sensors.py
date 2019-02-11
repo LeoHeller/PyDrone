@@ -56,11 +56,12 @@ class Sensors(threading.Thread):
         set_beta(0.1)
         self.send = send
         self.mpu9250 = MPU9250.MPU9250()
-        self.DeltaTime = 0.05
+        self.DeltaTime = 0.02
         self._stop = False
         self.raw_integrated_gyro = [0, 0, 0]
         self.degrees = [0, 0, 0]
         self.last_degrees = self.degrees
+        self.magy = 0
 
         threading.Thread.__init__(self)
         sensor_thread = DoEvery(self.DeltaTime, self.read)
@@ -74,16 +75,17 @@ class Sensors(threading.Thread):
             counter += 1
 
     def read(self):
+        
         gyro = self.mpu9250.readGyro()
         gyro = np.multiply(gyro, 0.0174533)
         accel = self.mpu9250.readAccel()
-        mag = self.mpu9250.readMagnet()
+        self.magy = self.mpu9250.readMagnet()[1]
         # for i in [0, 1, 2]:
         #     if abs(gyro[i]) > 0.2:
         #         pass
         #     else:
         #         gyro[i] = 0
-        py_update_9dof(gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2], mag[0], mag[1], mag[2])
+        py_update_imu(gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2])
 
 
     def to_euler_angles(self, q0,q1,q2,q3):
@@ -106,7 +108,7 @@ class Sensors(threading.Thread):
         while not self._stop:
             # if self.degrees != self.last_degrees:
             # print(*self.degrees)
-
-            self.send(*self.to_euler_angles(lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3()))
+            x, z = self.to_euler_angles(lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())[0], self.to_euler_angles(lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())[1]
+            self.send(x,self.magy,z)
             time.sleep(0.1)
             #    self.last_degrees = self.degrees
