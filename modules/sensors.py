@@ -5,6 +5,7 @@ import random
 import time
 import MPU9250
 import numpy as np
+import math
 
 from ctypes import cdll
 import ctypes
