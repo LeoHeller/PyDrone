@@ -73,6 +73,11 @@ class Sensors(threading.Thread):
         sensor_thread = DoEvery(self.DeltaTime, self.read)
         sensor_thread.start()
 
+
+    def update_PID(self, x,y,z):
+        self.correct_roll = self.roll_PID.calculate(0-round(x, 1))
+        self.correct_pitch = self.pitch_PID.calculate(0-round(y, 1))
+
     def integrate(self, l):
         counter = 0
         for axis in l:
@@ -98,6 +103,7 @@ class Sensors(threading.Thread):
         py_update_imu(gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2])
         self.degrees = self.to_euler_angles(
             lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())
+        self.update_PID(*self.degrees)
 
     def to_euler_angles(self, q0, q1, q2, q3):
         pitch = np.arcsin(2 * q1 * q2 + 2 * q0 * q3)
@@ -125,5 +131,6 @@ class Sensors(threading.Thread):
             roll, pitch, yaw = self.degrees
             if roll < 0:
                 roll += 2*3.141592
+            sys.stdout.write(str(self.correct_roll)+"\n")
             self.send(roll, pitch, yaw)  # self.magyaw)
             time.sleep(0.1)
