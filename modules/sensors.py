@@ -65,9 +65,13 @@ class Sensors(threading.Thread):
         self.degrees = [0, 0, 0]
         self.last_degrees = self.degrees
         self.magyaw = 0
+        
 
         self.roll_PID = PID(1, 1, 1, 3, 0.75, 0, 100, self.DeltaTime)
         self.pitch_PID = PID(1, 1, 1, 3, 0.75, 0, 100, self.DeltaTime)
+
+        self.correct_roll = 0
+        self.correct_pitch = 0
 
         threading.Thread.__init__(self)
         sensor_thread = DoEvery(self.DeltaTime, self.read)
