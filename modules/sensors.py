@@ -67,8 +67,8 @@ class Sensors(threading.Thread):
         self.magyaw = 0
         
 
-        self.roll_PID = PID(1, 1, 1, 3, 0.75, 0, 100, self.DeltaTime)
-        self.pitch_PID = PID(1, 1, 1, 3, 0.75, 0, 100, self.DeltaTime)
+        self.roll_PID = PID(0.5, 1, 1, 3, 0.75, 0, 100, self.DeltaTime)
+        self.pitch_PID = PID(0.5, 1, 1, 3, 0.75, 0, 100, self.DeltaTime)
 
         self.correct_roll = 0
         self.correct_pitch = 0
@@ -79,6 +79,10 @@ class Sensors(threading.Thread):
 
 
     def update_PID(self, x,y,z):
+        if abs(x) < 0.3:
+            x = 0
+        if abs(y) < 0.2:
+            y = 0
         self.correct_roll = self.roll_PID.calculate(0-round(x, 1))
         self.correct_pitch = self.pitch_PID.calculate(0-round(y, 1))
 
