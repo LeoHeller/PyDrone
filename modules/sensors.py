@@ -88,7 +88,7 @@ class Sensors(threading.Thread):
             gyro[0] = 0
         if abs(gyro[1]) < 0.25:
             gyro[1] = 0
-        if abs(gyro[2]) < 0.3:
+        if abs(gyro[2]) < 0.25:
             gyro[2] = 0
 
         accel = self.mpu9250.readAccel()
