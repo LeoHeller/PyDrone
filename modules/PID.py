@@ -19,7 +19,7 @@ class PID():
         output = 0.0
 
         # if error is larger than simple_threshhold only use Kp
-        if abs(error > self.simple_threshhold):
+        if abs(error) > self.simple_threshhold:
             output = self.Kp * error
 
         else:
@@ -38,8 +38,8 @@ class PID():
             if abs(error) <= self.sse_threshhold:
                 self.error_sum += self.deltaTime * error
                 output += self.Ki * self.error_sum
-
-        return self.clamp(output, self.min, self.max)
+        return output
+        #return self.clamp(output, self.min, self.max)
 
     def reset(self):
         self.old_error = 0

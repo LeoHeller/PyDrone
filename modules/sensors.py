@@ -65,7 +65,6 @@ class Sensors(threading.Thread):
         self.degrees = [0, 0, 0]
         self.last_degrees = self.degrees
         self.magyaw = 0
-        
 
         self.roll_PID = PID(0.5, 1, 1, 3, 0.75, 0, 100, self.DeltaTime)
         self.pitch_PID = PID(0.5, 1, 1, 3, 0.75, 0, 100, self.DeltaTime)
@@ -77,8 +76,7 @@ class Sensors(threading.Thread):
         sensor_thread = DoEvery(self.DeltaTime, self.read)
         sensor_thread.start()
 
-
-    def update_PID(self, x,y,z):
+    def update_PID(self, x, y, z):
         if abs(x) < 0.3:
             x = 0
         if abs(y) < 0.2:
@@ -129,7 +127,7 @@ class Sensors(threading.Thread):
         roll, pitch, yaw = np.multiply([roll, pitch, yaw], 57.2958)
         if roll < 0:
             roll += 2*3.141592
-        return [roll, pitch, yaw]
+        return [roll-1, pitch, yaw]
 
     def stop(self):
         self._stop = True
@@ -137,8 +135,6 @@ class Sensors(threading.Thread):
     def run(self):
         while not self._stop:
             roll, pitch, yaw = self.degrees
-            if roll < 0:
-                roll += 2*3.141592
             sys.stdout.write(str(self.correct_roll)+"\n")
-            self.send(roll-1, pitch, yaw)  # self.magyaw)
+            self.send(roll, pitch, yaw)  # self.magyaw)
             time.sleep(0.1)
