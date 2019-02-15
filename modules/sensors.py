@@ -137,5 +137,5 @@ class Sensors(threading.Thread):
             roll, pitch, yaw = self.degrees
             sys.stdout.write(str(self.correct_roll)+"\n")
             self.send(roll, pitch, yaw)  # self.magyaw)
-            self.correct_roll = self.roll_PID.calculate(0-round(roll, 1))
+            self.correct_roll = self.pitch.calculate(0-round(pitch, 0))
             time.sleep(0.1)
