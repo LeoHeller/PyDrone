@@ -59,7 +59,7 @@ class AppWindow(QMainWindow):
         self.sim = sim
 
     def Abort(self):
-        if Sockets.no_connection == True:
+        if Sockets.no_connection is True:
             msgBox = PyQt5.QtWidgets.QMessageBox()
             msgBox.setText("Please connect to a server first.")
             msgBox.exec_()
@@ -246,6 +246,7 @@ class AppWindow(QMainWindow):
         self.ui.lcdNumber_axis_z.display(z)
 
         self.sim.update(x, -y, z) # -y gyro probably flipped.
+        print(x)
 
 
 app = QApplication(sys.argv)

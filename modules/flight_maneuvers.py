@@ -22,21 +22,22 @@ def set_speed(motorID, speed):
 
 def land():
     set_all(0)
+    motors.clean_up()
 
 
-def _land():
-    """Land the drone."""
-    avg_speed = int(sum(motorspeeds)/len(motorspeeds))
-    while motorspeeds != [avg_speed, avg_speed, avg_speed, avg_speed]:
-        for motor in range(4):
-            if motorspeeds[motor] is not avg_speed:
-                if motorspeeds[motor] > avg_speed:
-                    set_speed(motor, max(motorspeeds[motor]-1, 0))
-                else:
-                    set_speed(motor, max(motorspeeds[motor]+1, 0))
+# def _land():
+#     """Land the drone."""
+#     avg_speed = int(sum(motorspeeds)/len(motorspeeds))
+#     while motorspeeds != [avg_speed, avg_speed, avg_speed, avg_speed]:
+#         for motor in range(4):
+#             if motorspeeds[motor] is not avg_speed:
+#                 if motorspeeds[motor] > avg_speed:
+#                     set_speed(motor, max(motorspeeds[motor]-1, 0))
+#                 else:
+#                     set_speed(motor, max(motorspeeds[motor]+1, 0))
 
-                time.sleep(0.2)
-        print(motorspeeds)
+#                 time.sleep(0.2)
+#         print(motorspeeds)
 
 
 def arm():
