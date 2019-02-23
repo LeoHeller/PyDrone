@@ -45,7 +45,7 @@ def send_telemetry(x,y,z):
 
 # create the Server object and start it
 Server = Sockets.HandleSockets(
-    "192.168.10.1", 1337, "admin", mode="s", on_message=on_message)
+    "192.168.2.236", 1337, "admin", mode="s", on_message=on_message)
 Server.isDaemon = True
 Server.start()
 
