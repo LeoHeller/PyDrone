@@ -16,7 +16,7 @@ import sys
 import time
 import threading
 
-sys.path.insert(0, '/home/leo/Desktop/PyDrone/modules/') # noqa
+sys.path.insert(0, '../modules/') # noqa
 try:
     from PyQt5 import QtCore
     PyQt5_imported = True
