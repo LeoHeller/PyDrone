@@ -133,15 +133,15 @@ class Sensors(threading.Thread):
         while not self._stop:
             roll, pitch, yaw = self.degrees
             self.update_PID(*self.degrees)
-            sys.stdout.write(str(roll)+" | "+str(self.correct_roll)+"\n")
+
             delta_correction_roll = self.last_correct_roll - self.correct_roll
             self.last_correct_roll = self.correct_roll
 
             delta_correction_pitch = self.last_correct_pitch - self.correct_pitch
             self.last_correct_pitch = self.correct_pitch
-
-            print("now set M_FL and M_FR to", delta_correction_roll/2)
-            print("now set M_BL and M_BR to", -delta_correction_roll/2)
+            sys.stdout.write(str(roll)+" | "+str(delta_correction_roll/2)+"\n")
+            #print("now set M_FL and M_FR to", delta_correction_roll/2)
+            #print("now set M_BL and M_BR to", -delta_correction_roll/2)
             self.send(roll, pitch, yaw)  # self.magyaw)
             #self.correct_roll = self.pitch_PID.calculate(0-round(yaw, 0))
             time.sleep(0.1)
