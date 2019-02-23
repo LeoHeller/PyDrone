@@ -11,8 +11,6 @@ class Motors():
         import os
         from subprocess import Popen, PIPE
 
-        # current speed [0-100]%
-        self.current_speed = 0
 
         # set debugmode
         self.debug = debug
@@ -32,7 +30,7 @@ class Motors():
             0: 17,  # "M_FL"
             1: 18,  # "M_FR"
             2: 22,  # "M_BL"
-            3: 27  # "M_BR"
+            3: 27   # "M_BR"
         }
 
     # motor: M_xx ; speed: 0-100
@@ -47,6 +45,8 @@ class Motors():
             speed {int} -- speed percentage 0-100
         """
         # pulsewidth range: 0; 700 - 2000
+        if speed < 0:
+            speed = 0
 
         if speed != 0:
             pulsewidth = (speed/100.0) * 1300 + 700
@@ -61,7 +61,6 @@ class Motors():
                     self.motors[motor], pulsewidth)  # set Pulsewidth
             except Exception as e:
                 print(e)
-        self.current_speed = speed
 
     def clean_up(self):
         """Stop all motors and cut conection"""

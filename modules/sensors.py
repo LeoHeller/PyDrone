@@ -66,9 +66,11 @@ class Sensors(threading.Thread):
         self.last_degrees = self.degrees
         self.magyaw = 0
 
-        self.roll_PID  = PID(2, 128, 256,  0, 2,  0, 100, self.DeltaTime)
-        self.pitch_PID = PID(1, 1, 1,  0, 2,  0, 100, self.DeltaTime)
+        self.roll_PID  = PID(2, 128, 256, 5, 2,  0, 10, self.DeltaTime)
+        self.pitch_PID = PID(2, 128, 256, 5, 2,  0, 10, self.DeltaTime)
 
+        self.last_correct_roll = 0
+        self.last_correct_pitch = 0
         self.correct_roll = 0
         self.correct_pitch = 0
 
@@ -106,7 +108,6 @@ class Sensors(threading.Thread):
         self.degrees = self.to_euler_angles(
             lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())
 
-
     def to_euler_angles(self, q0, q1, q2, q3):
         pitch = np.arcsin(2 * q1 * q2 + 2 * q0 * q3)
         if np.abs(q1 * q2 + q3 * q0 - 0.5) < 1e-8:
@@ -133,8 +134,14 @@ class Sensors(threading.Thread):
             roll, pitch, yaw = self.degrees
             self.update_PID(*self.degrees)
             sys.stdout.write(str(roll)+" | "+str(self.correct_roll)+"\n")
-            print("now set M_FL and M_FR to", self.correct_roll)
-            print("now set M_RL and M_BR to", self.correct_roll)
+            delta_correction_roll = self.last_correct_roll - self.correct_roll
+            self.last_correct_roll = self.correct_roll
+
+            delta_correction_pitch = self.last_correct_pitch - self.correct_pitch
+            self.last_correct_pitch = self.correct_pitch
+
+            print("now set M_FL and M_FR to", delta_correction_roll/2)
+            print("now set M_BL and M_BR to", -delta_correction_roll/2)
             self.send(roll, pitch, yaw)  # self.magyaw)
             #self.correct_roll = self.pitch_PID.calculate(0-round(yaw, 0))
             time.sleep(0.1)

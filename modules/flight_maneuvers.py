@@ -11,7 +11,7 @@ from motors import Motors
 motors = Motors(False)
 
 
-motorspeeds = [0, 0, 0, 0]
+motorspeeds = [0, 0, 0, 0]  # FL,FR,BL,BR
 
 
 def set_speed(motorID, speed):
