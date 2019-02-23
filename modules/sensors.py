@@ -66,8 +66,8 @@ class Sensors(threading.Thread):
         self.last_degrees = self.degrees
         self.magyaw = 0
 
-        self.roll_PID = PID(0.5, 1, 1, 3, 0.75, 0, 100, self.DeltaTime)
-        self.pitch_PID = PID(0.5, 1, 1, 3, 0.75, 0, 100, self.DeltaTime)
+        self.roll_PID  = PID(2, 128, 256,  0, 2,  0, 100, self.DeltaTime)
+        self.pitch_PID = PID(1, 1, 1,  0, 2,  0, 100, self.DeltaTime)
 
         self.correct_roll = 0
         self.correct_pitch = 0
@@ -77,12 +77,8 @@ class Sensors(threading.Thread):
         sensor_thread.start()
 
     def update_PID(self, x, y, z):
-        if abs(x) < 0.3:
-            x = 0
-        if abs(y) < 0.2:
-            y = 0
-        self.correct_roll = self.roll_PID.calculate(0-round(x, 1))
-        self.correct_pitch = self.pitch_PID.calculate(0-round(y, 1))
+        self.correct_roll = self.roll_PID.calculate(int(x))
+        self.correct_pitch = self.pitch_PID.calculate(int(z))
 
     def integrate(self, l):
         counter = 0
@@ -95,11 +91,11 @@ class Sensors(threading.Thread):
 
         gyro = self.mpu9250.readGyro()
         gyro = np.multiply(gyro, 0.0174533)
-        if abs(gyro[0]) < 0.25:
+        if abs(gyro[0]) < 0.2:
             gyro[0] = 0
-        if abs(gyro[1]) < 0.25:
+        if abs(gyro[1]) < 0.2:
             gyro[1] = 0
-        if abs(gyro[2]) < 0.25:
+        if abs(gyro[2]) < 0.2:
             gyro[2] = 0
 
         accel = self.mpu9250.readAccel()
@@ -109,7 +105,7 @@ class Sensors(threading.Thread):
         py_update_imu(gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2])
         self.degrees = self.to_euler_angles(
             lib.get_q0(), lib.get_q1(), lib.get_q2(), lib.get_q3())
-        
+
 
     def to_euler_angles(self, q0, q1, q2, q3):
         pitch = np.arcsin(2 * q1 * q2 + 2 * q0 * q3)
@@ -135,7 +131,10 @@ class Sensors(threading.Thread):
     def run(self):
         while not self._stop:
             roll, pitch, yaw = self.degrees
-            sys.stdout.write(str(self.correct_roll)+"\n")
+            self.update_PID(*self.degrees)
+            sys.stdout.write(str(roll)+" | "+str(self.correct_roll)+"\n")
+            print("now set M_FL and M_FR to", self.correct_roll)
+            print("now set M_RL and M_BR to", self.correct_roll)
             self.send(roll, pitch, yaw)  # self.magyaw)
-            self.correct_roll = self.pitch_PID.calculate(0-round(yaw, 0))
+            #self.correct_roll = self.pitch_PID.calculate(0-round(yaw, 0))
             time.sleep(0.1)

@@ -17,7 +17,7 @@ class PID():
 
     def calculate(self, error):
         output = 0.0
-
+        #print(error)
         # if error is larger than simple_threshhold only use Kp
         if abs(error) > self.simple_threshhold:
             output = self.Kp * error

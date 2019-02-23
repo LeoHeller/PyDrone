@@ -8,7 +8,7 @@ sys.path.insert(0, '../Droneside/')  # noqa
 from motors import Motors
 
 
-motors = Motors(True)
+motors = Motors(False)
 
 
 motorspeeds = [0, 0, 0, 0]
@@ -22,7 +22,7 @@ def set_speed(motorID, speed):
 
 def land():
     set_all(0)
-
+    motors.clean_up()
 
 def _land():
     """Land the drone."""
