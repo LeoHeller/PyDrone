@@ -1,7 +1,7 @@
 """
 Sockets lib using TCP sockets.
 
-Main class HandleSockets instantiates a listner and sender class.
+Main class HandleSockets instantiates a listener and sender class.
 
 __author__ = "Leo Heller"
 __copyright__ = "None"
@@ -16,9 +16,10 @@ import sys
 import time
 import threading
 
-sys.path.insert(0, '../modules/') # noqa
+sys.path.insert(0, '../modules/')  # noqa
 try:
-    from PyQt5 import QtCore
+    import PyQt5
+
     PyQt5_imported = True
 except ImportError:
     PyQt5_imported = False
@@ -61,15 +62,16 @@ no_connection = True
 should_be_running = True
 
 
-class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
+# noinspection PyUnresolvedReferences
+class HandleSockets(PyQt5.QtCore.QThread if PyQt5_imported else threading.Thread):
     """Wrapper for sockets to create a interface between the drone and client."""
 
     def __init__(self, ip, port, password, on_message, mode="s"):
         """Initialize class with arguments.
 
         Arguments:
-            ip {string} -- ip to wich others should connect
-            port {int} -- port onto wich others should connect
+            ip {string} -- ip to which others should connect
+            port {int} -- port onto which others should connect
             password {string} -- password that clients enter when connecting
             mode {string} -- "c" for client, "s" for server
             on_message {function} -- function that should be called when a new message comes in.
@@ -78,7 +80,7 @@ class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
         # global variables to tell the threads when to stop and when to try to reconnect
         global no_connection, should_be_running
         # call thread init
-        QtCore.QThread.__init__(self) if PyQt5_imported else threading.Thread.__init__(self)
+        PyQt5.QtCore.QThread.__init__(self) if PyQt5_imported else threading.Thread.__init__(self)
 
         # arguments used to start class
         self.ip = ip
@@ -86,6 +88,8 @@ class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
         self.password = password
         self.mode = mode
         self.on_message = on_message
+
+        self.listener, self.sender, self.conn, self.connected_device_address = None, None, None, None
 
         # either start as 'c' client or as 's' server
         if self.mode == "c":
@@ -100,10 +104,11 @@ class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
 
     if PyQt5_imported:
         def __del__(self):
-            """Is requred by QThread."""
+            """Is required by QThread."""
             self.wait()
 
-    def setup_client_socket(self):
+    @staticmethod
+    def setup_client_socket():
         """Create a socket object for further use by the client application.
 
         Returns:
@@ -131,7 +136,7 @@ class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
         """Accept any incoming clients."""
         global no_connection
         # accept the client
-        self.conn, self.addr = self.sock.accept()
+        self.conn, self.connected_device_address = self.sock.accept()
         # validate the client
         if self.authenticate():
 
@@ -167,11 +172,13 @@ class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
             self.listener.isDaemon = True
             self.listener.start()
 
-            print("\r" + Bcolors.OKBLUE + "connected, wating for authorisation request" + Bcolors.ENDC, end="\n-> ")
+            print("\r" + Bcolors.OKBLUE + "connected, waiting for authorisation request" + Bcolors.ENDC, end="\n-> ")
 
         except (ConnectionRefusedError, OSError):
             # catch any problems if no server is running or the socket obj has expired
-            print("\r" + Bcolors.FAIL + "Connection refused, check if a server is running on the specified host and port." + Bcolors.ENDC, end="")
+            print(
+                f"\r{Bcolors.FAIL} Connection refused, check if a server is running on the specified host and port.{Bcolors.ENDC}",
+                end="")
             no_connection = True
 
     def run(self):
@@ -203,20 +210,20 @@ class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
         # wait 0.1 sec for other side to start up
         time.sleep(0.1)
 
-        #self.conn.sendall(Signals.PING_RQST)
+        # self.conn.sendall(Signals.PING_RQST)
         data = self.conn.recv(1024)
 
         print(data)
 
         # check if the password is correct
         if data == Signals.PING_RQST:
-            print("\r" + Bcolors.OKGREEN + "ping recived from {}".format(self.addr) + Bcolors.ENDC)
+            print("\r" + Bcolors.OKGREEN + "ping received from {}".format(self.connected_device_address) + Bcolors.ENDC)
             self.conn.sendall(Signals.PING)
             self.conn.close()
             return False
         if data.decode() != self.password:
             # if it is not send the signal that it was wrong and disconnect the client
-            print("\r" + Bcolors.FAIL + "permission denied to {}".format(self.addr) + Bcolors.ENDC)
+            print("\r" + Bcolors.FAIL + "permission denied to {}".format(self.connected_device_address) + Bcolors.ENDC)
             try:
                 self.conn.sendall(Signals.WRONG_PWD)
                 self.conn.shutdown(socket.SHUT_RDWR)
@@ -228,7 +235,8 @@ class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
         else:
             # let the client know the password was correct and allow him to continue on
             self.conn.sendall(Signals.RIGHT_PWD)
-            print("\r" + Bcolors.OKBLUE + "permission granted to {}".format(self.addr) + Bcolors.ENDC)
+            print(
+                "\r" + Bcolors.OKBLUE + "permission granted to {}".format(self.connected_device_address) + Bcolors.ENDC)
             no_connection = False
             return True
 
@@ -274,15 +282,15 @@ class HandleSockets(QtCore.QThread if PyQt5_imported else threading.Thread):
                 print("\r" + Bcolors.WARNING + "no client connected" + Bcolors.ENDC, end="\n-> ")
 
 
-class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
+class Listener(PyQt5.QtCore.QThread if PyQt5_imported else threading.Thread):
     """Thread that listens to new messages from the other side and calls the on_message function."""
 
     if PyQt5_imported:
-        msg_signal = QtCore.pyqtSignal(bytes)
+        msg_signal = PyQt5.QtCore.pyqtSignal(bytes)
 
     def __init__(self, conn, hs):
         """Initialize Thread."""
-        QtCore.QThread.__init__(self) if PyQt5_imported else threading.Thread.__init__(self)
+        PyQt5.QtCore.QThread.__init__(self) if PyQt5_imported else threading.Thread.__init__(self)
 
         self.conn = conn
         self.hs = hs
@@ -305,18 +313,16 @@ class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
                 no_connection = True
                 return
 
-
             try:
                 # execute userdefined on_message function or emit a signal and send its output
                 try:
                     self.msg_signal.emit(data)
-                except Exception as e:
-                    # print("line 280", e)
+                except Exception:
                     pass
                 try:
                     self.hs.send(self.hs.on_message(data))
-                except Exception as e:
-                    #print(e)
+                except Exception:
+                    # print(e)
                     pass
             except AttributeError as e:
                 # catch any errors if the user forgot to define on_message correctly
@@ -329,12 +335,12 @@ class Listener(QtCore.QThread if PyQt5_imported else threading.Thread):
         print("\r" + Bcolors.OKBLUE + "Listener Stopped" + Bcolors.ENDC, end="\n-> ")
 
 
-class Sender(QtCore.QThread if PyQt5_imported else threading.Thread):
+class Sender(PyQt5.QtCore.QThread if PyQt5_imported else threading.Thread):
     """Send messages from a stack."""
 
     def __init__(self, conn, mode, hs):
         """Initialize Thread."""
-        QtCore.QThread.__init__(self) if PyQt5_imported else threading.Thread.__init__(self)
+        PyQt5.QtCore.QThread.__init__(self) if PyQt5_imported else threading.Thread.__init__(self)
 
         global no_connection, should_be_running
         self.conn = conn
@@ -345,7 +351,7 @@ class Sender(QtCore.QThread if PyQt5_imported else threading.Thread):
 
     if PyQt5_imported:
         def __del__(self):
-            """Is requred by QThread."""
+            """Is required by QThread."""
             self.wait()
 
     def run(self):
