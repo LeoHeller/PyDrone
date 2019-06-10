@@ -14,7 +14,7 @@ class AbstractController:
 class SimpleController(AbstractController):
     def on_update(self, heading, motorspeeds):
         # ignore z for now...
-        if heading[0] > self.goal[1]:
+        if heading[0] < self.goal[1]:
             # less power on the back motors
             # more on the front
             motorspeeds[2] -= 2  # back left
@@ -31,7 +31,7 @@ class SimpleController(AbstractController):
             motorspeeds[0] -= 2  # front left
             motorspeeds[1] -= 2  # front right
 
-        if heading[1] > self.goal[1]:
+        if heading[1] < self.goal[1]:
             # less power on the left motors
             # more on the front motors
             motorspeeds[2] -= 2  # back left

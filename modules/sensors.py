@@ -21,7 +21,7 @@ py_update_imu.argtypes = [ctypes.c_float, ctypes.c_float,
 py_update_9dof = lib.MadgwickAHRSupdate
 py_update_9dof.argtypes = [ctypes.c_float] * 9
 
-set_beta = lib.set_beda
+set_beta = lib.set_beta
 set_beta.argtypes = [ctypes.c_float]
 
 
