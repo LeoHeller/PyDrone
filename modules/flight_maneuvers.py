@@ -7,9 +7,7 @@ sys.path.insert(0, '../Droneside/')  # noqa
 
 from motors import Motors
 
-
-motors = Motors(False)
-
+motors = Motors(True)
 
 motorspeeds = [0, 0, 0, 0]  # FL,FR,BL,BR
 
@@ -52,3 +50,11 @@ def set_all(speed):
     """Set all motors to {speed}."""
     for motor in motors.motors:
         set_speed(motor, speed)
+
+
+def set_motor_speeds(new_motorspeeds):
+    motor_counter = 0
+    for motor in motors.motors:
+        set_speed(motor, new_motorspeeds[motor_counter])
+        motorspeeds[motor_counter] = new_motorspeeds[motor_counter]
+

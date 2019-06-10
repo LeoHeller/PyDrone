@@ -1,4 +1,5 @@
 import wireframe_cube
+
 """
 User interface for controlling the drone.
 
@@ -16,8 +17,8 @@ __status__ = "Development
 import socket
 import sys
 import time
-sys.path.insert(0, '../modules/')  # noqa
 
+sys.path.insert(0, '../modules/')  # noqa
 
 from DroneUi import Ui_MainWindow
 
@@ -28,7 +29,6 @@ import Sockets
 
 import signals
 from signals import Signals
-
 
 test = {Signals.WRONG_PWD: "WRONG_PWD", Signals.RIGHT_PWD: "RIGHT_PWD", Signals.PING: "PING",
         Signals.PWD_REQUEST: "PWD_REQUEST", Signals.OK: "OK", Signals.QUIT: "QUIT"}
@@ -67,7 +67,7 @@ class AppWindow(QMainWindow):
             self.Client.send(signals.Signals.QUIT)
 
     def Arm(self):
-        if Sockets.no_connection == True:
+        if Sockets.no_connection:
             msgBox = PyQt5.QtWidgets.QMessageBox()
             msgBox.setText("Please connect to a server first.")
             msgBox.exec_()
@@ -75,7 +75,7 @@ class AppWindow(QMainWindow):
             self.Client.send(signals.Signals.ARM)
 
     def update_slider(self, value):
-        if Sockets.no_connection == True:
+        if Sockets.no_connection:
             msgBox = PyQt5.QtWidgets.QMessageBox()
             msgBox.setText("Please connect to a server first.")
             msgBox.exec_()
@@ -90,31 +90,31 @@ class AppWindow(QMainWindow):
             self.ui.ThrustlcdNumber.display(value)
             self.ui.ThrustverticalSlider.setValue(value)
             self.Client.send(signals.Send.move_all(value))
-            # print(self.ui.ThrustverticalSlider.value())
+
 
     def OnKeyPressEvent(self, event):
-        if self.ui.tabWidget.currentIndex() is not 0:   # not in the controll tab > exit
+        if self.ui.tabWidget.currentIndex() is not 0:  # not in the control tab > exit
             return
 
-        if event.key() == 16777248:   # shift
+        if event.key() == 16777248:  # shift
             pass
 
-        elif event.key() == 16777249:   # ctrl
+        elif event.key() == 16777249:  # ctrl
             pass
 
-        elif event.key() == 87:   # W
-            self.update_slider(self.ui.ThrustverticalSlider.value()+1)
+        elif event.key() == 87:  # W
+            self.update_slider(self.ui.ThrustverticalSlider.value() + 1)
 
-        elif event.key() == 65:   # A
+        elif event.key() == 65:  # A
             pass
 
-        elif event.key() == 83:   # S
-            self.update_slider(self.ui.ThrustverticalSlider.value()-1)
+        elif event.key() == 83:  # S
+            self.update_slider(self.ui.ThrustverticalSlider.value() - 1)
 
-        elif event.key() == 68:   # D
+        elif event.key() == 68:  # D
             pass
 
-        elif event.key() == 32:   # space
+        elif event.key() == 32:  # space
             self.Abort()
 
         # print(event.key())
@@ -125,7 +125,6 @@ class AppWindow(QMainWindow):
         if msg == b'' or msg == Signals.QUIT and Sockets.no_connection is False:
             msg = "quit"
             if Sockets.should_be_running:
-
                 self.ui.Chat.append("drone: " + str(msg))
                 Sockets.should_be_running = False
                 Sockets.no_connection = True
@@ -136,7 +135,7 @@ class AppWindow(QMainWindow):
             if msg in test:
                 msg = test[msg]
             else:
-                tel_data = signals.Recive.handle_input(msg)
+                tel_data = signals.Receive.handle_input(msg)
                 if tel_data is not None:
                     self.update_flight_data(*tel_data)
                     return
@@ -147,7 +146,7 @@ class AppWindow(QMainWindow):
         """Connect the client to the drone when the button is pressed."""
         if Sockets.no_connection:
             # is the input in a valid format?
-            if host == None:
+            if host is None:
                 ip, port = self.check_host(self.ui.ServerInput.text())
             else:
                 ip, port = self.check_host(host)
@@ -168,7 +167,7 @@ class AppWindow(QMainWindow):
                 self.Client.start()
                 time.sleep(0.1)
 
-                # when no server is running this thorws a error!
+                # when no server is running this throws a error!
                 try:
                     # connect the on_message signal from Sockets.py to a function
                     self.Client.listener.msg_signal.connect(self.on_message)
@@ -181,7 +180,8 @@ class AppWindow(QMainWindow):
                     "Please check if a server is running on the specified host.")
                 msgBox.exec_()
 
-    def check_host(self, host):
+    @staticmethod
+    def check_host(host):
         """
         Parse and check host.
 
@@ -245,7 +245,7 @@ class AppWindow(QMainWindow):
         self.ui.lcdNumber_axis_y.display(y)
         self.ui.lcdNumber_axis_z.display(z)
 
-        self.sim.update(x, -y, z) # -y gyro probably flipped.
+        self.sim.update(x, -y, z)  # -y gyro probably flipped.
         print(x)
 
 

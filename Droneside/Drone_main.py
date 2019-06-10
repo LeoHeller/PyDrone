@@ -2,6 +2,7 @@
 import os
 import sys
 import time
+
 sys.path.insert(0, '../modules/')  # noqa
 
 from PID import PID
@@ -13,8 +14,7 @@ import flight_maneuvers
 import sensors
 
 import signals
-from signals import Bcolors, Signals
-
+from signals import Signals
 
 pwd = "admin"
 global running
@@ -30,38 +30,29 @@ def on_message(data):
     elif data == Signals.ARM:
         flight_maneuvers.arm()
     else:
-        signals.Recive.handle_input(data)
+        signals.Receive.handle_input(data)
 
-def send_telemetry(x,y,z):
+
+def send_telemetry(x, y, z):
     """function for sending the telemetry data to UI
 
     Arguments:
         agrs {float} -- value of arg
     """
 
-    Server.send(signals.Send.telemetry(x,y,z))
 
 
 
 # create the Server object and start it
 Server = Sockets.HandleSockets(
     "192.168.2.236", 1337, "admin", mode="s", on_message=on_message)
-Server.isDaemon = True
+
 Server.start()
-
-
 
 # create sensor thread
 Sensors = sensors.Sensors(send=send_telemetry)
 Sensors.isDaemon = True
 Sensors.start()
-
-
-
-
-
-
-
 
 # get user input
 try:

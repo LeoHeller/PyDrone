@@ -10,28 +10,31 @@ class Signals:
     """Signals in byte form."""
 
     # comunicational commands
-    OK          = (0).to_bytes(1, "big")
-    QUIT        = (1).to_bytes(1, "big")
+    OK = (0).to_bytes(1, "big")
+    QUIT = (1).to_bytes(1, "big")
 
     # Postional commands
-    LEFT        = (3).to_bytes(1, "big")
-    RIGHT       = (4).to_bytes(1, "big")
-    UP          = (5).to_bytes(1, "big")
+    LEFT = (3).to_bytes(1, "big")
+    RIGHT = (4).to_bytes(1, "big")
+    UP = (5).to_bytes(1, "big")
 
     # Flight commands
-    DOWN        = (6).to_bytes(1, "big")
-    HOME        = (7).to_bytes(1, "big")
-    ARM         = (8).to_bytes(1, "big")
+    DOWN = (6).to_bytes(1, "big")
+    HOME = (7).to_bytes(1, "big")
+    ARM = (8).to_bytes(1, "big")
 
     # special commands
     PWD_REQUEST = (9).to_bytes(1, "big")
-    WRONG_PWD   = (10).to_bytes(1, "big")
-    RIGHT_PWD   = (11).to_bytes(1, "big")
-    PING_RQST   = (12).to_bytes(1, "big")
-    PING        = (13).to_bytes(1, "big")
+    WRONG_PWD = (10).to_bytes(1, "big")
+    RIGHT_PWD = (11).to_bytes(1, "big")
+    PING_RQST = (12).to_bytes(1, "big")
+    PING = (13).to_bytes(1, "big")
+    TEL_REQUEST = (14).to_bytes(1, "big")
 
     # benchmark
-    TIME        = (14).to_bytes(1, "big")
+    TIME = (15).to_bytes(1, "big")
+
+
 
 
 class Bcolors:
@@ -49,17 +52,18 @@ class Bcolors:
 commands = {}
 
 
-class Send():
+class Send:
     """Commands to be used when sending."""
-
+    @staticmethod
     def move(motorID, speed, commandID=1):
-        """Counterpart to Recive.move()."""
+        """Counterpart to Receive.move()."""
         output = struct.pack('<h', commandID)
         output += struct.pack('<h', motorID)
         output += struct.pack('<h', speed)
         return output
 
-    def telemetry(x,y,z,  commandID=2):
+    @staticmethod
+    def telemetry(x, y, z, commandID=2):
         output = struct.pack('<h', commandID)
 
         output += struct.pack('<f', x)
@@ -68,14 +72,15 @@ class Send():
 
         return output
 
+    @staticmethod
     def move_all(speed, commandID=3):
         output = struct.pack('<h', commandID)
         output += struct.pack('<h', speed)
         return output
 
 
-class Recive():
-    """Commands to be used when reciving."""
+class Receive:
+    """Commands to be used when receiving."""
 
     def command(*, commandID=None):
         """Add commands using this Decorator.
@@ -86,9 +91,11 @@ class Recive():
         Keyword Arguments:
             commandID {int} -- id by wich the command is then called (default: {None})
         """
+
         def deco(f):
             commands[commandID or f.__name__] = f
             return f
+
         return deco
 
     def handle_input(b):
@@ -111,7 +118,7 @@ class Recive():
         motorID = struct.unpack('<h', b[2:4])[0]
         speed = struct.unpack('<h', b[4:6])[0]
 
-        print(motorID, speed)  # replace this with actual motor controll method
+        print(motorID, speed)  # replace this with actual motor control method
         flight_maneuvers.set_speed(motorID, speed)
 
     @command(commandID=2)
@@ -120,11 +127,10 @@ class Recive():
         axis_y = struct.unpack('<f', b[6:10])[0]
         axis_z = struct.unpack('<f', b[10:14])[0]
 
-
         return axis_x, axis_y, axis_z
 
     @command(commandID=3)
     def move_all(b):
         speed = struct.unpack('<h', b[2:4])[0]
-        #print(speed)
+        # print(speed)
         flight_maneuvers.set_all(speed)

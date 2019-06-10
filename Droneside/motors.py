@@ -6,7 +6,7 @@ class Motors():
 
     def __init__(self, debug=True):
         """Initialize the pigpio deamon."""
-        import pigpio
+
         import time
         import os
         from subprocess import Popen, PIPE
@@ -15,6 +15,7 @@ class Motors():
         # set debugmode
         self.debug = debug
         if not self.debug:
+            import pigpio
             if not os.path.isfile("/var/run/pigpio.pid"):
                 # start pigpio daemon
                 Popen(['sudo', 'pigpiod', '-s', '1'],

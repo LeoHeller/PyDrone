@@ -15,11 +15,12 @@ import socket
 import sys
 import time
 import threading
+import queue
 
 sys.path.insert(0, '../modules/')  # noqa
 try:
     import PyQt5
-
+    from PyQt5 import QtCore
     PyQt5_imported = True
 except ImportError:
     PyQt5_imported = False
@@ -90,6 +91,8 @@ class HandleSockets(PyQt5.QtCore.QThread if PyQt5_imported else threading.Thread
         self.on_message = on_message
 
         self.listener, self.sender, self.conn, self.connected_device_address = None, None, None, None
+
+        self.isDaemon = True
 
         # either start as 'c' client or as 's' server
         if self.mode == "c":
@@ -276,7 +279,7 @@ class HandleSockets(PyQt5.QtCore.QThread if PyQt5_imported else threading.Thread
             Can be bytes or a string as it will be converted to bytes later
         """
         if not no_connection:
-            self.sender.stack.append(msg)
+            self.sender.queue.put(msg)
         else:
             if not should_be_running:
                 print("\r" + Bcolors.WARNING + "no client connected" + Bcolors.ENDC, end="\n-> ")
@@ -347,6 +350,7 @@ class Sender(PyQt5.QtCore.QThread if PyQt5_imported else threading.Thread):
         self.mode = mode
         self.hs = hs
         self.stack = []
+        self.queue = queue.Queue()
         print("\r" + Bcolors.OKBLUE + "Sender Started" + Bcolors.ENDC, end="\n-> ")
 
     if PyQt5_imported:
@@ -368,9 +372,17 @@ class Sender(PyQt5.QtCore.QThread if PyQt5_imported else threading.Thread):
         """Send message from stack. Only for Internal use."""
         global should_be_running
         # only send data if there is data to be sent and it should be sent
-        if len(self.stack) > 0 and self.stack[-1] is not None and should_be_running and not no_connection:
-            packet = self.stack.pop()
+        data = self.queue.get()
+        if data is not None and should_be_running and not no_connection:
+            packet = data
             if type(packet) != bytes:
                 self.conn.sendall(packet.encode())
             else:
                 self.conn.sendall(packet)
+
+        # if len(self.stack) > 0 and self.stack[-1] is not None and should_be_running and not no_connection:
+        #     packet = self.stack.pop()
+        #     if type(packet) != bytes:
+        #         self.conn.sendall(packet.encode())
+        #     else:
+        #         self.conn.sendall(packet)

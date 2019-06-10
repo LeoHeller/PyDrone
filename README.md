@@ -1,7 +1,7 @@
 
 # PyDrone :helicopter:
 
-A Drone equiped with a RaspberryPi Zero W controlled via Python
+A Drone equipped with a RaspberryPi Zero W controlled via Python
 
 ToDo:
 - [x] first Motor tests
@@ -14,8 +14,10 @@ ToDo:
     - [ ] camera
     - [ ] ultrasound
 - [x] simple Client - Server communication
-- [x] two way socket comunication
+- [x] two way socket communication
 - [x] simple UI
 - [x] UI
-- [x] first test full asembled
+- [x] first test full assembled
+- [ ] level flight
+- [ ] different controllers
 - [ ] other stuff

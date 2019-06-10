@@ -1,6 +1,5 @@
-
 class PID():
-    def __init__(self, Kp, Ki, Kd, simple_threshhold, sse_threshhold, minout, maxout, deltaTime=0.02):
+    def __init__(self, Kp, Ki, Kd, simple_threshold, sse_threshold, minout, maxout, deltaTime=0.02):
         self.Kp = Kp
         self.Ki = Ki
         self.Kd = Kd
@@ -8,8 +7,8 @@ class PID():
         self.min = minout
         self.max = maxout
 
-        self.simple_threshhold = simple_threshhold
-        self.sse_threshhold = sse_threshhold
+        self.simple_threshold = simple_threshold
+        self.sse_threshold = sse_threshold
 
         self.old_error = 0
         self.error_sum = 0
@@ -17,9 +16,9 @@ class PID():
 
     def calculate(self, error):
         output = 0.0
-        #print(error)
-        # if error is larger than simple_threshhold only use Kp
-        if abs(error) > self.simple_threshhold:
+        # print(error)
+        # if error is larger than simple_threshold only use Kp
+        if abs(error) > self.simple_threshold:
             output = self.Kp * error
 
         else:
@@ -32,13 +31,13 @@ class PID():
             # apply Kd
             output += self.Kd * dt_error
 
-            # if error is smaller than sse_threshhold its porbably
+            # if error is smaller than sse_threshold its probably
             # steady state error
             # apply Ki
-            if abs(error) <= self.sse_threshhold:
+            if abs(error) <= self.sse_threshold:
                 self.error_sum += self.deltaTime * error
                 output += self.Ki * self.error_sum
-        #return output
+        # return output
         return self.clamp(output, self.min, self.max)
 
     def reset(self):

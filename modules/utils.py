@@ -1,12 +1,14 @@
 """Helper functions."""
 
-import __main__ as main
-import os
+import threading
+import time
 import time as t
 
 update = "Sun Sep  9 22:08:04 2018"
 name = "Leo Heller"
-#filename = os.path.basename(main.__file__)
+
+
+# filename = os.path.basename(main.__file__)
 
 
 def setupdate():
@@ -48,3 +50,27 @@ def write(filename, content):
     with open(filename, "w") as f:
         print(str(content), file=f)
 
+
+class DoEvery(threading.Thread):
+    def __init__(self, period, f):
+        super().__init__()
+        self.period = period
+        self.f = f
+        self.daemon = True
+        self._stop = False
+
+    def stop(self):
+        self._stop = True
+
+    def g_tick(self):
+        t = time.time()
+        count = 0
+        while True:
+            count += 1
+            yield max(t + count * self.period - time.time(), 0)
+
+    def run(self):
+        g = self.g_tick()
+        while not self._stop:
+            time.sleep(next(g))
+            self.f()
