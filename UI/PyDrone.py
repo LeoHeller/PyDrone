@@ -7,7 +7,7 @@ Uses PyQt5 to create the Ui, values are passed to a instance of Sockets.HandleSo
 
 __author__ = "Leo Heller"
 __copyright__ = "None"
-__credits__ = ["Leo Heller", "Stack Overflow"]
+__credits__ = ["Leo Heller"]
 __license__ = "GPL"
 __version__ = "1.0.1"
 __maintainer__ = "Leo Heller"
@@ -29,6 +29,8 @@ import Sockets
 
 import signals
 from signals import Signals
+
+from utils import DoEvery
 
 test = {Signals.WRONG_PWD: "WRONG_PWD", Signals.RIGHT_PWD: "RIGHT_PWD", Signals.PING: "PING",
         Signals.PWD_REQUEST: "PWD_REQUEST", Signals.OK: "OK", Signals.QUIT: "QUIT"}
@@ -57,6 +59,14 @@ class AppWindow(QMainWindow):
         self.ui.action192_168_2_236_1337.triggered.connect(lambda: self.connect_to_server("192.168.2.236:1337"))
         # setup val1ues
         self.sim = sim
+
+        # ask for telemetry every 0.25 seconds
+        telemetry_task = DoEvery(0.25, self.request_telemetry)
+        telemetry_task.start()
+
+    def request_telemetry(self):
+        if not Sockets.no_connection:
+            self.Client.send(Signals.TEL_REQUEST)
 
     def Abort(self):
         if Sockets.no_connection is True:
@@ -90,7 +100,6 @@ class AppWindow(QMainWindow):
             self.ui.ThrustlcdNumber.display(value)
             self.ui.ThrustverticalSlider.setValue(value)
             self.Client.send(signals.Send.move_all(value))
-
 
     def OnKeyPressEvent(self, event):
         if self.ui.tabWidget.currentIndex() is not 0:  # not in the control tab > exit
