@@ -23,7 +23,7 @@ class Drone:
 
         self.controller = Controller.SimpleController()
 
-        self.loop = DoEvery(1 / 50, self.update())
+        self.loop = DoEvery(1 / 50, self.update)
         self.loop.start()
 
         self.input_loop()
