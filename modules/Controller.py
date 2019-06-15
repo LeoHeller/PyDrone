@@ -53,7 +53,7 @@ class SimpleController(AbstractController):
                 motorspeeds[i] = 60
             if motorspeeds[i] < 0:
                 motorspeeds[i] = 0
-            if 0 <= motorspeeds <= 60:
+            if 0 <= motorspeeds[i] <= 60:
                 print(f"motorspeeds were out of bounds!! {motorspeeds}")
                 return [0, 0, 0, 0]
 
