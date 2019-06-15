@@ -38,15 +38,15 @@ class SimpleController(AbstractController):
             motorspeeds[0] -= 2  # front left
 
             motorspeeds[1] += 2  # front right
-            motorspeeds[3] -= 2  # back right
+            motorspeeds[3] += 2  # back right
         else:
             # less power on the right side
             # more power on the left side
             motorspeeds[2] += 2  # back left
             motorspeeds[0] += 2  # front left
 
-            motorspeeds[1] += 2  # front right
-            motorspeeds[3] += 2  # back right
+            motorspeeds[1] -= 2  # front right
+            motorspeeds[3] -= 2  # back right
 
         for i in range(len(motorspeeds)):
             if motorspeeds[i] > 60:
