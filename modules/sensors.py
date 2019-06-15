@@ -10,7 +10,7 @@ import MPU9250
 
 import numpy as np
 
-lib = cdll.LoadLibrary('../modules/libmad.so')
+lib = cdll.LoadLibrary('../modules/MadgwickAHRS/libmad.so')
 lib.get_q0.restype = ctypes.c_float
 lib.get_q1.restype = ctypes.c_float
 lib.get_q2.restype = ctypes.c_float
