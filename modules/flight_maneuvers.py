@@ -7,7 +7,7 @@ sys.path.insert(0, '../Droneside/')  # noqa
 
 from motors import Motors
 
-motors = Motors(True)
+motors = Motors(False)
 
 motorspeeds = [0, 0, 0, 0]  # FL,FR,BL,BR
 
@@ -42,6 +42,7 @@ def arm():
     """Arm all escs."""
     for motor in range(4):
         set_speed(motor, 100)
+        time.sleep(0.5)
         set_speed(motor, 0)
         time.sleep(1)
 

@@ -21,6 +21,8 @@ class Drone:
 
         self.Sensors = sensors.Sensors(50)
 
+        flight_maneuvers.arm()
+
         self.controller = Controller.SimpleController()
 
         self.loop = DoEvery(1 / 50, self.update)
@@ -33,6 +35,7 @@ class Drone:
             i = input("\r-> ")
             # parse for commands
             if i == "q":
+                flight_maneuvers.land()
                 self.Server.close_all()
                 Sockets.should_be_running = False
                 exit()

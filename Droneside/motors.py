@@ -33,7 +33,7 @@ class Motors():
             2: 22,  # "M_BL"
             3: 27   # "M_BR"
         }
-
+        print(self.debug)
     # motor: M_xx ; speed: 0-100
 
     def set_speed(self, motor, speed):
@@ -48,20 +48,19 @@ class Motors():
         # pulsewidth range: 0; 700 - 2000
         if speed < 0:
             speed = 0
-
-        if speed != 0:
-            pulsewidth = (speed/100.0) * 1300 + 700
         else:
-            pulsewidth = 0
+            pulsewidth = (speed/100.0) * 1300 + 700
 
-        print("setting speed of motor {} on pin {} to pulsewidth: {} inorder to reach {}% Thrust".format(
-            motor, self.motors[motor], pulsewidth, speed))
         if not self.debug:
             try:
                 self.pi.set_servo_pulsewidth(
                     self.motors[motor], pulsewidth)  # set Pulsewidth
             except Exception as e:
                 print(e)
+        else:
+            print("setting speed of motor {} on pin {} to pulsewidth: {} inorder to reach {}% Thrust$
+                  motor, self.motors[motor], pulsewidth, speed))
+
 
     def clean_up(self):
         """Stop all motors and cut conection"""
