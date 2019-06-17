@@ -3,7 +3,7 @@ from typing import Optional
 
 
 # noinspection PyAttributeOutsideInit
-class MyProtocol(asyncio.Protocol):
+class MyClientProtocol(asyncio.Protocol):
     def connection_lost(self, exc: Optional[Exception]) -> None:
         print(f"Connection lost! {exc}")
 
@@ -21,7 +21,7 @@ class MyProtocol(asyncio.Protocol):
 async def main(host, port):
     inp = ""
     loop = asyncio.get_running_loop()
-    transport, protocol = await loop.create_connection(MyProtocol, host, port)
+    transport, protocol = await loop.create_connection(MyClientProtocol, host, port)
     protocol.send(b"hello world!")
     while inp != "quit":
         inp = input("> ")
@@ -29,4 +29,3 @@ async def main(host, port):
 
 
 asyncio.run(main('127.0.0.1', 5000))
-

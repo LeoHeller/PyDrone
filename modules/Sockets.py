@@ -21,6 +21,7 @@ sys.path.insert(0, '../modules/')  # noqa
 try:
     import PyQt5
     from PyQt5 import QtCore
+
     PyQt5_imported = True
 except ImportError:
     PyQt5_imported = False
@@ -140,22 +141,23 @@ class HandleSockets(PyQt5.QtCore.QThread if PyQt5_imported else threading.Thread
         global no_connection
         # accept the client
         self.conn, self.connected_device_address = self.sock.accept()
-        # validate the client
-        if self.authenticate():
 
+        # create a new 'sender' thread that sends out any enqueued messages
+        self.sender = Sender(self.conn, self.mode, self)
+        self.sender.isDaemon = True
+        self.sender.start()
+
+        no_connection = False
+
+        # validate the client
+        if not self.authenticate():
+            self.close_all()
+            no_connection = True
+        else:
             # create a new 'listener' thread that listens for any new messages
             self.listener = Listener(self.conn, self)
             self.listener.isDaemon = True
             self.listener.start()
-
-            # create a new 'sender' thread that sends out any enqueued messages
-            self.sender = Sender(self.conn, self.mode, self)
-            self.sender.isDaemon = True
-            self.sender.start()
-
-            no_connection = False
-        else:
-            no_connection = True
 
     def connect(self):
         """Connect to the server."""
@@ -200,7 +202,7 @@ class HandleSockets(PyQt5.QtCore.QThread if PyQt5_imported else threading.Thread
             time.sleep(0.01)
 
     def authenticate(self):
-        """When the client connects he is asked to authenticate himself.
+        """When the client connects they are asked to authenticate themselves.
 
         Returns:
             bool -- if the authentication is successful True is returned
@@ -211,12 +213,11 @@ class HandleSockets(PyQt5.QtCore.QThread if PyQt5_imported else threading.Thread
             return
         # send other end a request for a password
         # wait 0.1 sec for other side to start up
-        time.sleep(0.1)
+        time.sleep(0.2)
 
-        # self.conn.sendall(Signals.PING_RQST)
+        self.send(Signals.PWD_REQUEST)
+
         data = self.conn.recv(1024)
-
-        print(data)
 
         # check if the password is correct
         if data == Signals.PING_RQST:

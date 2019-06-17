@@ -61,5 +61,5 @@ class Drone:
         self.Server.send(signals.Send.telemetry(x, y, z))
 
 
-#drone = Drone("192.168.2.236", 1337, "admin")
+# drone = Drone("192.168.2.236", 1337, "admin")
 drone = Drone("localhost", 1337, "admin")
