@@ -12,7 +12,7 @@ def on_message(data):
         print(f"\r{data}\n > ", end="")
 
 
-client = Sockets.HandleSockets("localhost", 1337, "pwd", on_message, mode="c")
+client = Sockets.HandleSockets("192.168.10.1", 1337, "admin", on_message, mode="c")
 client.start()
 
 while 1:
