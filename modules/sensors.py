@@ -23,11 +23,13 @@ py_update_9dof.argtypes = [ctypes.c_float] * 9
 
 set_beta = lib.set_beta
 set_beta.argtypes = [ctypes.c_float]
-
+set_freq = lib.set_sampleFreq
+set_freq.argtypes = [ctypes.c_float]
 
 class Sensors:
-    def __init__(self):
+    def __init__(self, sample_freq):
         set_beta(0.1)
+        set_freq(sample_freq)
         self.mpu9250 = MPU9250.MPU9250()
         # self.DeltaTime = 0.02
         # self._stop = False

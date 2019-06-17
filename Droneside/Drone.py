@@ -19,7 +19,7 @@ class Drone:
                                             on_message=self.on_message)
         self.Server.start()
 
-        self.Sensors = sensors.Sensors()
+        self.Sensors = sensors.Sensors(50)
 
         self.controller = Controller.SimpleController()
 
@@ -41,9 +41,10 @@ class Drone:
 
     def update(self):
         heading = self.Sensors.read()
-        print(f"\r{heading}")
-        #next_action = self.controller.on_update(heading, flight_maneuvers.motorspeeds)
-        #flight_maneuvers.set_motor_speeds(next_action)
+        next_action = self.controller.on_update(heading, flight_maneuvers.motorspeeds)
+        #print(f"\r{heading}           {next_action}", end="")
+
+        flight_maneuvers.set_motor_speeds(next_action)
 
     def on_message(self, data):
         """Quit if the other side quit, otherwise have the input handled."""

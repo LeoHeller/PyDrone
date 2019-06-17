@@ -53,8 +53,7 @@ def set_all(speed):
 
 
 def set_motor_speeds(new_motorspeeds):
-    motor_counter = 0
-    for motor in motors.motors:
-        set_speed(motor, new_motorspeeds[motor_counter])
-        motorspeeds[motor_counter] = new_motorspeeds[motor_counter]
+    for motor in range(4):
+        set_speed(motor, new_motorspeeds[motor])
+        motorspeeds[motor] = new_motorspeeds[motor]
 
