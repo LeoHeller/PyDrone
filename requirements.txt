@@ -1,5 +1,5 @@
 numpy
 PyQt5
 pigpio==1.40.post1
-aiohttp==3.3.2
+aiohttp==3.7.4
 
